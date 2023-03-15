@@ -1,0 +1,26 @@
+.base-content-wrapper {
+    left: 710px;
+    width: calc(100% - 710px);
+    padding-left: 80px;
+    padding-top: 50px;
+}
+
+.contact-list-wrapper {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.139) 0px 2px 6px;
+    height: calc(100% - 70px);
+    left: 210px;
+    position: absolute;
+    top: 70px;
+    width: 500px;
+}
+
+.user-icon {
+    align-items: center;
+    border-radius: 50px;
+    color: white;
+    display: flex;
+    height: 45px;
+    justify-content: center;
+    width: 45px;
+}
