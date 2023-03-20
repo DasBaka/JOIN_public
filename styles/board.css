@@ -1,0 +1,133 @@
+.title-wrapper h1 {
+    border-right-style: none;
+}
+
+.button-primary {
+    height: 45px;
+}
+
+.headline-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.headline-action-wrapper {
+    align-items: center;
+    display: flex;
+    gap: 40px;
+}
+
+.filter-wrapper {
+    background-color: white;
+    border-color: rgb(186, 186, 186);
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    gap: 10px;
+    height: 30px;
+    padding: 8px;
+}
+
+.filter-wrapper img {
+    width: 18px;
+}
+
+.filter-wrapper div {
+    border-color: lightgrey;
+    border-left-width: 1px;
+    border-right-width: 0px;
+    border-style: solid;
+}
+
+.filter-wrapper input {
+    border-style: none;
+    font-size: 18px;
+    margin-left: 10px;
+    outline: none;
+    width: 180px;
+}
+
+.filter-wrapper button {
+    background-color: white;
+    border-radius: 50px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.filter-wrapper button:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+.filter-wrapper button:active {
+    background-color: rgb(229, 229, 229);
+}
+
+.board-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.board-column {
+    width: calc(25% - 30px);
+}
+
+.board-column-headline {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.board-column-headline h3 {
+    font-size: 22px;
+}
+
+.board-column-add-task-button {
+    align-items: center;
+    background-color: white;
+    border-color: black;
+    border-radius: 5px;
+    border-style: solid;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    width: 30px;
+}
+
+.board-column-add-task-button:hover {
+    background-color: rgb(244, 244, 244);
+}
+
+.board-column-add-task-button:active {
+    background-color: rgb(228, 228, 228);
+}
+
+.task-preview-wrapper {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: rgba(134, 134, 134, 0.1) 0px 2px 10px;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.board-user-icon-wrapper {
+    display: flex;
+}
+
+.board-user-icon {
+    align-items: center;
+    border-color: white;
+    border-radius: 50px;
+    border-style: solid;
+    border-width: 1px;
+    color: white;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-right: -8px;
+    width: 40px;
+}

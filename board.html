@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <script src="scripts/data.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/board.js"></script>
 </head>
-<body onload="initialPageLoad()">
+
+<body onload="initialPageLoad(), initBoard()">
     <div include-html="templates/nav.html"></div>
     <div include-html="templates/banner.html"></div>
-    <div class="default-content-wrapper"></div>
+    <div class="base-content-wrapper">
+        <div class="content-wrapper">
+            <div class="headline-wrapper">
+                <div class="title-wrapper">
+                    <h1>Summary</h1>
+                </div>
+                <div class="headline-action-wrapper">
+                    <div class="filter-wrapper">
+                        <input type="text" placeholder="Find Task">
+                        <div></div>
+                        <button><img src="assets/img/magnifier.png" alt="Magnifing glass"></button>
+                    </div>
+                    <button class="button-primary">Add task +</button>
+                </div>
+            </div>
+            <div class="board-wrapper">
+                <div class="board-column">
+                    <div class="board-column-headline">
+                        <h3>To do</h3>
+                        <button class="board-column-add-task-button"><img src="assets/img/cross.png"
+                                alt="cross"></button>
+                    </div>
+                    <div id="board-tasks-column-to-do" class="board-tasks-wrapper"></div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-headline">
+                        <h3>In progress</h3>
+                        <button class="board-column-add-task-button"><img src="assets/img/cross.png"
+                                alt="cross"></button>
+                    </div>
+                    <div id="board-tasks-column-in-progress" class="board-tasks-wrapper"></div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-headline">
+                        <h3>Awaiting Feedback</h3>
+                        <button class="board-column-add-task-button"><img src="assets/img/cross.png"
+                                alt="cross"></button>
+                    </div>
+                    <div id="board-tasks-column-awaiting-feedback" class="board-tasks-wrapper"></div>
+                </div>
+                <div class="board-column">
+                    <div class="board-column-headline">
+                        <h3>Done</h3>
+                        <button class="board-column-add-task-button"><img src="assets/img/cross.png"
+                                alt="cross"></button>
+                    </div>
+                    <div id="board-tasks-column-done" class="board-tasks-wrapper"></div>
+                </div>
+            </div>
+        </div>
 </body>
+
 </html>
