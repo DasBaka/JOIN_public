@@ -114,6 +114,16 @@
     padding: 20px;
 }
 
+.task-preview-wrapper h5 {
+    margin: 15px 0px 10px 0px;
+    font-weight: 600;
+    font-size: 17px;
+}
+.task-preview-wrapper p {
+    margin: 0px 0px 20px 0px;
+    color: rgb(165, 165, 165);
+}
+
 .board-user-icon-wrapper {
     display: flex;
 }
@@ -126,8 +136,16 @@
     border-width: 1px;
     color: white;
     display: flex;
-    height: 40px;
+    font-size: 12px;
+    height: 30px;
     justify-content: center;
     margin-right: -8px;
-    width: 40px;
+    width: 30px;
+}
+
+.board-task-category {
+    border-radius: 7px;
+    color: white;
+    display: inline-block;
+    padding: 5px 20px 5px 20px;
 }

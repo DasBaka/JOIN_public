@@ -69,3 +69,26 @@ let tasks = [
         ]
     }
 ]
+
+let categories = [
+    {
+        "name": "Sales",
+        "color": "fuchsia",
+    },
+    {
+        "name": "Design",
+        "color": "orangered",
+    },
+    {
+        "name": "Backoffice",
+        "color": "deepskyblue",
+    },
+    {
+        "name": "Media",
+        "color": "orange",
+    },
+    {
+        "name": "Marketing",
+        "color": "blue",
+    }
+]
