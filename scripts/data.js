@@ -47,6 +47,20 @@ let users = [
         "lastname": "Bauer",
         "mail": "bauer@gmail.com",
         "color": "lightpink"
+    },
+    {
+        "username": "david.eisenberg",
+        "firstname": "David",
+        "lastname": "Eisenberg",
+        "mail": "eisenberg@gmail.com",
+        "color": "lightpink"
+    },
+    {
+        "username": "stefanie.farber",
+        "firstname": "Stefanie",
+        "lastname": "Farber",
+        "mail": "farber@gmail.com",
+        "color": "lightpink"
     }
 ];
 
@@ -64,12 +78,12 @@ let tasks = [
             {
                 "id": 0,
                 "title": "Subtask 1",
-                "Status": "open"
+                "status": "open"
             },
             {
                 "id": 1,
                 "title": "Subtask 2",
-                "Status": "open"
+                "status": "done"
             }
         ]
     },
@@ -78,7 +92,7 @@ let tasks = [
         "title": "Call Potential",
         "description": "Make the product presentation to prospective buyers",
         "category": "Sales",
-        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler" ],
+        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler", "stefanie.farber" ],
         "due_date": "2023-04-01",
         "priority": "high",
         "status": "in-progress",
@@ -89,7 +103,7 @@ let tasks = [
         "title": "Accounting invoices",
         "description": "Write open invoices for customer",
         "category": "Backoffice",
-        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler" ],
+        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler", "stefanie.farber", "david.eisenberg" ],
         "due_date": "2023-04-01",
         "priority": "medium",
         "status": "awaiting-feedback",
@@ -100,7 +114,7 @@ let tasks = [
         "title": "Video cut",
         "description": "Edit the new company video",
         "category": "Media",
-        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler" ],
+        "assignees": [ "benedikt.ziegler" ],
         "due_date": "2023-04-01",
         "priority": "medium",
         "status": "awaiting-feedback",
@@ -111,7 +125,7 @@ let tasks = [
         "title": "Social media strategy",
         "description": "Develop an ad campaign for brand positioning",
         "category": "Marketing",
-        "assignees": [ "anton.meyer", "anja.schulz", "benedikt.ziegler" ],
+        "assignees": [ "anja.schulz", "benedikt.ziegler" ],
         "due_date": "2023-04-01",
         "priority": "low",
         "status": "done",
@@ -119,17 +133,17 @@ let tasks = [
             {
                 "id": 0,
                 "title": "Subtask 1",
-                "Status": "open"
+                "status": "done"
             },
             {
                 "id": 1,
                 "title": "Subtask 2",
-                "Status": "open"
+                "status": "done"
             },
             {
                 "id": 2,
                 "title": "Subtask 3",
-                "Status": "open"
+                "status": "open"
             }
         ]
     }

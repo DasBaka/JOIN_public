@@ -215,15 +215,14 @@ nav {
 .base-content-wrapper {
     height: calc(100% - 70px);
     left: 210px;
+    overflow: scroll;
     position: absolute;
     top: 70px;
     width: calc(100% - 210px);
-    overflow: scroll;
 }
 
 .content-wrapper {
     margin: 50px 80px 50px 80px;
-    position: relative;
 }
 
 .previous-page-arrow {
