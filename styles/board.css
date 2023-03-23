@@ -67,11 +67,15 @@
 
 .board-wrapper {
     display: flex;
+    gap: 30px;
     justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
 }
 
 .board-column {
-    width: calc(25% - 30px);
+    width: 100%;
 }
 
 .board-column-headline {
@@ -106,6 +110,20 @@
     background-color: rgb(228, 228, 228);
 }
 
+.board-tasks-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 100%;
+}
+
+.dragAreaHighlight {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.activeDragAreaHighlight {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
 .task-preview-wrapper {
     background-color: white;
     border-radius: 25px;
@@ -119,10 +137,12 @@
     font-weight: 600;
     font-size: 17px;
 }
+
 .task-preview-wrapper p {
     margin: 0px 0px 20px 0px;
     color: rgb(165, 165, 165);
 }
+
 
 .board-user-icon-wrapper {
     display: flex;
