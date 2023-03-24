@@ -26,8 +26,13 @@ function renderColumns() {
 }
 
 function renderTasks() {
+    let searchInput = document.getElementById('searchInput').value.toLowerCase();
+
     for (let i = 0; i < tasks.length; i++) {
         const task = tasks[i];
+        
+        if (searchInput && !(task['title'].toLowerCase().includes(searchInput) || task['description'].toLowerCase().includes(searchInput))) { continue }
+                
         let content = document.getElementById(`board-tasks-column-${task['status']}`);
         let categoryIndex = categories.findIndex(key => key.name === task['category']);
 
@@ -107,22 +112,22 @@ function activeDragElement(id) {
 
 function availableDragAreaHighlight(action) {
     let activeTaskWrapper = document.getElementById('task-preview-wrapper-' + activeDragDropElement);
-    
+
     for (let i = 0; i < statuses.length; i++) {
         const status = statuses[i];
-        
+
         if (action == 'add') {
             if (tasks[activeDragDropElement]['status'] == status['name']) { continue }
             document.getElementById('board-tasks-column-' + status['name']).innerHTML += /*html*/ `
             <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
-                style="height: ${activeTaskWrapper.offsetHeight}px; width: ${activeTaskWrapper.offsetWidth}px"></div>
+                style="height: ${activeTaskWrapper.offsetHeight}px;"></div>
             `;
         } else if (action == 'remove') {
-            if (!! document.getElementById('task-shadow-wrapper-' + status['name'])) {
+            if (!!document.getElementById('task-shadow-wrapper-' + status['name'])) {
                 document.getElementById('task-shadow-wrapper-' + status['name']).remove();
             }
         }
-    }   
+    }
 }
 
 function activeDragAreaHighlight(action, area) {
