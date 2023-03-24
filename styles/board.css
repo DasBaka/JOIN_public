@@ -115,18 +115,15 @@
 }
 
 .task-shadow-wrapper {
-    background-color: grey;
-    border-color: black;
+    background-color: rgba(0, 0, 0, 0.01);
+    border-color: rgba(0, 0, 0, 0.2);
     border-radius: 25px;
-    border-width: 1px;
-    border-style: solid;
+    border-style: dotted;
+    border-width: 2px;
 }
 
-.available-drag-area-highlight {
+.task-shadow-wrapper-highlighted {
     background-color: rgba(0, 0, 0, 0.05);
-}
-.active-drag-area-highlight {
-    background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .task-preview-wrapper {

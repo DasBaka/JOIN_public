@@ -110,23 +110,27 @@ function availableDragAreaHighlight(action) {
     
     for (let i = 0; i < statuses.length; i++) {
         const status = statuses[i];
-        if (tasks[activeDragDropElement]['status'] == status['name']) { continue }
         
         if (action == 'add') {
+            if (tasks[activeDragDropElement]['status'] == status['name']) { continue }
             document.getElementById('board-tasks-column-' + status['name']).innerHTML += /*html*/ `
-            <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" style="height: 100px; width: 100px"></div>
+            <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
+                style="height: ${activeTaskWrapper.offsetHeight}px; width: ${activeTaskWrapper.offsetWidth}px"></div>
             `;
         } else if (action == 'remove') {
-            document.getElementById('task-shadow-wrapper-' + status['name']).remove();
+            if (!! document.getElementById('task-shadow-wrapper-' + status['name'])) {
+                document.getElementById('task-shadow-wrapper-' + status['name']).remove();
+            }
         }
     }   
 }
 
 function activeDragAreaHighlight(action, area) {
+    let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
+    if (tasks[activeDragDropElement]['status'] == area) { return }
     if (action == 'start') {
-        if (tasks[activeDragDropElement]['status'] == area) { return }
-        document.getElementById('board-tasks-column-' + area).classList.add('active-drag-area-highlight');
+        boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
     } else if (action == 'leave') {
-        document.getElementById('board-tasks-column-' + area).classList.remove('active-drag-area-highlight');
+        boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
     }
 }
