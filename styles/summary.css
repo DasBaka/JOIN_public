@@ -1,6 +1,7 @@
 .info-box-greeting-wrapper {
   display: flex;
   align-items: center;
+  margin-top: 5rem;
 }
 
 .greeting-wrapper {

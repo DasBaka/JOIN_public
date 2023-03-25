@@ -69,7 +69,6 @@ nav {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  position: absolute;
   width: 210px;
 }
 
@@ -80,9 +79,6 @@ header {
   display: flex;
   height: 70px;
   justify-content: space-between;
-  left: 210px;
-  position: absolute;
-  top: 0px;
   width: calc(100% - 210px);
   z-index: 100;
 }
@@ -271,4 +267,8 @@ main {
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.main-content-wrapper {
+  margin-top: 5rem;
 }

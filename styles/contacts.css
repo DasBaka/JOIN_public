@@ -64,13 +64,27 @@
 .user-icon {
   align-items: center;
   border-radius: 50px;
-  color: white;
+  border: solid 2px white;
   display: flex;
   height: 45px;
   justify-content: center;
   width: 45px;
   margin: 0 2.66rem 0.66rem 0.66rem;
   font-size: 0.875rem;
+}
+
+.user-icon-big {
+  scale: 3;
+  margin: 5rem;
+}
+
+.user-icon-big {
+  font-size: 1.1rem;
+}
+
+.contact-wrapper h2 {
+  font-size: 3.5rem;
+  font-weight: 500;
 }
 
 .contact-list-divider {
@@ -103,12 +117,36 @@
   color: white;
 }
 
-.contact-details-short {
+.contact-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.contact-details h6 {
+  margin-bottom: 2.5px;
 }
 
 .contact-wrapper:last-of-type {
   margin-bottom: 4rem !important;
+}
+
+.contact-details-big {
+  justify-content: space-evenly;
+  margin-left: 2.25rem;
+}
+
+.contact-details-big div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contact-details span {
+  font-size: 3rem;
+  font-weight: 300;
+}
+
+.unclickable {
+  pointer-events: none;
 }

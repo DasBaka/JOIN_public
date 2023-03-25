@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
-    <link rel="stylesheet" href="styles/font_inter.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/contacts.css">
+    <link rel="stylesheet" href="styles/font_inter.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/contacts.css" />
+    <!--<script src="scripts/mini_backend.js"></script>-->
     <script src="scripts/script.js"></script>
     <script src="scripts/contacts.js"></script>
-</head>
-<body class="no-scrollbar" onload="initialPageLoad(), prepareContacts(), renderContacts()">
+  </head>
+  <body class="no-scrollbar" onload="initialPageLoad(), renderContacts(), contactListHandler()">
     <nav include-html="templates/nav.html"></nav>
     <header include-html="templates/banner.html"></header>
     <main>
-        <div id="contact-list-wrapper" class="contact-list-wrapper"></div>
-        <div class="base-content-wrapper">
-            <div class="title-wrapper">
-                <h1>Contacts</h1>
-                <h3>Better with a team<h3>
-            </div>
+      <div id="contact-list-wrapper" class="contact-list-wrapper outside-trigger"></div>
+      <div class="base-content-wrapper">
+        <div class="title-wrapper">
+          <h1>Contacts</h1>
+          <h3>Better with a team</h3>
         </div>
+        <div class="main-content-wrapper" id="contact-details"></div>
+      </div>
     </main>
-</body>
+  </body>
 </html>

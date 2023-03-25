@@ -39,9 +39,5 @@ function activeNavElement() {
 
 function logOutButtonVisibility() {
   let element = document.getElementById('log-out-button').classList;
-  if (element.contains('display-none')) {
-    element.remove('display-none');
-  } else {
-    element.add('display-none');
-  }
+  element.toggle('display-none');
 }
