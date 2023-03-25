@@ -168,6 +168,7 @@ main {
   top: 70px;
   z-index: 4;
 }
+
 .banner-log-out-wrapper:hover {
   background-color: rgb(24, 31, 43);
   color: rgb(242, 242, 242);
@@ -245,9 +246,11 @@ main {
   vertical-align: top;
   padding-bottom: 10px;
 }
+
 .table-bullet-list p {
   margin: 0px;
 }
+
 .table-bullet-list h3 {
   margin-right: 0 20px 0 0;
 }
