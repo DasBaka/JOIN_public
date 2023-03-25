@@ -57,21 +57,21 @@ function renderTasks() {
 
 function renderTaskPreviewSubtaskProgress(task) {
     let wrapper = document.getElementById(`task-preview-subtask-progress-wrapper-${task['id']}`);
-    let doneSubtasks = 0;
+    let doneSubtasksCount = 0;
 
     if (task['subtasks'].length == 0) { return }
 
     for (let i = 0; i < task['subtasks'].length; i++) {
         const subtask = task['subtasks'][i];
-        if (subtask['status'] == 'done') { doneSubtasks += 1; }
+        if (subtask['status'] == 'done') { doneSubtasksCount += 1; }
     }
 
-    let doneSubtasksPercentage = doneSubtasks / task['subtasks'].length * 100;
+    let doneSubtasksPercentage = doneSubtasksCount / task['subtasks'].length * 100;
     wrapper.innerHTML = /*html*/ `
     <div class="task-preview-subtask-progress-bar">
         <div class="task-preview-subtask-progress-bar-done" style="width: ${doneSubtasksPercentage}%"></div>
     </div>
-    <div>${doneSubtasks}/${task['subtasks'].length} Done</div>
+    <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>
     `;
 }
 
