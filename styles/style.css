@@ -94,10 +94,12 @@ main {
   overflow: scroll;
   position: absolute;
   top: 70px;
+  width: calc(100vw - 210px);
 }
 
 .base-content-wrapper {
-  padding: calc(80px - 0.67em) 80px 0 80px;
+  padding: calc(80px - 0.67em) 80px 0px 80px;
+  width: 100%;
 }
 
 .nav-logo-wrapper {
