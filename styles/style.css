@@ -88,10 +88,16 @@ header h4 {
 }
 
 main {
+  display: flex;
+  height: calc(100vh - 70px);
+  left: 210px;
+  overflow: scroll;
   position: absolute;
   top: 70px;
-  left: 210px;
-  display: flex;
+}
+
+.base-content-wrapper {
+  padding: calc(80px - 0.67em) 80px 0 80px;
 }
 
 .nav-logo-wrapper {
@@ -229,10 +235,6 @@ main {
 .button-text-link:hover {
   color: rgb(39, 133, 192);
   text-decoration: underline;
-}
-
-.base-content-wrapper {
-  padding: calc(80px - 0.67em) 0 0 80px;
 }
 
 .previous-page-arrow {
