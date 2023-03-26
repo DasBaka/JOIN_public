@@ -17,8 +17,10 @@ function renderColumns() {
                 <h3>${status['displayName']}</h3>
                 <button class="board-column-add-task-button"><img src="assets/img/cross.png" alt="cross"></button>
             </div>
-            <div id="board-tasks-column-${status['name']}" class="board-tasks-wrapper" ondrop="moveElementTo('${status['name']}')"
-                ondragover="allowDrop(event); activeDragAreaHighlight('start', '${status['name']}')" ondragleave="activeDragAreaHighlight('leave', '${status['name']}')"></div>
+            <div id="board-tasks-column-${status['name']}" class="board-tasks-wrapper" 
+                ondrop="moveElementTo('${status['name']}')"
+                ondragover="allowDrop(event); activeDragAreaHighlight('start', '${status['name']}')" 
+                ondragleave="activeDragAreaHighlight('leave', '${status['name']}')"></div>
         </div>
         `;
         document.getElementById(`board-tasks-column-${status['name']}`).innerHTML = '';
@@ -30,14 +32,16 @@ function renderTasks() {
 
     for (let i = 0; i < tasks.length; i++) {
         const task = tasks[i];
-        
+
         if (searchInput && !(task['title'].toLowerCase().includes(searchInput) || task['description'].toLowerCase().includes(searchInput))) { continue }
-                
+
         let content = document.getElementById(`board-tasks-column-${task['status']}`);
         let categoryIndex = categories.findIndex(key => key.name === task['category']);
 
         content.innerHTML += /*html*/ `
-        <div id="task-preview-wrapper-${task['id']}" draggable="true" ondragstart="activeDragElement(${task['id']}), availableDragAreaHighlight('add')" ondragend="availableDragAreaHighlight('remove')" class="task-preview-wrapper">
+        <div id="task-preview-wrapper-${task['id']}" draggable="true" class="task-preview-wrapper grabbable"
+            ondragstart="activeDragElement('${task['id']}'); availableDragAreaHighlight('add'); dragHideOriginalElement('${task['id']}', true)" 
+            ondragend="availableDragAreaHighlight('remove'); dragHideOriginalElement('${task['id']}', false)">
             <div style="background-color: ${categories[categoryIndex]['color']};" 
                 class="board-task-category">${task['category']}</div>
             <h5>${task['title']}</h5>
@@ -137,5 +141,14 @@ function activeDragAreaHighlight(action, area) {
         boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
     } else if (action == 'leave') {
         boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
+    }
+}
+
+function dragHideOriginalElement(taskId, action) {
+    let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
+    if (action) {
+        activeTask.classList.add('dragHideOriginal');
+    } else {
+        activeTask.classList.remove('dragHideOriginal');
     }
 }
