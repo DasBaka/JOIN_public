@@ -88,10 +88,10 @@ function renderTaskAssignees(taskId, renderType) {
     const assignee = task['assignees'][j];
     let assigneeIndex = users.findIndex(key => key.username === assignee);
     let assigneeInitials = users[assigneeIndex]['firstname'].charAt(0) + users[assigneeIndex]['lastname'].charAt(0);
-    
+
     if (renderType == 'preview') {
       let assigneeList = document.getElementById(`assignees-${taskId}`);
-      
+
       if (task['assignees'].length > 3 && j > 1) {
         assigneeList.innerHTML += /*html*/ `
         <div style="background-color: black;" class="board-user-icon">${'+' + (task['assignees'].length - 2)}</div>
@@ -167,50 +167,85 @@ function dragHideOriginalElement(taskId, action) {
   }
 }
 
-function detailedTaskView(taskId, action) {
-  let mainWrapper = document.getElementById('main-wrapper');
+function detailedTaskView(taskId, action, edit) {
+  let contentWrapper = document.getElementById('main-wrapper');
   let task = tasks[taskId];
 
-  if (action) {
-    let categoryIndex = categories.findIndex(key => key.name === task['category']);
-    let priorityIndex = priorites.findIndex(key => key.name === task['priority']);
-
-    mainWrapper.innerHTML += /*html*/ `
-    <div id="task-detailed-view" class="task-detailed-wrapper">
-      <div class="task-detailed-content">
-        <div class="task-detailed-close" onclick="detailedTaskView(null, false)">
-          <img src="assets/img/cross.svg" alt="cross icon">
-        </div>
-        <div style="background-color: ${categories[categoryIndex]['color']}; font-size: 25px"
-          class="board-task-category">${task['category']}</div>
-        <h1>${task['title']}</h1>
-        <p>${task['description']}</p> 
-        <div class="task-detailed-attribute-wrapper">
-          <h6>Due Date:</h6>
-          <div>${task['due_date']}</div>
-        </div>
-        <div class="task-detailed-attribute-wrapper">
-          <h6>Priority:</h6>
-          <div class="task-detailed-priority" style="background-color: ${priorites[priorityIndex]['color']}">
-          ${capitalizeFirstLetter(task['priority'])}
-          <img id="task-detailed-priority-icon" src="${priorites[priorityIndex]['icon_path']}" alt="priority icon ${task['priority']}">
-          </div>
-        </div>
-        <div>
-          <h6>Assigned to:</h6>
-          <div id="assignees-detailed"></div>
-        </div>
-        <button class="button-primary task-detailed-edit">
-          <img src="assets/img/edit.svg" alt="edit pencil icon">
-        </button>
-      </div>
-      <div class="task-detailed-background" onclick="detailedTaskView(null, false)"></div>
-    </div>
-    `;
-
-    renderTaskAssignees(taskId, 'detailed');
-
-  } else {
+  if (!!document.getElementById('task-detailed-view')) {
     document.getElementById('task-detailed-view').remove();
+    if (!action) return;
+  }
+
+  let categoryIndex = categories.findIndex(key => key.name === task['category']);
+  let priorityIndex = priorites.findIndex(key => key.name === task['priority']);
+
+  contentWrapper.innerHTML += /*html*/ `
+  <div id="task-detailed-view" class="task-detailed-wrapper">
+    <div id="task-detailed-content" class="task-detailed-content"></div>
+    <div class="task-detailed-background" onclick="detailedTaskView(null, false)"></div>
+  </div>
+  `;
+
+  let content = document.getElementById('task-detailed-content');
+
+  if (edit) {
+    content.innerHTML = /*html*/ `
+    <div class="task-detailed-close" onclick="detailedTaskView(null, false)">
+      <img src="assets/img/cross.svg" alt="cross icon">
+    </div>
+    <div>
+      <h6>Title</h6>
+      <input type="text" placeholder="Enter a Title" value="${task['title']}">
+    </div>
+    <div>
+      <h6>Description</h6>
+      <input type="text" placeholder="Enter a Description" value="${task['description']}">
+    </div>
+    <div>
+      <h6>Due date</h6>
+      <input type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}">
+    </div>
+    <div>
+      <h6>Prio</h6>
+      <input type="text">
+    </div>
+    <div>
+      <h6>Assigned to</h6>
+      <input type="text">
+    </div>
+    <button class="button-primary task-detailed-edit" onclick="">
+      <h6>Ok</h6>
+      <img src="assets/img/edit.svg" alt="Checkmark">
+    </button>
+    `;
+  } else {
+    content.innerHTML = /*html*/ `
+    <div class="task-detailed-close" onclick="detailedTaskView(null, false)">
+      <img src="assets/img/cross.svg" alt="cross icon">
+    </div>
+    <div style="background-color: ${categories[categoryIndex]['color']}; font-size: 25px"
+      class="board-task-category">${task['category']}</div>
+    <h1>${task['title']}</h1>
+    <p>${task['description']}</p> 
+    <div class="task-detailed-attribute-wrapper">
+      <h6>Due Date:</h6>
+      <div>${task['due_date']}</div>
+    </div>
+    <div class="task-detailed-attribute-wrapper">
+      <h6>Priority:</h6>
+      <div class="task-detailed-priority" style="background-color: ${priorites[priorityIndex]['color']}">
+      ${capitalizeFirstLetter(task['priority'])}
+      <img id="task-detailed-priority-icon" src="${priorites[priorityIndex]['icon_path']}" alt="priority icon ${task['priority']}">
+      </div>
+    </div>
+    <div>
+      <h6>Assigned to:</h6>
+      <div id="assignees-detailed"></div>
+    </div>
+    <button class="button-primary task-detailed-edit" onclick="detailedTaskView(${taskId}, true, true)">
+      <img src="assets/img/edit.svg" alt="edit pencil icon">
+    </button>
+    `;
+    renderTaskAssignees(taskId, 'detailed');
   }
 }
