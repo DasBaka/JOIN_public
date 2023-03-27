@@ -41,3 +41,7 @@ function logOutButtonVisibility() {
   let element = document.getElementById('log-out-button').classList;
   element.toggle('display-none');
 }
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
