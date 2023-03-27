@@ -69,7 +69,7 @@ nav {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 210px;
+  min-width: 13.125rem;
 }
 
 header {
@@ -79,7 +79,7 @@ header {
   display: flex;
   height: 70px;
   justify-content: space-between;
-  width: calc(100% - 210px);
+  width: 100%;
   z-index: 100;
 }
 
@@ -88,10 +88,16 @@ header h4 {
 }
 
 main {
-  position: absolute;
-  top: 70px;
-  left: 210px;
   display: flex;
+  flex-grow: 1;
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
 }
 
 .nav-logo-wrapper {
@@ -232,7 +238,9 @@ main {
 }
 
 .base-content-wrapper {
-  padding: calc(80px - 0.67em) 0 0 80px;
+  padding: calc(80px - 0.67em) 80px;
+  position: relative;
+  flex-grow: 1;
 }
 
 .previous-page-arrow {
@@ -274,4 +282,44 @@ main {
 
 .main-content-wrapper {
   margin-top: 5rem;
+  border: solid 1px black;
+  width: calc(100vw - 210px - 160px - 450px - 6.66rem);
+}
+
+:root {
+  font-size: min(max(14px, calc(0.875rem + ((1vw - 9.6px) * 0.2083))), 16px);
+  min-height: 0vw;
+}
+
+@media (max-width: 900px) {
+  nav {
+    position: absolute;
+    height: 100px;
+    bottom: 0;
+    width: 100vw;
+    z-index: 10;
+  }
+
+  .nav-logo-wrapper {
+    display: none;
+  }
+
+  .nav-elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  #nav-element-legal-notice {
+    display: none;
+  }
+
+  .nav-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 0 0;
+    align-items: center;
+    flex-grow: 1;
+  }
 }

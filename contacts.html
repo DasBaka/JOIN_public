@@ -14,16 +14,18 @@
   </head>
   <body class="no-scrollbar" onload="initialPageLoad(), renderContacts(), contactListHandler()">
     <nav include-html="templates/nav.html"></nav>
-    <header include-html="templates/banner.html"></header>
-    <main>
-      <div id="contact-list-wrapper" class="contact-list-wrapper outside-trigger"></div>
-      <div class="base-content-wrapper">
-        <div class="title-wrapper">
-          <h1>Contacts</h1>
-          <h3>Better with a team</h3>
+    <div class="main-column">
+      <header include-html="templates/banner.html"></header>
+      <main>
+        <div id="contact-list-wrapper" class="contact-list-wrapper outside-trigger"></div>
+        <div class="base-content-wrapper">
+          <div class="title-wrapper">
+            <h1>Contacts</h1>
+            <h3>Better with a team</h3>
+          </div>
+          <div class="main-content-wrapper display-none" id="contact-details"></div>
         </div>
-        <div class="main-content-wrapper" id="contact-details"></div>
-      </div>
-    </main>
+      </main>
+    </div>
   </body>
 </html>

@@ -11,27 +11,28 @@
   </head>
   <body onload="initialPageLoad(), initBoard()">
     <nav include-html="templates/nav.html"></nav>
-    <header include-html="templates/banner.html"></header>
-    <main>
-      <div class="default-content-wrapper">
+    <div class="main-column">
+      <header include-html="templates/banner.html"></header>
+      <main>
         <div class="base-content-wrapper">
           <div class="content-wrapper">
-              <div class="headline-wrapper">
-                  <div class="title-wrapper">
-                      <h1>Board</h1>
-                  </div>
-                  <div class="headline-action-wrapper">
-                      <div class="filter-wrapper">
-                          <input type="text" id="searchInput" onkeyup="initBoard()" placeholder="Find Task">
-                          <div></div>
-                          <button><img onclick="initBoard()" src="assets/img/magnifier.png" alt="Magnifing glass"></button>
-                      </div>
-                      <button class="button-primary">Add task +</button>
-                  </div>
+            <div class="headline-wrapper">
+              <div class="title-wrapper">
+                <h1>Board</h1>
               </div>
-              <div id="board-wrapper" class="board-wrapper"></div>
+              <div class="headline-action-wrapper">
+                <div class="filter-wrapper">
+                  <input type="text" id="searchInput" onkeyup="initBoard()" placeholder="Find Task" />
+                  <div></div>
+                  <button><img onclick="initBoard()" src="assets/img/magnifier.png" alt="Magnifing glass" /></button>
+                </div>
+                <button class="button-primary">Add task +</button>
+              </div>
+            </div>
+            <div id="board-wrapper" class="board-wrapper"></div>
           </div>
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

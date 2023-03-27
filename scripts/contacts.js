@@ -83,7 +83,7 @@ function clickOnCard(event) {
     for (let j = 0; j < groupedUsers[i]['value'].length; j++) {
       if (event.target.id === 'contact-btn-' + i + '-' + j) {
         showContactCard(i, j);
-        console.log('done');
+        toggleSlideAnimationRight('contact-details');
       }
     }
   }
@@ -230,13 +230,13 @@ function toggleBoxes(groupId, contactId) {
     uncheckBtns();
   } else if (document.querySelectorAll('input[type=radio].checked').length > 0) {
     justRemoveClass();
-    implementCard(groupId, contactId);
+    implementCard(btn, groupId, contactId);
   } else {
-    implementCard(groupId, contactId);
+    implementCard(btn, groupId, contactId);
   }
 }
 
-function implementCard(groupId, contactId) {
+function implementCard(btn, groupId, contactId) {
   addIntoContainer('contact-details', contactDetailsTemplate(groupedUsers[groupId]['value'][contactId], groupId, contactId));
   btn.classList.add('checked');
 }
@@ -261,6 +261,11 @@ function uncheckBtns() {
   }
 }
 
+function toggleSlideAnimationRight(id) {
+  document.getElementById(id).classList.toggle('display-none');
+  document.getElementById(id).classList.toggle('animate-right');
+}
+
 //Templates
 function contactCardTemplate(user, i, j) {
   return /*html*/ `
@@ -282,19 +287,21 @@ function contactDetailsTemplate(user, i, j) {
     <div class="contact-details contact-details-big">
       <h2>${user.name}</h2>
       <div>
-        <h5 style="color: #29abe2">
-Filler</h5>
+        <h5 style="color: #29abe2"><img src="assets/img/blue_cross.png"/>Add Task</h5>
       </div>
     </div>
   </div>
   <div>
-    <h4>Contact Information</h4>
     <div>
-      <h6><b>Email</b></h6>
-      <h6 style="color: #007cee">${user.mail}</h6>
-      <h6><b>Phone</b></h6>
-      <h6>1234567890</h6>
+      <h4>Contact Information</h4>
+      <div>
+        <h6><b>Email</b></h6>
+        <h6 style="color: #007cee">${user.mail}</h6>
+        <h6><b>Phone</b></h6>
+        <h6>1234567890</h6>
+      </div>
     </div>
+    <span><img src="assets/img/edit.png"/>Edit Contact</span>
   </div>  `;
 }
 
