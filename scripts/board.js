@@ -1,9 +1,10 @@
 let activeDragElement;
+let activeTaskPriority;
 
 function initBoard() {
   renderColumns();
   renderTasks();
-  editTaskDetails(1, true);
+  // editTaskDetails(1, true);
 }
 
 function allowDrop(event) {
@@ -146,12 +147,24 @@ function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
     if (priority['name'] == activePriority) {
       priorityWrapper.style.backgroundColor = `${priority['color']}`;
       priorityWrapper.style.color = "white";
+      activeTaskPriority = priority['name'];
     } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
       priorityWrapper.style.backgroundColor = `${priority['color']}`;
       priorityWrapper.style.color = "white";
+      activeTaskPriority = priority['name'];
     }
   }
-  return activePriority;
+}
+
+function applyEditTask(taskId) {
+  let task = tasks[taskId];
+  
+  task['title'] = document.getElementById('task-edit-from-input-title').value;
+  task['description'] = document.getElementById('task-edit-from-input-description').value;
+  task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
+  task['priority'] = activeTaskPriority;
+  editTaskDetails(taskId, false);
+  initBoard();
 }
 
 function highlightAvailableDragArea(action) {
@@ -233,21 +246,21 @@ function editTaskDetails(taskId, show) {
   content.innerHTML += /*html*/ `
   <div id="task-detailed-wrapper" class="task-detailed-wrapper">
     <div id="task-detailed-content" class="task-detailed-content">
-      <form class="task-edit-wrapper">
+      <div class="task-edit-wrapper">
         <div class="task-detailed-close-button" onclick="editTaskDetails(null, false)">
           <img src="assets/img/cross.svg" alt="cross icon">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Title</h6>
-          <input type="text" placeholder="Enter a Title" value="${task['title']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+          <input id="task-edit-from-input-title" type="text" placeholder="Enter a Title" value="${task['title']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Description</h6>
-          <textarea style="font-size: 1rem; margin: 0px;" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
+          <textarea id="task-edit-from-input-description" style="font-size: 1rem; margin: 0px;" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Due date</h6>
-          <input type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+          <input id="task-edit-from-input-dueDate" type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Prio</h6>
@@ -256,11 +269,11 @@ function editTaskDetails(taskId, show) {
         <div class="task-edit-form-item-wrapper">
           <h6>Assigned to</h6>
         </div>
-        <button class="button-primary task-edit-button" onclick="">
+        <button class="button-primary task-edit-button" onclick="applyEditTask(${taskId})">
           <h6>Ok</h6>
-          <img src="assets/img/edit.svg" alt="Checkmark">
+          <img src="assets/img/checkmark.png" alt="Checkmark">
         </button>
-      </form>
+      </div>
     </div>
     <div class="task-detailed-background" onclick="showTaskDetails(null, false)"></div>
   </div>`;

@@ -308,12 +308,17 @@
   align-items: center;
   bottom: 30px;
   display: flex;
+  display: flex;
+  gap: 5px;
   height: 50px;
   justify-content: center;
-  padding: 2px;
+  padding: 10px;
   position: absolute;
   right: 30px;
-  width: 50px;
+}
+
+.task-edit-button img {
+  width: 20px;
 }
 
 .task-edit-priority {
