@@ -124,7 +124,6 @@
   box-shadow: rgba(134, 134, 134, 0.1) 0px 2px 10px;
   cursor: pointer;
   padding: 20px;
-  cursor: pointer;
 }
 
 .task-preview-wrapper:hover {
@@ -201,7 +200,7 @@
   padding: 5px 20px 5px 20px;
 }
 
-.dragHideOriginal {
+.hide-original-drag-element {
   transform: translateX(-9999px);
   transition: 0.01s;
 }
@@ -239,18 +238,13 @@
   flex-direction: column;
   font-size: 18px;
   gap: 20px;
-  width: 600px;
+  width: 400px;
   padding: 50px;
   position: relative;
   z-index: 1;
 }
 
-.task-detailed-content h6 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.task-detailed-close {
+.task-detailed-close-button {
   align-items: center;
   border-radius: 50px;
   cursor: pointer;
@@ -263,13 +257,15 @@
   transform: rotate(45deg);
 }
 
-.task-detailed-close img {
+.task-detailed-close-button img {
   width: 25px;
 }
-.task-detailed-close:hover {
+
+.task-detailed-close-button:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
-.task-detailed-close:active {
+
+.task-detailed-close-button:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -282,17 +278,33 @@
 .task-detailed-priority {
   border-radius: 10px;
   color: white;
+  display: flex;
+  gap: 10px;
   padding: 5px 15px 5px 15px;
 }
 
 .task-detailed-assignee {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 25px;
   margin-top: 20px;
 }
 
-.task-detailed-edit {
+.task-detailed-assignee p {
+  margin: 0px;
+}
+
+.task-edit-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0px 50px 0px;
+  gap: 20px;
+}
+
+.task-edit-button {
   align-items: center;
   bottom: 30px;
   display: flex;
@@ -302,4 +314,40 @@
   position: absolute;
   right: 30px;
   width: 50px;
+}
+
+.task-edit-priority {
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.15) 0px 0.5px 4px 0.5px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px 10px 15px;
+}
+
+.task-edit-form-item-wrapper {
+  width: 100%;
+}
+
+.task-edit-priority:hover {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 4px 1px;
+}
+
+.task-edit-priority:active {
+  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 1px;
+}
+
+.task-edit-priority-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.task-edit-form-text-input {
+  width: 100%;
+  box-sizing:border-box;
+  margin: 0px;
+}
+
+.task-edit-heading-gap {
+  margin-top: 5px;
 }

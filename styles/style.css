@@ -7,7 +7,12 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: normal;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -19,7 +24,8 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 h3 {
@@ -33,10 +39,21 @@ h4 {
 }
 
 h5 {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 h6 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+input[type="text"] {
   font-size: 1rem;
 }
 
@@ -204,6 +221,7 @@ main {
   border-color: rgb(45, 155, 221);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
+
 .button-primary:active {
   background-color: rgb(42, 142, 205);
 }
@@ -281,4 +299,17 @@ main {
 
 .main-content-wrapper {
   margin-top: 5rem;
+}
+
+.form-text-input {
+  border-radius: 10px;
+  border: rgb(226, 226, 226) solid 0.5px;
+  font: inherit;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 300px;
+}
+
+.form-text-input::placeholder {
+  color: rgb(226, 226, 226);
 }

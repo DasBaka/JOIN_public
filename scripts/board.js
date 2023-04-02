@@ -1,8 +1,26 @@
-let activeDragDropElement;
+let activeDragElement;
 
 function initBoard() {
   renderColumns();
   renderTasks();
+  editTaskDetails(1, true);
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function moveElementTo(status) {
+  tasks[activeDragElement]['status'] = status;
+  initBoard();
+}
+
+function setActiveDragElement(id) {
+  activeDragElement = id;
+}
+
+function getIndexOfValue(array, key, value) {
+  return array.findIndex(k => k[key] === value);
 }
 
 function renderColumns() {
@@ -19,8 +37,8 @@ function renderColumns() {
         </div>
         <div id="board-tasks-column-${status['name']}" class="board-tasks-wrapper" 
           ondrop="moveElementTo('${status['name']}')"
-          ondragover="allowDrop(event); activeDragAreaHighlight('start', '${status['name']}')" 
-          ondragleave="activeDragAreaHighlight('leave', '${status['name']}')"></div>
+          ondragover="allowDrop(event); highlightSelectedDragArea(true, '${status['name']}')" 
+          ondragleave="highlightSelectedDragArea(false, '${status['name']}')"></div>
       </div>
       `;
     document.getElementById(`board-tasks-column-${status['name']}`).innerHTML = '';
@@ -36,14 +54,14 @@ function renderTasks() {
     if (searchInput && !(task['title'].toLowerCase().includes(searchInput) || task['description'].toLowerCase().includes(searchInput))) { continue }
 
     let content = document.getElementById(`board-tasks-column-${task['status']}`);
-    let categoryIndex = categories.findIndex(key => key.name === task['category']);
-    let priorityIndex = priorites.findIndex(key => key.name === task['priority']);
+    let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
+    let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
 
     content.innerHTML += /*html*/ `
     <div id="task-preview-wrapper-${task['id']}" draggable="true" class="task-preview-wrapper grabbable"
-      onclick="detailedTaskView('${task['id']}', true)"
-      ondragstart="activeDragElement('${task['id']}'); availableDragAreaHighlight('add'); dragHideOriginalElement('${task['id']}', true)" 
-      ondragend="availableDragAreaHighlight('remove'); dragHideOriginalElement('${task['id']}', false)">
+      onclick="showTaskDetails('${task['id']}', true)"
+      ondragstart="setActiveDragElement('${task['id']}'); highlightAvailableDragArea(true); hideOriginalElementOnDrag('${task['id']}', true)" 
+      ondragend="highlightAvailableDragArea(false); hideOriginalElementOnDrag('${task['id']}', false)">
       <div style="background-color: ${categories[categoryIndex]['color']};"
         class="board-task-category">${task['category']}</div>
       <h5>${task['title']}</h5>
@@ -77,8 +95,7 @@ function renderSubtaskProgress(task) {
     <div class="task-preview-subtask-progress-bar">
       <div class="task-preview-subtask-progress-bar-done" style="width: ${doneSubtasksPercentage}%"></div>
     </div>
-    <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>
-    `;
+    <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>`;
 }
 
 function renderTaskAssignees(taskId, renderType) {
@@ -86,7 +103,7 @@ function renderTaskAssignees(taskId, renderType) {
 
   for (let j = 0; j < task['assignees'].length; j++) {
     const assignee = task['assignees'][j];
-    let assigneeIndex = users.findIndex(key => key.username === assignee);
+    let assigneeIndex = getIndexOfValue(users, 'username', assignee);
     let assigneeInitials = users[assigneeIndex]['firstname'].charAt(0) + users[assigneeIndex]['lastname'].charAt(0);
 
     if (renderType == 'preview') {
@@ -94,158 +111,159 @@ function renderTaskAssignees(taskId, renderType) {
 
       if (task['assignees'].length > 3 && j > 1) {
         assigneeList.innerHTML += /*html*/ `
-        <div style="background-color: black;" class="board-user-icon">${'+' + (task['assignees'].length - 2)}</div>
-        `;
+        <div style="background-color: black;" class="board-user-icon">${'+' + (task['assignees'].length - 2)}</div>`;
         return
       } else {
         assigneeList.innerHTML += /*html*/ `
         <div style="background-color: ${users[assigneeIndex]['color']};" 
-          class="board-user-icon">${assigneeInitials}</div>
-        `;
+          class="board-user-icon">${assigneeInitials}</div>`;
       }
     } else if (renderType == 'detailed') {
       let assigneeList = document.getElementById('assignees-detailed');
       assigneeList.innerHTML += /*html*/ `
       <div class="task-detailed-assignee">
         <div style="background-color: ${users[assigneeIndex]['color']};" class="board-user-icon">${assigneeInitials}</div>
-        <div>${users[assigneeIndex]['firstname']} ${users[assigneeIndex]['lastname']}</div>
-      </div>
-      `;
+        <p>${users[assigneeIndex]['firstname']} ${users[assigneeIndex]['lastname']}</p>
+      </div>`;
     }
   }
 }
 
-function allowDrop(event) {
-  event.preventDefault();
+function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
+  let content = document.getElementById(HTMLElementId);
+  content.innerHTML = '';
+
+  for (let i = 0; i < priorites.length; i++) {
+    const priority = priorites[i];
+    content.innerHTML += /*html*/ `
+    <div id="task-edit-priority-${priority['name']}" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${priority['name']}')">
+      <h6>${capitalizeFirstLetter(priority.name)}</h6>
+      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
+    </div>
+    `;
+
+    let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
+    if (priority['name'] == activePriority) {
+      priorityWrapper.style.backgroundColor = `${priority['color']}`;
+      priorityWrapper.style.color = "white";
+    } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
+      priorityWrapper.style.backgroundColor = `${priority['color']}`;
+      priorityWrapper.style.color = "white";
+    }
+  }
+  return activePriority;
 }
 
-function moveElementTo(status) {
-  tasks[activeDragDropElement]['status'] = status;
-  initBoard();
-}
-
-function activeDragElement(id) {
-  activeDragDropElement = id;
-}
-
-function availableDragAreaHighlight(action) {
-  let activeTaskWrapper = document.getElementById('task-preview-wrapper-' + activeDragDropElement);
+function highlightAvailableDragArea(action) {
+  let activeDragElementHeight = document.getElementById('task-preview-wrapper-' + activeDragElement).offsetHeight;
 
   for (let i = 0; i < statuses.length; i++) {
     const status = statuses[i];
+    let activeDragElementShadow = document.getElementById('task-shadow-wrapper-' + status['name']);
+    let activeDragElementColumn = document.getElementById('board-tasks-column-' + status['name']);
 
-    if (action == 'add') {
-      if (tasks[activeDragDropElement]['status'] == status['name']) { continue }
-      document.getElementById('board-tasks-column-' + status['name']).innerHTML += /*html*/ `
-        <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
-          style="height: ${activeTaskWrapper.offsetHeight}px;"></div>
-        `;
-    } else if (action == 'remove') {
-      if (!!document.getElementById('task-shadow-wrapper-' + status['name'])) {
-        document.getElementById('task-shadow-wrapper-' + status['name']).remove();
+    if (action) {
+      if (tasks[activeDragElement]['status'] == status['name']) { continue }
+      activeDragElementColumn.innerHTML += /*html*/ `
+      <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
+        style="height: ${activeDragElementHeight}px;"></div>`;
+    } else {
+      if (!!activeDragElementShadow) {
+        activeDragElementShadow.remove();
       }
     }
   }
 }
 
-function activeDragAreaHighlight(action, area) {
-  let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
-  if (tasks[activeDragDropElement]['status'] == area) { return }
-  if (action == 'start') {
-    boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
-  } else if (action == 'leave') {
-    boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
-  }
-}
-
-function dragHideOriginalElement(taskId, action) {
-  let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
-  if (action) {
-    activeTask.classList.add('dragHideOriginal');
-  } else {
-    activeTask.classList.remove('dragHideOriginal');
-  }
-}
-
-function detailedTaskView(taskId, action, edit) {
-  let contentWrapper = document.getElementById('main-wrapper');
+function showTaskDetails(taskId, show) {
+  let content = document.getElementById('main-wrapper');
   let task = tasks[taskId];
 
-  if (!!document.getElementById('task-detailed-view')) {
-    document.getElementById('task-detailed-view').remove();
-    if (!action) return;
+  if (!!document.getElementById('task-detailed-wrapper')) {
+    document.getElementById('task-detailed-wrapper').remove();
+    if (!show) return;
   }
 
-  let categoryIndex = categories.findIndex(key => key.name === task['category']);
-  let priorityIndex = priorites.findIndex(key => key.name === task['priority']);
+  let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
+  let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
 
-  contentWrapper.innerHTML += /*html*/ `
-  <div id="task-detailed-view" class="task-detailed-wrapper">
-    <div id="task-detailed-content" class="task-detailed-content"></div>
-    <div class="task-detailed-background" onclick="detailedTaskView(null, false)"></div>
-  </div>
-  `;
-
-  let content = document.getElementById('task-detailed-content');
-
-  if (edit) {
-    content.innerHTML = /*html*/ `
-    <div class="task-detailed-close" onclick="detailedTaskView(null, false)">
-      <img src="assets/img/cross.svg" alt="cross icon">
-    </div>
-    <div>
-      <h6>Title</h6>
-      <input type="text" placeholder="Enter a Title" value="${task['title']}">
-    </div>
-    <div>
-      <h6>Description</h6>
-      <input type="text" placeholder="Enter a Description" value="${task['description']}">
-    </div>
-    <div>
-      <h6>Due date</h6>
-      <input type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}">
-    </div>
-    <div>
-      <h6>Prio</h6>
-      <input type="text">
-    </div>
-    <div>
-      <h6>Assigned to</h6>
-      <input type="text">
-    </div>
-    <button class="button-primary task-detailed-edit" onclick="">
-      <h6>Ok</h6>
-      <img src="assets/img/edit.svg" alt="Checkmark">
-    </button>
-    `;
-  } else {
-    content.innerHTML = /*html*/ `
-    <div class="task-detailed-close" onclick="detailedTaskView(null, false)">
-      <img src="assets/img/cross.svg" alt="cross icon">
-    </div>
-    <div style="background-color: ${categories[categoryIndex]['color']}; font-size: 25px"
-      class="board-task-category">${task['category']}</div>
-    <h1>${task['title']}</h1>
-    <p>${task['description']}</p> 
-    <div class="task-detailed-attribute-wrapper">
-      <h6>Due Date:</h6>
-      <div>${task['due_date']}</div>
-    </div>
-    <div class="task-detailed-attribute-wrapper">
-      <h6>Priority:</h6>
-      <div class="task-detailed-priority" style="background-color: ${priorites[priorityIndex]['color']}">
-      ${capitalizeFirstLetter(task['priority'])}
-      <img id="task-detailed-priority-icon" src="${priorites[priorityIndex]['icon_path']}" alt="priority icon ${task['priority']}">
+  content.innerHTML += /*html*/ `
+  <div id="task-detailed-wrapper" class="task-detailed-wrapper">
+    <div id="task-detailed-content" class="task-detailed-content">
+      <div class="task-detailed-close-button" onclick="showTaskDetails(null, false)">
+        <img src="assets/img/cross.svg" alt="cross icon">
       </div>
+      <div style="background-color: ${categories[categoryIndex]['color']}"
+        class="board-task-category"><h4>${task['category']}</h4></div>
+      <h2>${task['title']}</h2>
+      <p>${task['description']}</p> 
+      <div class="task-detailed-attribute-wrapper">
+        <h5>Due Date:</h5>
+        <div>${task['due_date']}</div>
+      </div>
+      <div class="task-detailed-attribute-wrapper">
+        <h5>Priority:</h5>
+        <div class="task-detailed-priority" style="background-color: ${priorites[priorityIndex]['color']}">
+          <h6>${capitalizeFirstLetter(task['priority'])}</h6>
+          <img src="${priorites[priorityIndex]['icon_path']}" alt="priority icon ${task['priority']}">
+        </div>
+      </div>
+      <div>
+        <h5>Assigned to:</h5>
+        <div id="assignees-detailed"></div>
+      </div>
+      <button class="button-primary task-edit-button" onclick="editTaskDetails(${taskId}, true)">
+        <img src="assets/img/edit.svg" alt="edit pencil icon">
+      </button>
     </div>
-    <div>
-      <h6>Assigned to:</h6>
-      <div id="assignees-detailed"></div>
-    </div>
-    <button class="button-primary task-detailed-edit" onclick="detailedTaskView(${taskId}, true, true)">
-      <img src="assets/img/edit.svg" alt="edit pencil icon">
-    </button>
-    `;
-    renderTaskAssignees(taskId, 'detailed');
+    <div class="task-detailed-background" onclick="showTaskDetails(null, false)"></div>
+  </div>`;
+  renderTaskAssignees(taskId, 'detailed');
+}
+
+function editTaskDetails(taskId, show) {
+  let content = document.getElementById('main-wrapper');
+  let task = tasks[taskId];
+
+  if (!!document.getElementById('task-detailed-wrapper')) {
+    document.getElementById('task-detailed-wrapper').remove();
+    if (!show) return;
   }
+
+  content.innerHTML += /*html*/ `
+  <div id="task-detailed-wrapper" class="task-detailed-wrapper">
+    <div id="task-detailed-content" class="task-detailed-content">
+      <form class="task-edit-wrapper">
+        <div class="task-detailed-close-button" onclick="editTaskDetails(null, false)">
+          <img src="assets/img/cross.svg" alt="cross icon">
+        </div>
+        <div class="task-edit-form-item-wrapper">
+          <h6>Title</h6>
+          <input type="text" placeholder="Enter a Title" value="${task['title']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+        </div>
+        <div class="task-edit-form-item-wrapper">
+          <h6>Description</h6>
+          <textarea style="font-size: 1rem; margin: 0px;" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
+        </div>
+        <div class="task-edit-form-item-wrapper">
+          <h6>Due date</h6>
+          <input type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+        </div>
+        <div class="task-edit-form-item-wrapper">
+          <h6>Prio</h6>
+          <div id="task-edit-priority-buttons" class="task-edit-priority-buttons task-edit-heading-gap"></div>
+        </div>
+        <div class="task-edit-form-item-wrapper">
+          <h6>Assigned to</h6>
+        </div>
+        <button class="button-primary task-edit-button" onclick="">
+          <h6>Ok</h6>
+          <img src="assets/img/edit.svg" alt="Checkmark">
+        </button>
+      </form>
+    </div>
+    <div class="task-detailed-background" onclick="showTaskDetails(null, false)"></div>
+  </div>`;
+
+  renderPriorityButtons(taskId, 'task-edit-priority-buttons', null);
 }
