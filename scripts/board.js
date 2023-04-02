@@ -4,7 +4,6 @@ let activeTaskPriority;
 function initBoard() {
   renderColumns();
   renderTasks();
-  // editTaskDetails(1, true);
 }
 
 function allowDrop(event) {
@@ -16,8 +15,8 @@ function moveElementTo(status) {
   initBoard();
 }
 
-function setActiveDragElement(id) {
-  activeDragElement = id;
+function setActiveDragElement(taskId) {
+  activeDragElement = taskId;
 }
 
 function getIndexOfValue(array, key, value) {
@@ -38,8 +37,8 @@ function renderColumns() {
         </div>
         <div id="board-tasks-column-${status['name']}" class="board-tasks-wrapper" 
           ondrop="moveElementTo('${status['name']}')"
-          ondragover="allowDrop(event); highlightSelectedDragArea(true, '${status['name']}')" 
-          ondragleave="highlightSelectedDragArea(false, '${status['name']}')"></div>
+          ondragover="allowDrop(event); highlightSelectedDragArea('${status['name']}', true)" 
+          ondragleave="highlightSelectedDragArea('${status['name']}', false)"></div>
       </div>
       `;
     document.getElementById(`board-tasks-column-${status['name']}`).innerHTML = '';
@@ -185,6 +184,25 @@ function highlightAvailableDragArea(action) {
         activeDragElementShadow.remove();
       }
     }
+  }
+}
+
+function highlightSelectedDragArea(area, highlight) {
+  let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
+  if (tasks[activeDragElement]['status'] == area) { return }
+  if (highlight) {
+    boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
+  } else {
+    boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
+  }
+}
+
+function hideOriginalElementOnDrag(taskId, action) {
+  let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
+  if (action) {
+    activeTask.classList.add('hide-original-drag-element');
+  } else {
+    activeTask.classList.remove('hide-original-drag-element');
   }
 }
 
