@@ -301,7 +301,7 @@ main {
   margin-top: 5rem;
 }
 
-.form-text-input {
+.form-default-input {
   border-radius: 10px;
   border: rgb(226, 226, 226) solid 0.5px;
   font: inherit;
@@ -310,6 +310,6 @@ main {
   width: 300px;
 }
 
-.form-text-input::placeholder {
+.form-default-input::placeholder {
   color: rgb(226, 226, 226);
 }

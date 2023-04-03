@@ -4,6 +4,7 @@ let activeTaskPriority;
 function initBoard() {
   renderColumns();
   renderTasks();
+  editTaskDetails(1, true);
 }
 
 function allowDrop(event) {
@@ -21,6 +22,82 @@ function setActiveDragElement(taskId) {
 
 function getIndexOfValue(array, key, value) {
   return array.findIndex(k => k[key] === value);
+}
+
+function applyEditTask(taskId) {
+  let task = tasks[taskId];
+
+  task['title'] = document.getElementById('task-edit-from-input-title').value;
+  task['description'] = document.getElementById('task-edit-from-input-description').value;
+  task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
+  task['priority'] = activeTaskPriority;
+  editTaskDetails(taskId, false);
+  initBoard();
+}
+
+function highlightSelectedDragArea(area, highlight) {
+  let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
+  if (tasks[activeDragElement]['status'] == area) { return }
+  if (highlight) {
+    boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
+  } else {
+    boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
+  }
+}
+
+function hideOriginalElementOnDrag(taskId, action) {
+  let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
+  if (action) {
+    activeTask.classList.add('hide-original-drag-element');
+  } else {
+    activeTask.classList.remove('hide-original-drag-element');
+  }
+}
+
+function highlightAvailableDragArea(action) {
+  let activeDragElementHeight = document.getElementById('task-preview-wrapper-' + activeDragElement).offsetHeight;
+
+  for (let i = 0; i < statuses.length; i++) {
+    const status = statuses[i];
+    let activeDragElementShadow = document.getElementById('task-shadow-wrapper-' + status['name']);
+    let activeDragElementColumn = document.getElementById('board-tasks-column-' + status['name']);
+
+    if (action) {
+      if (tasks[activeDragElement]['status'] == status['name']) { continue }
+      activeDragElementColumn.innerHTML += /*html*/ `
+      <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
+        style="height: ${activeDragElementHeight}px;"></div>`;
+    } else {
+      if (!!activeDragElementShadow) {
+        activeDragElementShadow.remove();
+      }
+    }
+  }
+}
+
+function assigneeCheckboxSelection(HTMLElementId) {
+  let checkbox = document.getElementById('task-edit-assignee-selection-checkbox-' + HTMLElementId);
+
+  if (!checkbox.classList.contains('task-edit-assignee-selection-checkbox-filled')) {
+    checkbox.classList.add('task-edit-assignee-selection-checkbox-filled');
+  } else {
+    checkbox.classList.remove('task-edit-assignee-selection-checkbox-filled');
+  }
+}
+
+function assigneeSelectionInviteContact(taskId, HTMLElementId) {
+  let content = document.getElementById(HTMLElementId);
+
+  document.getElementById('task-edit-assignee-selection').classList.add('display-none');
+  content.innerHTML += /*html*/ `
+  <div class="task-edit-assignee-selection-contact-invite-wrapper">
+    <input type="text" placeholder="Contact email" class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem; cursor: pointer;">
+    <div class="task-edit-assignee-selection-contact-invite-icons-wrapper">
+      <img style="transform: rotate(45deg);" src="assets/img/cross.svg" alt="cross icon" onclick="">
+      <div class="grey-divider-div"></div>
+      <img src="assets/img/check-black.png" alt="check icon" onclick="">
+    </div>
+  </div>`;
 }
 
 function renderColumns() {
@@ -75,7 +152,7 @@ function renderTasks() {
     `;
 
     renderSubtaskProgress(task);
-    renderTaskAssignees(task['id'], 'preview');
+    renderTaskAssignees(task['assignees'], `assignees-${task['id']}`, true, 3);
   }
 }
 
@@ -98,35 +175,46 @@ function renderSubtaskProgress(task) {
     <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>`;
 }
 
-function renderTaskAssignees(taskId, renderType) {
-  let task = tasks[taskId];
+function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, previewListLength) {
+  let assigneeListWrapper = document.getElementById(HTMLElementId);
+  assigneeListWrapper.innerHTML = '';
 
-  for (let j = 0; j < task['assignees'].length; j++) {
-    const assignee = task['assignees'][j];
+  for (let j = 0; j < assigneeArray.length; j++) {
+    const assignee = assigneeArray[j];
     let assigneeIndex = getIndexOfValue(users, 'username', assignee);
     let assigneeInitials = users[assigneeIndex]['firstname'].charAt(0) + users[assigneeIndex]['lastname'].charAt(0);
 
-    if (renderType == 'preview') {
-      let assigneeList = document.getElementById(`assignees-${taskId}`);
-
-      if (task['assignees'].length > 3 && j > 1) {
-        assigneeList.innerHTML += /*html*/ `
-        <div style="background-color: black;" class="board-user-icon">${'+' + (task['assignees'].length - 2)}</div>`;
+    if (previewListEnabled) {
+      if (assigneeArray.length > previewListLength && j > 1) {
+        assigneeListWrapper.innerHTML += /*html*/ `
+        <div style="background-color: black;" class="board-user-icon">${'+' + (assigneeArray.length - 2)}</div>`;
         return
       } else {
-        assigneeList.innerHTML += /*html*/ `
-        <div style="background-color: ${users[assigneeIndex]['color']};" 
+        assigneeListWrapper.innerHTML += /*html*/ `
+        <div style="background-color: ${users[assigneeIndex]['color']};"
           class="board-user-icon">${assigneeInitials}</div>`;
       }
-    } else if (renderType == 'detailed') {
-      let assigneeList = document.getElementById('assignees-detailed');
-      assigneeList.innerHTML += /*html*/ `
+    } else {
+      assigneeListWrapper.innerHTML += /*html*/ `
       <div class="task-detailed-assignee">
         <div style="background-color: ${users[assigneeIndex]['color']};" class="board-user-icon">${assigneeInitials}</div>
         <p>${users[assigneeIndex]['firstname']} ${users[assigneeIndex]['lastname']}</p>
       </div>`;
     }
   }
+}
+
+function preSelectedTaskAssignees(taskId, assignee) {
+  let taskAssignees = tasks[taskId]['assignees'];
+  let taskAssigneeIndex = taskAssignees.indexOf(assignee);
+  
+  if (taskAssigneeIndex == -1) {
+    taskAssignees.push(assignee);
+  } else {
+    taskAssignees.splice(taskAssigneeIndex, 1);
+  }
+  
+  renderTaskAssignees(taskAssignees, 'task-edit-assignee-preview', true);
 }
 
 function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
@@ -155,55 +243,42 @@ function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
   }
 }
 
-function applyEditTask(taskId) {
+function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
   let task = tasks[taskId];
+  let content = document.getElementById(HTMLElementId);
 
-  task['title'] = document.getElementById('task-edit-from-input-title').value;
-  task['description'] = document.getElementById('task-edit-from-input-description').value;
-  task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
-  task['priority'] = activeTaskPriority;
-  editTaskDetails(taskId, false);
-  initBoard();
-}
-
-function highlightAvailableDragArea(action) {
-  let activeDragElementHeight = document.getElementById('task-preview-wrapper-' + activeDragElement).offsetHeight;
-
-  for (let i = 0; i < statuses.length; i++) {
-    const status = statuses[i];
-    let activeDragElementShadow = document.getElementById('task-shadow-wrapper-' + status['name']);
-    let activeDragElementColumn = document.getElementById('board-tasks-column-' + status['name']);
-
-    if (action) {
-      if (tasks[activeDragElement]['status'] == status['name']) { continue }
-      activeDragElementColumn.innerHTML += /*html*/ `
-      <div id="task-shadow-wrapper-${status['name']}" class="task-shadow-wrapper" 
-        style="height: ${activeDragElementHeight}px;"></div>`;
-    } else {
-      if (!!activeDragElementShadow) {
-        activeDragElementShadow.remove();
-      }
-    }
+  if (!expandView) {
+    content.innerHTML = /*html*/ `
+    <div class="task-edit-assignee-selection-item" onclick="renderTaskAssigneeSelection(${taskId}, 'task-edit-assignee-selection', true)">
+      <h6>Select contacts to assign</h6>
+      <img src="assets/img/sort-down.png" alt="triangular down icon">
+    </div>`;
+    return
   }
-}
 
-function highlightSelectedDragArea(area, highlight) {
-  let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
-  if (tasks[activeDragElement]['status'] == area) { return }
-  if (highlight) {
-    boardTasksColumn.classList.add('task-shadow-wrapper-highlighted');
-  } else {
-    boardTasksColumn.classList.remove('task-shadow-wrapper-highlighted');
-  }
-}
+  content.innerHTML = /*html*/ `
+  <div class="task-edit-assignee-selection-item" onclick="renderTaskAssigneeSelection(${taskId}, 'task-edit-assignee-selection', false)">
+    <h6>Select contacts to assign</h6>
+    <img src="assets/img/sort-down.png" alt="triangular down icon">
+  </div>`;
 
-function hideOriginalElementOnDrag(taskId, action) {
-  let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
-  if (action) {
-    activeTask.classList.add('hide-original-drag-element');
-  } else {
-    activeTask.classList.remove('hide-original-drag-element');
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i];
+
+    content.innerHTML += /*html*/ `
+    <div class="task-edit-assignee-selection-item" onclick="assigneeCheckboxSelection(${i}); preSelectedTaskAssignees(${taskId}, '${user['username']}')">
+      <h6>${user['firstname']} ${user['lastname']}</h6>
+      <div id="task-edit-assignee-selection-checkbox-${i}" class="task-edit-assignee-selection-checkbox"></div>
+    </div>`;
+    
+    if (tasks[taskId]['assignees'].indexOf(user['username']) > -1) { assigneeCheckboxSelection(i) }
   }
+
+  content.innerHTML += /*html*/ `
+  <div class="task-edit-assignee-selection-item" onclick="assigneeSelectionInviteContact(${taskId}, 'task-edit-form-item-assignees')">
+    <h6>Invite new contact</h6>
+    <img src="assets/img/contact-book.png" alt="contact book icon">
+  </div>`;
 }
 
 function showTaskDetails(taskId, show) {
@@ -249,8 +324,8 @@ function showTaskDetails(taskId, show) {
     </div>
     <div class="task-detailed-background" onclick="showTaskDetails(null, false)"></div>
   </div>`;
-  
-  renderTaskAssignees(taskId, 'detailed');
+
+  renderTaskAssignees(task['assignees'], 'assignees-detailed');
 }
 
 function editTaskDetails(taskId, show) {
@@ -271,26 +346,28 @@ function editTaskDetails(taskId, show) {
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Title</h6>
-          <input id="task-edit-from-input-title" type="text" placeholder="Enter a Title" value="${task['title']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+          <input id="task-edit-from-input-title" type="text" placeholder="Enter a Title" value="${task['title']}" class="form-default-input task-edit-heading-gap task-edit-form-input">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Description</h6>
-          <textarea id="task-edit-from-input-description" style="font-size: 1rem" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
+          <textarea id="task-edit-from-input-description" rows="4" placeholder="Enter a Description" class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem">${task['description']}</textarea>
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Due date</h6>
-          <input id="task-edit-from-input-dueDate" type="date" style="font-size: 1rem" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+          <input id="task-edit-from-input-dueDate" type="date" value="${task['due_date']}" class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem; cursor: pointer;">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Prio</h6>
           <div id="task-edit-priority-buttons" class="task-edit-priority-buttons task-edit-heading-gap"></div>
         </div>
-        <div class="task-edit-form-item-wrapper">
+        <div id="task-edit-form-item-assignees" class="task-edit-form-item-wrapper">
           <h6>Assigned to</h6>
+          <div id="task-edit-assignee-selection" class="form-default-input task-edit-heading-gap task-edit-form-input task-edit-assignee-select-wrapper"></div>
+          <div id="task-edit-assignee-preview" class="task-edit-assignee-preview"></div>
         </div>
         <button class="button-primary task-edit-button" onclick="applyEditTask(${taskId})">
           <h6>Ok</h6>
-          <img src="assets/img/checkmark.png" alt="Checkmark">
+          <img src="assets/img/check-white.png" alt="Checkmark">
         </button>
       </div>
     </div>
@@ -298,4 +375,6 @@ function editTaskDetails(taskId, show) {
   </div>`;
 
   renderPriorityButtons(taskId, 'task-edit-priority-buttons', null);
+  renderTaskAssigneeSelection(taskId, 'task-edit-assignee-selection', false);
+  renderTaskAssignees(task['assignees'], 'task-edit-assignee-preview', true);
 }
