@@ -71,7 +71,7 @@ let tasks = [
     "description": "Modify the contents of the main website...",
     "category": "Design",
     "assignees": ["anton.meyer", "anja.schulz", "benedikt.ziegler"],
-    "due_date": "01-04-2023",
+    "due_date": "2023-04-01",
     "priority": "low",
     "status": "to-do",
     "subtasks": [
@@ -93,7 +93,7 @@ let tasks = [
     "description": "Make the product presentation to prospective buyers",
     "category": "Sales",
     "assignees": ["anton.meyer", "anja.schulz", "benedikt.ziegler", "stefanie.farber"],
-    "due_date": "01-04-2023",
+    "due_date": "2023-04-01",
     "priority": "urgent",
     "status": "in-progress",
     "subtasks": []
@@ -104,7 +104,7 @@ let tasks = [
     "description": "Write open invoices for customer",
     "category": "Backoffice",
     "assignees": ["anton.meyer", "anja.schulz", "benedikt.ziegler", "stefanie.farber", "david.eisenberg"],
-    "due_date": "01-04-2023",
+    "due_date": "2023-04-01",
     "priority": "medium",
     "status": "awaiting-feedback",
     "subtasks": []
@@ -115,7 +115,7 @@ let tasks = [
     "description": "Edit the new company video",
     "category": "Media",
     "assignees": ["benedikt.ziegler"],
-    "due_date": "01-04-2023",
+    "due_date": "2023-04-01",
     "priority": "medium",
     "status": "awaiting-feedback",
     "subtasks": []
@@ -126,7 +126,7 @@ let tasks = [
     "description": "Develop an ad campaign for brand positioning",
     "category": "Marketing",
     "assignees": ["anja.schulz", "benedikt.ziegler"],
-    "due_date": "01-04-2023",
+    "due_date": "2023-04-01",
     "priority": "low",
     "status": "done",
     "subtasks": [

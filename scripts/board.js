@@ -157,7 +157,7 @@ function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
 
 function applyEditTask(taskId) {
   let task = tasks[taskId];
-  
+
   task['title'] = document.getElementById('task-edit-from-input-title').value;
   task['description'] = document.getElementById('task-edit-from-input-description').value;
   task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
@@ -230,7 +230,7 @@ function showTaskDetails(taskId, show) {
       <p>${task['description']}</p> 
       <div class="task-detailed-attribute-wrapper">
         <h5>Due Date:</h5>
-        <div>${task['due_date']}</div>
+        <div>${new Date(task['due_date']).toDateString()}</div>
       </div>
       <div class="task-detailed-attribute-wrapper">
         <h5>Priority:</h5>
@@ -249,6 +249,7 @@ function showTaskDetails(taskId, show) {
     </div>
     <div class="task-detailed-background" onclick="showTaskDetails(null, false)"></div>
   </div>`;
+  
   renderTaskAssignees(taskId, 'detailed');
 }
 
@@ -274,11 +275,11 @@ function editTaskDetails(taskId, show) {
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Description</h6>
-          <textarea id="task-edit-from-input-description" style="font-size: 1rem; margin: 0px;" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
+          <textarea id="task-edit-from-input-description" style="font-size: 1rem" rows="4" placeholder="Enter a Description" class="form-text-input task-edit-heading-gap task-edit-form-text-input">${task['description']}</textarea>
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Due date</h6>
-          <input id="task-edit-from-input-dueDate" type="text" placeholder="dd-mm-yyyy" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
+          <input id="task-edit-from-input-dueDate" type="date" style="font-size: 1rem" value="${task['due_date']}" class="form-text-input task-edit-heading-gap task-edit-form-text-input">
         </div>
         <div class="task-edit-form-item-wrapper">
           <h6>Prio</h6>

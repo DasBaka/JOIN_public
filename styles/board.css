@@ -272,6 +272,7 @@
 .task-detailed-attribute-wrapper {
   align-items: baseline;
   display: flex;
+  font-size: 1rem;
   gap: 20px;
 }
 
@@ -298,10 +299,10 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  padding: 10px 0px 50px 0px;
   gap: 20px;
+  justify-content: center;
+  padding: 10px 0px 50px 0px;
+  width: 100%;
 }
 
 .task-edit-button {
@@ -348,9 +349,9 @@
 }
 
 .task-edit-form-text-input {
-  width: 100%;
-  box-sizing:border-box;
+  box-sizing: border-box;
   margin: 0px;
+  width: 100%;
 }
 
 .task-edit-heading-gap {
