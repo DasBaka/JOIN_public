@@ -1,10 +1,11 @@
 let activeDragElement;
 let activeTaskPriority;
+let activeTaskAssignees;
 
 function initBoard() {
   renderColumns();
   renderTasks();
-  editTaskDetails(1, true);
+  // editTaskDetails(1, true);
 }
 
 function allowDrop(event) {
@@ -31,6 +32,7 @@ function applyEditTask(taskId) {
   task['description'] = document.getElementById('task-edit-from-input-description').value;
   task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
   task['priority'] = activeTaskPriority;
+  task['assignees'] = activeTaskAssignees;
   editTaskDetails(taskId, false);
   initBoard();
 }
@@ -175,6 +177,32 @@ function renderSubtaskProgress(task) {
     <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>`;
 }
 
+function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
+  let content = document.getElementById(HTMLElementId);
+  content.innerHTML = '';
+
+  for (let i = 0; i < priorites.length; i++) {
+    const priority = priorites[i];
+    content.innerHTML += /*html*/ `
+    <div id="task-edit-priority-${priority['name']}" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${priority['name']}')">
+      <h6>${capitalizeFirstLetter(priority.name)}</h6>
+      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
+    </div>
+    `;
+
+    let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
+    if (priority['name'] == activePriority) {
+      priorityWrapper.style.backgroundColor = `${priority['color']}`;
+      priorityWrapper.style.color = "white";
+      activeTaskPriority = priority['name'];
+    } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
+      priorityWrapper.style.backgroundColor = `${priority['color']}`;
+      priorityWrapper.style.color = "white";
+      activeTaskPriority = priority['name'];
+    }
+  }
+}
+
 function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, previewListLength) {
   let assigneeListWrapper = document.getElementById(HTMLElementId);
   assigneeListWrapper.innerHTML = '';
@@ -204,43 +232,16 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
   }
 }
 
-function preSelectedTaskAssignees(taskId, assignee) {
-  let taskAssignees = tasks[taskId]['assignees'];
-  let taskAssigneeIndex = taskAssignees.indexOf(assignee);
+function changeTaskAsssignee(assigneeArray, assignee, HTMLElementId) {
+  let assigneeIndex = assigneeArray.indexOf(assignee);
   
-  if (taskAssigneeIndex == -1) {
-    taskAssignees.push(assignee);
+  if (assigneeIndex == -1) {
+    assigneeArray.push(assignee);
   } else {
-    taskAssignees.splice(taskAssigneeIndex, 1);
+    assigneeArray.splice(assigneeIndex, 1);
   }
   
-  renderTaskAssignees(taskAssignees, 'task-edit-assignee-preview', true);
-}
-
-function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
-  let content = document.getElementById(HTMLElementId);
-  content.innerHTML = '';
-
-  for (let i = 0; i < priorites.length; i++) {
-    const priority = priorites[i];
-    content.innerHTML += /*html*/ `
-    <div id="task-edit-priority-${priority['name']}" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${priority['name']}')">
-      <h6>${capitalizeFirstLetter(priority.name)}</h6>
-      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
-    </div>
-    `;
-
-    let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
-    if (priority['name'] == activePriority) {
-      priorityWrapper.style.backgroundColor = `${priority['color']}`;
-      priorityWrapper.style.color = "white";
-      activeTaskPriority = priority['name'];
-    } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
-      priorityWrapper.style.backgroundColor = `${priority['color']}`;
-      priorityWrapper.style.color = "white";
-      activeTaskPriority = priority['name'];
-    }
-  }
+  renderTaskAssignees(assigneeArray, HTMLElementId, true);
 }
 
 function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
@@ -266,7 +267,7 @@ function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
     const user = users[i];
 
     content.innerHTML += /*html*/ `
-    <div class="task-edit-assignee-selection-item" onclick="assigneeCheckboxSelection(${i}); preSelectedTaskAssignees(${taskId}, '${user['username']}')">
+    <div class="task-edit-assignee-selection-item" onclick="assigneeCheckboxSelection(${i}); changeTaskAsssignee(activeTaskAssignees, '${user['username']}', 'task-edit-assignee-preview',)">
       <h6>${user['firstname']} ${user['lastname']}</h6>
       <div id="task-edit-assignee-selection-checkbox-${i}" class="task-edit-assignee-selection-checkbox"></div>
     </div>`;
@@ -329,14 +330,15 @@ function showTaskDetails(taskId, show) {
 }
 
 function editTaskDetails(taskId, show) {
-  let content = document.getElementById('main-wrapper');
-  let task = tasks[taskId];
-
   if (!!document.getElementById('task-detailed-wrapper')) {
     document.getElementById('task-detailed-wrapper').remove();
     if (!show) return;
   }
-
+  
+  let content = document.getElementById('main-wrapper');
+  let task = tasks[taskId];
+  activeTaskAssignees = task['assignees'].slice();
+  
   content.innerHTML += /*html*/ `
   <div id="task-detailed-wrapper" class="task-detailed-wrapper">
     <div id="task-detailed-content" class="task-detailed-content">
@@ -376,5 +378,5 @@ function editTaskDetails(taskId, show) {
 
   renderPriorityButtons(taskId, 'task-edit-priority-buttons', null);
   renderTaskAssigneeSelection(taskId, 'task-edit-assignee-selection', false);
-  renderTaskAssignees(task['assignees'], 'task-edit-assignee-preview', true);
+  renderTaskAssignees(activeTaskAssignees, 'task-edit-assignee-preview', true);
 }
