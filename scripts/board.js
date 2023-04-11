@@ -5,7 +5,6 @@ let activeTaskAssignees;
 function initBoard() {
   renderColumns();
   renderTasks();
-  // editTaskDetails(1, true);
 }
 
 function allowDrop(event) {
@@ -87,19 +86,17 @@ function assigneeCheckboxSelection(HTMLElementId) {
   }
 }
 
-function assigneeSelectionInviteContact(taskId, HTMLElementId) {
-  let content = document.getElementById(HTMLElementId);
-
-  document.getElementById('task-edit-assignee-selection').classList.add('display-none');
-  content.innerHTML += /*html*/ `
-  <div class="task-edit-assignee-selection-contact-invite-wrapper">
-    <input type="text" placeholder="Contact email" class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem; cursor: pointer;">
-    <div class="task-edit-assignee-selection-contact-invite-icons-wrapper">
-      <img style="transform: rotate(45deg);" src="assets/img/cross.svg" alt="cross icon" onclick="">
-      <div class="grey-divider-div"></div>
-      <img src="assets/img/check-black.png" alt="check icon" onclick="">
-    </div>
-  </div>`;
+function assigneeSelectionInviteContact() {
+  let assigneeSelection = document.getElementById('task-edit-assignee-selection');
+  let contactInvite = document.getElementById('task-edit-assignee-contact-invite');
+  
+  if (contactInvite.classList.contains('display-none')) {
+    assigneeSelection.classList.add('display-none');
+    contactInvite.classList.remove('display-none');
+  } else {
+    assigneeSelection.classList.remove('display-none');
+    contactInvite.classList.add('display-none');
+  }
 }
 
 function renderColumns() {
@@ -150,8 +147,7 @@ function renderTasks() {
         <div id="assignees-${task['id']}" class="board-user-icon-wrapper"></div>
         <img src="${priorites[priorityIndex]['icon_path']}" alt="priority icon ${task['priority']}">
       </div>
-    </div>
-    `;
+    </div>`;
 
     renderSubtaskProgress(task);
     renderTaskAssignees(task['assignees'], `assignees-${task['id']}`, true, 3);
@@ -187,8 +183,7 @@ function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
     <div id="task-edit-priority-${priority['name']}" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${priority['name']}')">
       <h6>${capitalizeFirstLetter(priority.name)}</h6>
       <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
-    </div>
-    `;
+    </div>`;
 
     let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
     if (priority['name'] == activePriority) {
@@ -234,13 +229,13 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
 
 function changeTaskAsssignee(assigneeArray, assignee, HTMLElementId) {
   let assigneeIndex = assigneeArray.indexOf(assignee);
-  
+
   if (assigneeIndex == -1) {
     assigneeArray.push(assignee);
   } else {
     assigneeArray.splice(assigneeIndex, 1);
   }
-  
+
   renderTaskAssignees(assigneeArray, HTMLElementId, true);
 }
 
@@ -271,12 +266,12 @@ function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
       <h6>${user['firstname']} ${user['lastname']}</h6>
       <div id="task-edit-assignee-selection-checkbox-${i}" class="task-edit-assignee-selection-checkbox"></div>
     </div>`;
-    
+
     if (tasks[taskId]['assignees'].indexOf(user['username']) > -1) { assigneeCheckboxSelection(i) }
   }
 
   content.innerHTML += /*html*/ `
-  <div class="task-edit-assignee-selection-item" onclick="assigneeSelectionInviteContact(${taskId}, 'task-edit-form-item-assignees')">
+  <div class="task-edit-assignee-selection-item" onclick="assigneeSelectionInviteContact(${taskId})">
     <h6>Invite new contact</h6>
     <img src="assets/img/contact-book.png" alt="contact book icon">
   </div>`;
@@ -334,11 +329,11 @@ function editTaskDetails(taskId, show) {
     document.getElementById('task-detailed-wrapper').remove();
     if (!show) return;
   }
-  
+
   let content = document.getElementById('main-wrapper');
   let task = tasks[taskId];
   activeTaskAssignees = task['assignees'].slice();
-  
+
   content.innerHTML += /*html*/ `
   <div id="task-detailed-wrapper" class="task-detailed-wrapper">
     <div id="task-detailed-content" class="task-detailed-content">
@@ -365,6 +360,14 @@ function editTaskDetails(taskId, show) {
         <div id="task-edit-form-item-assignees" class="task-edit-form-item-wrapper">
           <h6>Assigned to</h6>
           <div id="task-edit-assignee-selection" class="form-default-input task-edit-heading-gap task-edit-form-input task-edit-assignee-select-wrapper"></div>
+          <div id="task-edit-assignee-contact-invite" class="task-edit-assignee-contact-invite-wrapper display-none">
+            <input type="text" placeholder="Contact email" class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem;">
+            <div class="task-edit-assignee-contact-invite-icons-wrapper">
+              <img style="transform: rotate(45deg);" src="assets/img/cross.svg" alt="cross icon" onclick="assigneeSelectionInviteContact()">
+              <div class="grey-divider-div"></div>
+              <img src="assets/img/check-black.png" alt="check icon" onclick="">
+            </div>
+          </div>
           <div id="task-edit-assignee-preview" class="task-edit-assignee-preview"></div>
         </div>
         <button class="button-primary task-edit-button" onclick="applyEditTask(${taskId})">

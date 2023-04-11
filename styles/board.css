@@ -241,9 +241,11 @@
   flex-direction: column;
   font-size: 18px;
   gap: 20px;
-  width: 400px;
+  max-height: calc(100% - 150px);
+  overflow: scroll;
   padding: 50px;
   position: relative;
+  width: 400px;
   z-index: 1;
 }
 
@@ -404,13 +406,13 @@
   margin-top: 5px;
 }
 
-.task-edit-assignee-selection-contact-invite-wrapper {
+.task-edit-assignee-contact-invite-wrapper {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.task-edit-assignee-selection-contact-invite-icons-wrapper {
+.task-edit-assignee-contact-invite-icons-wrapper {
   background-color: white;
   display: flex;
   gap: 10px;
@@ -419,7 +421,7 @@
   right: 10px;
 }
 
-.task-edit-assignee-selection-contact-invite-icons-wrapper img {
+.task-edit-assignee-contact-invite-icons-wrapper img {
   border-radius: 50px;
   cursor: pointer;
   height: 20px;
@@ -427,11 +429,11 @@
   padding: 5px;
 }
 
-.task-edit-assignee-selection-contact-invite-icons-wrapper img:hover {
+.task-edit-assignee-contact-invite-icons-wrapper img:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.task-edit-assignee-selection-contact-invite-icons-wrapper img:active {
+.task-edit-assignee-contact-invite-icons-wrapper img:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
