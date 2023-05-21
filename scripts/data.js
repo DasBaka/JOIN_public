@@ -49,7 +49,7 @@ let users = [
     "color": "lightpink"
   },
   {
-    "username": "david.eisenberg",
+    "username": "david.mueller",
     "firstname": "David",
     "lastname": "Eisenberg",
     "mail": "eisenberg@gmail.com",

@@ -302,14 +302,54 @@ main {
 }
 
 .form-default-input {
+  background-color: white;
   border-radius: 10px;
   border: rgb(226, 226, 226) solid 0.5px;
   font: inherit;
   margin-bottom: 10px;
   padding: 10px;
+  position: relative;
   width: 300px;
 }
 
 .form-default-input::placeholder {
   color: rgb(226, 226, 226);
+}
+
+.form-default-input-img {
+  height: 20px;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-default-drop-down {
+  background-color: white;
+  border-radius: 10px;
+  border: rgb(226, 226, 226) solid 0.5px;
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+}
+
+.form-drop-down-content {
+  max-height: 132px;
+  overflow: scroll;
+}
+
+.form-default-drop-down-element {
+  padding: 12px 0px 12px 20px;
+  position: relative;
+}
+
+.form-default-drop-down-element:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.form-default-selected-drop-down-element {
+  background-color: rgba(0, 0, 0, 0.075);
 }
