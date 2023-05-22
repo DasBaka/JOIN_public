@@ -1,43 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="styles/font_inter.css" />
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/auth.css" />
-    <script src="scripts/script.js"></script>
-    <script src="scripts/auth.js"></script>
-  </head>
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1.0" />
+      <title>Join</title>
+      <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/style.css" />
+      <script src="scripts/script.js"></script>
+   </head>
 
-  <body>
-    <div class="sign-up-wrapper">
-      <p>Not a Join user?</p>
-      <button onclick="window.location.href='sign-up.html'" class="button-primary">Sign up</button>
-    </div>
-    <div class="join-logo-wrapper"><img src="assets/img/logo-black.png" alt="join logo" /></div>
-    <div class="content-wrapper content-wrapper-box">
-      <h1>Log in</h1>
-      <div class="divider-blue-line"></div>
-      <form action="/summary.html">
-        <div class="form-wrapper">
-          <input type="text" id="form-email" name="form-email" class="form-text-input" placeholder="Email" /><br />
-          <input type="text" id="form-password" name="form-password" class="form-text-input" placeholder="Password" /><br />
-          <div class="button-wrapper">
-            <div class="save-credentials-wrapper">
-              <input type="checkbox" id="form-save-credentials" class="checkbox" name="form-save-credentials" />
-              <p>Remember me</p>
-            </div>
-            <input type="button" onclick="window.location.href='reset-password.html'" class="button-text-link" value="Forgot my password" />
-          </div>
-          <div class="button-wrapper">
-            <input type="submit" class="button-primary" value="Log in" />
-            <input type="submit" class="button-secondary" value="Guest Log in" />
-          </div>
-        </div>
-      </form>
-    </div>
-  </body>
+   <body class="flex-column">
+      <seqtion class="space-between w-100 p-2">
+         <img
+            src="assets/img/logo-black.png"
+            alt="join logo"
+            class="logo" />
+         <div class="flex-row h-50 center gap-175">
+            <h4>Not a Join user?</h4>
+            <button
+               onclick="window.location.href='sign-up.html'"
+               class="button-primary">
+               Sign up
+            </button>
+         </div>
+      </seqtion>
+      <seqtion class="center flex-grow-1 w-100">
+         <div
+            class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box">
+            <h1 class="p-1">Log in</h1>
+            <div class="divider-blue-line"></div>
+            <form class="center flex-column" action="/summary.html">
+               <input
+                  type="email"
+                  id="form-email"
+                  name="form-email"
+                  placeholder="Email"
+                  autocomplete="email"
+                  <
+                  required /><br />
+               <input
+                  type="password"
+                  id="form-password"
+                  name="form-password"
+                  placeholder="Password"
+                  required /><br />
+               <div class="center gap-225 pb-1">
+                  <div class="center gap-50">
+                     <input
+                        type="checkbox"
+                        id="form-save-credentials"
+                        name="form-save-credentials" />
+                     <label for="form-save-credentials">Remember me</label>
+                  </div>
+                  <a href="reset-password.html" value="Forgot my password"
+                     >Forgot my password</a
+                  >
+               </div>
+               <div class="w-100 gap-50 mb-1 mt-1 space-between">
+                  <button type="submit" class="button-primary">
+                     Log in
+                  </button>
+                  <button
+                     type="submit"
+                     class="button-secondary"
+                     formnovalidate>
+                     Guest Login
+                  </button>
+               </div>
+            </form>
+         </div>
+      </seqtion>
+   </body>
 </html>

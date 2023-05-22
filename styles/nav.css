@@ -1,0 +1,41 @@
+.nav-element-wrapper {
+   width: 100%;
+}
+
+nav > .logo {
+   margin-top: 3rem;
+}
+
+.nav-element {
+   cursor: pointer;
+   display: flex;
+   gap: 1rem;
+   padding-left: 2.5rem;
+}
+
+.nav-element:hover {
+   background-color: rgb(25, 32, 43);
+}
+
+.nav-element img {
+   width: 1.25rem;
+   object-fit: contain;
+}
+
+.nav-element-active {
+   background-color: rgb(10, 19, 37);
+   color: white;
+}
+
+#nav-element-legal-notice {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   margin: 0 0 3rem;
+   padding: 0;
+   width: 100%;
+}
+
+#nav-element-legal-notice img {
+   padding-left: 2.5rem;
+}
