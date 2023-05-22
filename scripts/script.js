@@ -51,9 +51,10 @@ function getIndexOfValue(array, key, value) {
   return array.findIndex(k => k[key] === value);
 }
 
-function initDropDown(id, dataArray, heading, elementName, multiSelect, imgSrc, headingOverwrite, selectedElements, expandStatus) {
+function initDropDown(id, dataArray, heading, elementId, elementName, multiSelect, imgSrc, headingOverwrite, selectedElements, expandStatus) {
   let content = document.getElementById(id);
-  let tmp_elementName = elementName || 'name';
+  let tmp_elementId = elementId || 'name';
+  let tmp_elementName = elementName || ['name'];
   let tmp_multiSelect = multiSelect || false;
   let tmp_imgSrc = imgSrc || 'assets/img/sort-down.png';
   let tmp_headingOverwrite = headingOverwrite || null;
@@ -65,6 +66,7 @@ function initDropDown(id, dataArray, heading, elementName, multiSelect, imgSrc, 
       "name": id,
       "dataArray": dataArray,
       "heading": heading,
+      "elementId": tmp_elementId,
       "elementName": tmp_elementName,
       "multiSelect": tmp_multiSelect,
       "imgSrc": tmp_imgSrc,
@@ -75,9 +77,9 @@ function initDropDown(id, dataArray, heading, elementName, multiSelect, imgSrc, 
   )
 
   content.innerHTML = /*html*/ `
-  <div class="form-default-drop-down-element" onclick="expandDropDown('${id}')">
+  <div class="form-drop-down-element" onclick="expandDropDown('${id}')">
     <h6 id="${id}-heading">${heading}</h6>
-    <img class="form-default-input-img" src="${tmp_imgSrc}">
+    <img class="form-input-img" src="${tmp_imgSrc}">
   </div>
   <div id="${id}-content" class="form-drop-down-content" ></div>`;
 }
@@ -99,36 +101,47 @@ function expandDropDown(id) {
 
   for (let i = 0; i < config['dataArray'].length; i++) {
     const item = config['dataArray'][i];
-    let elementName = item[config['elementName']];
+    let elementId = item[config['elementId']];
+    let elementName = "";
+
+    for (let j = 0; j < config['elementName'].length; j++) {
+      elementName = `${elementName} ${item[config['elementName'][j]]}`;
+    }
 
     content.innerHTML += /*html*/ `
-    <div id="${id}-element-${elementName}" class="form-default-drop-down-element" onclick="selectDropDownElement('${id}', '${elementName}')">
+    <div id="${id}-element-${elementId}" class="form-drop-down-element" onclick="selectDropDownElement('${id}', '${elementId}')">
       <h6>${elementName}</h6>
+      <div id="${id}-checkbox-${elementId}" class="form-drop-down-checkbox display-none"></div>
     </div>`;
 
-    if (config['selectedElements'].indexOf(elementName) > -1) { 
-      document.getElementById(`${id}-element-${elementName}`).classList.add('form-default-selected-drop-down-element');
+    if (config['multiSelect']) {
+      document.getElementById(`${id}-checkbox-${elementId}`).classList.remove('display-none');
+    }
+
+    if (config['selectedElements'].indexOf(elementId) > -1) { 
+      document.getElementById(`${id}-element-${elementId}`).classList.add('form-drop-down-selected-element');
+      document.getElementById(`${id}-checkbox-${elementId}`).classList.add('form-drop-down-checkbox-filled');
     }
   }
 }
 
-function selectDropDownElement(id, selectedElement) {
+function selectDropDownElement(id, elementId) {
   let config = formDropDownConfig[getIndexOfValue(formDropDownConfig, 'name', `${id}`)]
-  let indexOfselectedElement = config['selectedElements'].indexOf(selectedElement);
-  let HTMLelement = document.getElementById(`${id}-element-${selectedElement}`);
+  let indexOfelementId = config['selectedElements'].indexOf(elementId);
+  let checkboxDiv = document.getElementById(`${id}-checkbox-${elementId}`);
   
   if (config['multiSelect'] == false) {
-    config['headingOverwrite'] = selectedElement;
-    config['selectedElements'] = [selectedElement];
+    config['headingOverwrite'] = elementId;
+    config['selectedElements'] = [elementId];
     expandDropDown(id);
     return
   }
 
-  if (indexOfselectedElement == -1) { 
-    config['selectedElements'].push(selectedElement);
-    HTMLelement.classList.add('form-default-selected-drop-down-element');
+  if (indexOfelementId == -1) { 
+    config['selectedElements'].push(elementId);
+    checkboxDiv.classList.add('form-drop-down-checkbox-filled');
   } else {
-    config['selectedElements'].splice(indexOfselectedElement, 1);
-    HTMLelement.classList.remove('form-default-selected-drop-down-element');
+    config['selectedElements'].splice(indexOfelementId, 1);
+    checkboxDiv.classList.remove('form-drop-down-checkbox-filled');
   }
 }

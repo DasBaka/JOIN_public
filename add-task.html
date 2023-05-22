@@ -15,8 +15,8 @@
 </head>
 
 <body onload="initialPageLoad(), 
-  initDropDown('form-drop-down-category', categories, 'Select task category', 'name'),
-  initDropDown('form-drop-down-assignee', users, 'Select contacts to assign', 'username', true)">
+  initDropDown('form-drop-down-category', categories, 'Select task category', 'name', ['name']),
+  initDropDown('form-drop-down-assignee', users, 'Select contacts to assign', 'username', ['firstname', 'lastname'], true)">
   <nav include-html="templates/nav.html"></nav>
   <header include-html="templates/banner.html"></header>
   <main id="main-wrapper">
@@ -40,11 +40,11 @@
           </div>
           <div>
             <h6>Category</h6>
-            <div id="form-drop-down-category" class="form-default-drop-down"></div>
+            <div id="form-drop-down-category" class="form-drop-down"></div>
           </div>
           <div>
             <h6>Assigned to</h6>
-            <div id="form-drop-down-assignee" class="form-default-drop-down"></div>
+            <div id="form-drop-down-assignee" class="form-drop-down"></div>
           </div>
         </div>
         <div>

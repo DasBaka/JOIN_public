@@ -316,7 +316,7 @@ main {
   color: rgb(226, 226, 226);
 }
 
-.form-default-input-img {
+.form-input-img {
   height: 20px;
   position: absolute;
   right: 0px;
@@ -324,7 +324,7 @@ main {
   transform: translate(-50%, -50%);
 }
 
-.form-default-drop-down {
+.form-drop-down {
   background-color: white;
   border-radius: 10px;
   border: rgb(226, 226, 226) solid 0.5px;
@@ -341,15 +341,36 @@ main {
   overflow: scroll;
 }
 
-.form-default-drop-down-element {
-  padding: 12px 0px 12px 20px;
+.form-drop-down-element {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 12px 12px 20px;
   position: relative;
 }
 
-.form-default-drop-down-element:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.form-drop-down-element:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.form-drop-down-element:active {
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
-.form-default-selected-drop-down-element {
-  background-color: rgba(0, 0, 0, 0.075);
+.form-drop-down-selected-element {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.form-drop-down-checkbox {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: black;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  height: 10px;
+  padding: 2px;
+  width: 10px;
+}
+
+.form-drop-down-checkbox-filled {
+  background-clip: content-box;
+  background-color: rgba(0, 0, 0);
 }
