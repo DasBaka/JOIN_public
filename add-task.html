@@ -14,9 +14,7 @@
   <script src="scripts/task.js"></script>
 </head>
 
-<body onload="initialPageLoad(), 
-  initDropDown('form-drop-down-category', categories, 'Select task category', 'name', ['name']),
-  initDropDown('form-drop-down-assignee', users, 'Select contacts to assign', 'username', ['firstname', 'lastname'], true)">
+<body onload="initialPageLoad()">
   <nav include-html="templates/nav.html"></nav>
   <header include-html="templates/banner.html"></header>
   <main id="main-wrapper">

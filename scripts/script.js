@@ -4,6 +4,7 @@ let formDropDownConfig = [];
 async function initialPageLoad() {
   await includeHTML();
   activeNavElement();
+  initDropDown();
 }
 
 function initialRedirect() {
@@ -51,44 +52,26 @@ function getIndexOfValue(array, key, value) {
   return array.findIndex(k => k[key] === value);
 }
 
-function initDropDown(id, dataArray, heading, elementId, elementName, multiSelect, imgSrc, headingOverwrite, selectedElements, expandStatus) {
-  let content = document.getElementById(id);
-  let tmp_elementId = elementId || 'name';
-  let tmp_elementName = elementName || ['name'];
-  let tmp_multiSelect = multiSelect || false;
-  let tmp_imgSrc = imgSrc || 'assets/img/sort-down.png';
-  let tmp_headingOverwrite = headingOverwrite || null;
-  let tmp_selectedElements = selectedElements || [];
-  let tmp_expandStatus = expandStatus || false;
+function initDropDown() {
+  for (let i = 0; i < formDropDown.length; i++) {
+    const item = formDropDown[i];
+    if (!document.getElementById(item['id'])) { continue }
+    let content = document.getElementById(item['id']);
 
-  formDropDownConfig.push(
-    {
-      "name": id,
-      "dataArray": dataArray,
-      "heading": heading,
-      "elementId": tmp_elementId,
-      "elementName": tmp_elementName,
-      "multiSelect": tmp_multiSelect,
-      "imgSrc": tmp_imgSrc,
-      "headingOverwrite": tmp_headingOverwrite,
-      "selectedElements": tmp_selectedElements,
-      "expandStatus": tmp_expandStatus,
-    }
-  )
-
-  content.innerHTML = /*html*/ `
-  <div class="form-drop-down-element" onclick="expandDropDown('${id}')">
-    <h6 id="${id}-heading">${heading}</h6>
-    <img class="form-input-img" src="${tmp_imgSrc}">
-  </div>
-  <div id="${id}-content" class="form-drop-down-content" ></div>`;
+    content.innerHTML = /*html*/ `
+    <div class="form-drop-down-element" onclick="expandDropDown('${item['id']}')">
+      <h6 id="${item['id']}-heading">${item['heading']}</h6>
+      <img class="form-input-img" src="${item['imgSrc']}">
+    </div>
+    <div id="${item['id']}-content" class="form-drop-down-content" ></div>`;
+  }
 }
 
 function expandDropDown(id) {
   let content = document.getElementById(`${id}-content`);
   let heading = document.getElementById(`${id}-heading`);
-  let config = formDropDownConfig[getIndexOfValue(formDropDownConfig, 'name', `${id}`)]
-
+  let config = formDropDown[getIndexOfValue(formDropDown, 'id', `${id}`)];
+  
   if (config['expandStatus']) {
     content.innerHTML = '';
     config['expandStatus'] = false;
@@ -126,7 +109,7 @@ function expandDropDown(id) {
 }
 
 function selectDropDownElement(id, elementId) {
-  let config = formDropDownConfig[getIndexOfValue(formDropDownConfig, 'name', `${id}`)]
+  let config = formDropDown[getIndexOfValue(formDropDown, 'id', `${id}`)]
   let indexOfelementId = config['selectedElements'].indexOf(elementId);
   let checkboxDiv = document.getElementById(`${id}-checkbox-${elementId}`);
   

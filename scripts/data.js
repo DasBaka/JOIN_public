@@ -208,3 +208,30 @@ let priorites = [
     "color": "darkgreen"
   }
 ]
+
+let formDropDown = [
+  {
+    "id": "form-drop-down-category",
+    "dataArray": categories,
+    "heading": "Select task category",
+    "elementId": "name",
+    "elementName": [ "name" ],
+    "multiSelect": false,
+    "imgSrc": "assets/img/sort-down.png",
+    "headingOverwrite": null,
+    "selectedElements": [],
+    "expandStatus": false
+  },
+  {
+    "id": "form-drop-down-assignee",
+    "dataArray": users,
+    "heading": "Select contacts to assign",
+    "elementId": "username",
+    "elementName": [ "firstname", "lastname" ],
+    "multiSelect": true,
+    "imgSrc": "assets/img/sort-down.png",
+    "headingOverwrite": null,
+    "selectedElements": [],
+    "expandStatus": false
+  }
+]
