@@ -10,89 +10,40 @@
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <link rel="stylesheet" href="styles/contacts.css" />
+      <link rel="stylesheet" href="styles/contact-list.css" />
       <!--<script src="scripts/mini_backend.js"></script>-->
       <script src="scripts/script.js"></script>
+      <script src="scripts/data.js"></script>
+      <script src="templates/html-templates.js"></script>
       <script src="scripts/contacts.js"></script>
    </head>
-   <body
-      onload="initialPageLoad(), renderContacts(), contactListHandler()">
-      <div class="pop-in display-none">
-         <div
-            class="content-wrapper-box new-contact-card display-none"
-            id="new-contact-card">
-            <div class="new-contact-card-left">
-               <div>
-                  <img
-                     src="assets/img/logo-white.png"
-                     alt="join logo white" />
-                  <h1>Add contact</h1>
-                  <h2>Tasks are better with a team!</h2>
-                  <div class="blue-divider"></div>
-               </div>
-            </div>
-            <form id="new-contact-form" class="new-contact-form">
-               <div class="color-input-relative">
-                  <input
-                     type="color"
-                     id="color-input"
-                     class="color-input" />
-                  <label
-                     for="color-input"
-                     class="user-icon user-icon-big edit-user-icon"
-                     id="new-user-icon"
-                     >AA</label
-                  >
-               </div>
-               <div class="new-contact-inputs flex-column">
-                  <input
-                     type="text"
-                     class="form-text-input"
-                     id="new-name"
-                     placeholder="Name" />
-                  <input
-                     type="email"
-                     class="form-text-input"
-                     id="new-mail"
-                     placeholder="Email" />
-                  <input
-                     type="tel"
-                     class="form-text-input"
-                     id="new-phone"
-                     placeholder="Phone" />
-                  <div class="w-100 gap-50 mb-1 mt-1">
-                     <button class="button-secondary" formnovalidate>
-                        Cancel
-                     </button>
-                     <button type="submit" class="button-primary">
-                        Create Contact
-                     </button>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
+   <body onload="initialPageLoad(), renderContacts()">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column flex-column">
          <header include-html="templates/header.html"></header>
          <main>
-            <div
+            <aside
                id="contact-list-wrapper"
-               class="contact-list-wrapper outside-trigger"></div>
-            <div class="base-content-wrapper">
+               class="contact-list-wrapper"></aside>
+            <seqtion class="pr-5 pl-5">
                <div class="title-wrapper">
                   <h1>Contacts</h1>
                   <h3>Better with a team</h3>
                </div>
-               <div
+               <article
                   class="main-content-wrapper display-none"
-                  id="contact-details"></div>
-               <button
-                  class="button-primary new-contact-btn"
-                  onclick="toggleSlideAnimationRight('new-contact-card', 2), toggleParent('new-contact-card')">
-                  New contact
-               </button>
-            </div>
+                  id="contact-details"></article>
+            </seqtion>
+            <button
+               class="button-primary new-contact-btn"
+               onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')">
+               New contact
+            </button>
          </main>
       </div>
+      <seqtion
+         include-html="templates/create-new-contact.html"
+         onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')"
+         class="pop-in display-none"></seqtion>
    </body>
 </html>

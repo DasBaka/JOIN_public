@@ -1,115 +1,29 @@
 //setURL("http://f015901e@gruppenarbeit-493-join.developerakademie.net/smallest_backend_ever-master');
-
-let users = [
-   {
-      name: 'Anton Mayer',
-      mail: 'antom@gmail.com',
-      color: '#000000',
-   },
-   {
-      name: 'Anja Schulz',
-      mail: 'schulz@hotmail.com',
-      color: '#000000',
-   },
-   {
-      name: 'Benedikt Ziegler',
-      mail: 'benedikt@gmail.com',
-      color: '#000000',
-   },
-   {
-      name: 'David Eisenberg',
-      mail: 'davidberg@gmail.com',
-      color: '#000000',
-   },
-   {
-      name: 'Eva Fischer',
-      mail: 'eva@gmail.com',
-      color: '#000000',
-   },
-   {
-      name: 'Emmanuel Maurer',
-      mail: 'emmanuelma@gmail.com',
-      color: '#ffffff',
-   },
-   {
-      name: 'Marcel Bauer',
-      mail: 'bauer@gmail.com',
-      color: '#ffffff',
-   },
-
-   {
-      name: 'Jonas Holl',
-      mail: 'jh1234@gmail.com',
-      color: '#ffffff',
-   },
-
-   {
-      name: 'Johannes Baum',
-      mail: 'treethree@gmail.com',
-      color: '#abcdef',
-   },
-   {
-      name: 'Friedrich Mai',
-      mail: 'f82mai@gmail.com',
-      color: '#ffffff',
-   },
-   {
-      name: 'Stefanie Sauer',
-      mail: 'sauermachtlustig@gmail.com',
-      color: '#ffffff',
-   },
-];
-
 let groupedUsers;
 sortContacts();
 addGroup();
 groupedUsers = Object.values(groupItems(users, 'letter'));
 
-function contactListHandler() {
-   document
-      .getElementById('contact-list-wrapper')
-      .addEventListener('click', (event) => {
-         clickOnCard(event);
-      });
-   document
-      .getElementById('contact-list-wrapper')
-      .addEventListener('click', (event) => {
-         console.log(event.target.classList.contains('outside-trigger'));
-         if (event.target.classList.contains('outside-trigger')) {
-            initContainer('contact-details');
-            uncheckBtns();
-            toggleSlideAnimationRight('contact-details', 1);
-         }
-      });
-}
-
-function clickOnCard(event) {
-   for (let i = 0; i < groupedUsers.length; i++) {
-      for (let j = 0; j < groupedUsers[i]['value'].length; j++) {
-         if (event.target.id === 'contact-btn-' + i + '-' + j) {
-            showContactCard(i, j);
-         }
-      }
-   }
-}
-
 /**
  * Render function for the contact list.
  */
 function renderContacts() {
-   initContainer('contact-list-wrapper');
+   let list = 'contact-list-wrapper';
+   initContainer(list);
+   initContactList(list);
+}
+
+function initContactList(list) {
    for (let i = 0; i < groupedUsers.length; i++) {
-      addIntoContainer(
-         'contact-list-wrapper',
-         `<h4 class="contact-list-divider outside-trigger">${groupedUsers[i]['group']}</h4>`
-      );
-      let contactArray = groupedUsers[i]['value'];
-      for (let j = 0; j < contactArray.length; j++) {
-         addIntoContainer(
-            'contact-list-wrapper',
-            contactCardTemplate(contactArray[j], i, j)
-         );
-      }
+      addIntoContainer(list, alphabeticalContactDividerTemplate(i));
+      initContacts(list, i);
+   }
+}
+
+function initContacts(list, i) {
+   let contactArray = groupedUsers[i]['value'];
+   for (let j = 0; j < contactArray.length; j++) {
+      addIntoContainer(list, contactCardTemplate(contactArray[j], i, j));
    }
 }
 
@@ -121,16 +35,6 @@ function renderContacts() {
 function initContainer(id) {
    let container = document.getElementById(id);
    container.innerHTML = '';
-}
-
-/**
- * Fills the innHTML of the desired container with the chosen input.
- * @param {*} id - container id
- * @param {*} content - HTML input
- */
-function addIntoContainer(id, content) {
-   let container = document.getElementById(id);
-   container.innerHTML += content;
 }
 
 //Contact-Manipulation and -Interaction
@@ -147,16 +51,6 @@ function sortContacts() {
       }
       return 0;
    });
-}
-
-/**
- * Returns the inital Letter of a name or surname.
- * @param {string} name - Name
- * @param {number} pos - Position (most: 0)
- * @returns
- */
-function initialLetter(name, pos) {
-   return name.name.charAt(pos);
 }
 
 /**
@@ -186,41 +80,6 @@ function groupItems(array, key) {
    }, {});
 }
 
-//Color-Interaction
-/**
- * Changes the (text) color based on the background-color. Recommended threshhold: 145 - 190;
- * @param {HEXcolor} bgColor - color as HEX-format
- * @returns - Returns "white" or "black" as HEX-color
- */
-function responsiveColor(bgColor) {
-   let colorRGB = hexToRgb(bgColor);
-   let threshhold = 150;
-   if (
-      colorRGB.r * 0.299 + colorRGB.g * 0.587 + colorRGB.b * 0.114 >
-      threshhold
-   ) {
-      return '#000000';
-   } else {
-      return '#ffffff';
-   }
-}
-
-/**
- * Formats and splits HEX-color into RGB-values
- * @param {HEXcolor} hex - color as HEX-format
- * @returns - returns values for red, green and blue.
- */
-function hexToRgb(hex) {
-   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-   return result
-      ? {
-           r: parseInt(result[1], 16),
-           g: parseInt(result[2], 16),
-           b: parseInt(result[3], 16),
-        }
-      : null;
-}
-
 //Button-Functions for Contacts
 /**
  * Initialize and renders the contact details of the clicked contact.
@@ -241,18 +100,34 @@ function toggleBoxes(groupId, contactId) {
    let btn = document.getElementById(
       'contact-btn-' + groupId + '-' + contactId
    );
-   if (btn.classList.contains('checked')) {
-      uncheckBtns();
-      toggleSlideAnimationRight('contact-details', 1);
-   } else if (
-      document.querySelectorAll('input[type=radio].checked').length > 0
-   ) {
-      justRemoveClass();
-      implementCard(btn, groupId, contactId);
+   if (contactIsChecked(btn)) {
+      resetContacts();
+   } else if (atLeastOneContactIsChecked()) {
+      switchCards(btn, groupId, contactId);
    } else {
-      implementCard(btn, groupId, contactId);
+      switchCards(btn, groupId, contactId);
       toggleSlideAnimationRight('contact-details', 1);
    }
+}
+
+function contactIsChecked(btn) {
+   return btn.classList.contains('checked');
+}
+
+function atLeastOneContactIsChecked() {
+   return (
+      document.querySelectorAll('input[type=radio].checked').length > 0
+   );
+}
+
+function resetContacts() {
+   uncheckBtns();
+   toggleSlideAnimationRight('contact-details');
+}
+
+function switchCards(btn, groupId, contactId) {
+   justRemoveClass();
+   implementCard(btn, groupId, contactId);
 }
 
 function implementCard(btn, groupId, contactId) {
@@ -287,64 +162,15 @@ function uncheckBtns() {
    }
 }
 
-function toggleSlideAnimationRight(id, num) {
+function toggleSlideAnimationRight(id) {
    document.getElementById(id).classList.toggle('display-none');
-   document.getElementById(id).classList.toggle('animate-right' + num);
+   document.getElementById(id).classList.toggle('animate-right');
 }
 
 function toggleParent(id) {
    document
       .getElementById(id)
       .parentElement.classList.toggle('display-none');
-}
-
-//Templates
-function contactCardTemplate(user, i, j) {
-   return /*html*/ `
-  <input type="radio" name="contact-list-btns" id="contact-btn-${i}-${j}" class="contact-btn">
-  <label for="contact-btn-${i}-${j}" class="contact-wrapper">
-      <div id="user-icon-${i}-${j}" class="user-icon" ${colorContactIcon(
-      user
-   )}>${initialLetter(user, 0)}${initialLetter(
-      user,
-      user.name.search(' ') + 1
-   )}</div>
-      <div class="contact-details">
-          <h4>${user.name}</h4>
-          <h6 style="color: #007cee">${user.mail}</h6>
-      </div>
-  </div>
-  `;
-}
-
-function contactDetailsTemplate(user, i, j) {
-   return /*html*/ `
-  <div class="contact-wrapper">
-    <div id="user-icon-${i}-${j}" class="user-icon user-icon-big" ${colorContactIcon(
-      user
-   )}>${initialLetter(user, 0)}${initialLetter(
-      user,
-      user.name.search(' ') + 1
-   )}</div>
-    <div class="contact-details flex-column contact-details-big">
-      <h2>${user.name}</h2>
-      <div>
-        <h5 style="color: #29abe2"><img src="assets/img/blue_cross.png"/>Add Task</h5>
-      </div>
-    </div>
-  </div>
-  <div>
-    <div class="contact-details-card-title">
-      <h4>Contact Information</h4>
-      <span><img src="assets/img/edit.png"/>Edit Contact</span>
-    </div>
-    <div class="contact-details-card">
-      <h6><b>Email</b></h6>
-      <h6 style="color: #007cee">${user.mail}</h6>
-      <h6><b>Phone</b></h6>
-      <h6>1234567890</h6>
-    </div>    
-  </div>  `;
 }
 
 function colorContactIcon(user) {

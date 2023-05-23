@@ -39,3 +39,36 @@ nav > .logo {
 #nav-element-legal-notice img {
    padding-left: 2.5rem;
 }
+
+@media (max-width: 960px) {
+   nav {
+      position: absolute;
+      height: 100px;
+      bottom: 0;
+      width: 100vw;
+      z-index: 10;
+   }
+
+   nav > .logo {
+      display: none;
+   }
+
+   .nav-element-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+   }
+
+   #nav-element-legal-notice {
+      display: none;
+   }
+
+   .nav-element {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem 0 0;
+      align-items: center;
+      flex-grow: 1;
+   }
+}
