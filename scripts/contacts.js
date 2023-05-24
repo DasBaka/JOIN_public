@@ -1,8 +1,8 @@
 //setURL("http://f015901e@gruppenarbeit-493-join.developerakademie.net/smallest_backend_ever-master');
-let groupedUsers;
+let groupedContacts;
 sortContacts();
 addGroup();
-groupedUsers = Object.values(groupItems(users, 'letter'));
+groupedContacts = Object.values(groupItems(contacts, 'letter'));
 
 /**
  * Render function for the contact list.
@@ -14,14 +14,14 @@ function renderContacts() {
 }
 
 function initContactList(list) {
-   for (let i = 0; i < groupedUsers.length; i++) {
+   for (let i = 0; i < groupedContacts.length; i++) {
       addIntoContainer(list, alphabeticalContactDividerTemplate(i));
       initContacts(list, i);
    }
 }
 
 function initContacts(list, i) {
-   let contactArray = groupedUsers[i]['value'];
+   let contactArray = groupedContacts[i]['value'];
    for (let j = 0; j < contactArray.length; j++) {
       addIntoContainer(list, contactCardTemplate(contactArray[j], i, j));
    }
@@ -39,10 +39,10 @@ function initContainer(id) {
 
 //Contact-Manipulation and -Interaction
 /**
- * Sorts the users array.
+ * Sorts the Contacts array.
  */
 function sortContacts() {
-   users.sort(function (a, b) {
+   contacts.sort(function (a, b) {
       if (a.name.toUpperCase() < b.name.toUpperCase()) {
          return -1;
       }
@@ -57,7 +57,7 @@ function sortContacts() {
  * Adds the "letter"-group.
  */
 function addGroup() {
-   users.forEach((element) => {
+   contacts.forEach((element) => {
       element['letter'] = initialLetter(element, 0);
    });
 }
@@ -134,7 +134,7 @@ function implementCard(btn, groupId, contactId) {
    addIntoContainer(
       'contact-details',
       contactDetailsTemplate(
-         groupedUsers[groupId]['value'][contactId],
+         groupedContacts[groupId]['value'][contactId],
          groupId,
          contactId
       )

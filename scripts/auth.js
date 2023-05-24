@@ -10,14 +10,14 @@ function checkLogin() {
       let e = users[i];
       if (e.mail == loginMail) {
          if (e.password == pw) {
-            console.log('success');
+            /*             console.log('success'); */
             window.location.href = 'summary.html';
          } else {
-            console.log('wrong pw');
+            /*             console.log('wrong pw'); */
             return false;
          }
       }
    }
-   console.log('no match');
+   /*    console.log('no match'); */
    return false;
 }

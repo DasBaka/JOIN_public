@@ -1,51 +1,54 @@
 let users = [
    {
+      name: 'Michael Mustermann',
+      mail: 'mm@mm.mm',
+      color: '#ffffff',
+      phone: '',
+      password: 'mm',
+   },
+];
+
+let contacts = [
+   {
       name: 'Anton Mayer',
       mail: 'antom@gmail.com',
       color: '#000000',
-      password: 'a',
       phone: '',
    },
    {
       name: 'Anja Schulz',
       mail: 'schulz@hotmail.com',
       color: '#000000',
-      password: '',
       phone: '',
    },
    {
       name: 'Benedikt Ziegler',
       mail: 'benedikt@gmail.com',
       color: '#000000',
-      password: '',
       phone: '',
    },
    {
       name: 'David Eisenberg',
       mail: 'davidberg@gmail.com',
       color: '#000000',
-      password: '',
       phone: '',
    },
    {
       name: 'Eva Fischer',
       mail: 'eva@gmail.com',
       color: '#000000',
-      password: '',
       phone: '',
    },
    {
       name: 'Emmanuel Maurer',
       mail: 'emmanuelma@gmail.com',
       color: '#ffffff',
-      password: '',
       phone: '',
    },
    {
       name: 'Marcel Bauer',
       mail: 'bauer@gmail.com',
       color: '#ffffff',
-      password: '',
       phone: '',
    },
 
@@ -53,7 +56,6 @@ let users = [
       name: 'Jonas Holl',
       mail: 'jh1234@gmail.com',
       color: '#ffffff',
-      password: '',
       phone: '',
    },
 
@@ -61,21 +63,18 @@ let users = [
       name: 'Johannes Baum',
       mail: 'treethree@gmail.com',
       color: '#abcdef',
-      password: '',
       phone: '',
    },
    {
       name: 'Friedrich Mai',
       mail: 'f82mai@gmail.com',
       color: '#ffffff',
-      password: '',
       phone: '',
    },
    {
       name: 'Stefanie Sauer',
       mail: 'sauermachtlustig@gmail.com',
       color: '#ffffff',
-      password: '',
       phone: '',
    },
 ];
