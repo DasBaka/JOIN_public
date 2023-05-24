@@ -1,79 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="styles/font_inter.css" />
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/summary.css" />
-    <script src="scripts/script.js"></script>
-  </head>
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1.0" />
+      <title>Join</title>
+      <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/style.css" />
+      <link rel="stylesheet" href="styles/summary.css" />
+      <script src="scripts/script.js"></script>
+   </head>
 
-  <body onload="initialPageLoad()">
-    <nav include-html="templates/nav.html"></nav>
-    <header include-html="templates/banner.html"></header>
-    <main>
-      <div class="base-content-wrapper">
-        <div class="title-wrapper">
-          <h1>Summary</h1>
-          <h3>Everything in a nutshell!</h3>
-        </div>
-        <div class="info-box-greeting-wrapper">
-          <div class="summary-table">
-            <div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-small">
-                <h1>5</h1>
-                <p>Tasks in Board</p>
-              </div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-small">
-                <h1>2</h1>
-                <p>Tasks in Progress</p>
-              </div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-small">
-                <h1>2</h1>
-                <p>Awaiting Feedback</p>
-              </div>
-            </div>
-            <div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-large">
-                <div>
-                  <img src="assets/img/urgent.png" alt="Ugrent icon" />
-                  <div class="info-box-content">
-                    <h2><b>1</b></h2>
-                    <p>Urgent</p>
+   <body onload="initialPageLoad()">
+      <nav include-html="templates/nav.html"></nav>
+      <div class="main-column">
+         <header include-html="templates/header.html"></header>
+         <main class="relative flex-grow-1 flex-column pr-5 pl-5">
+            <seqtion class="title-wrapper">
+               <h1>Summary</h1>
+               <h3>Everything in a nutshell!</h3>
+            </seqtion>
+            <seqtion class="info-box-greeting-wrapper">
+               <div class="summary-table">
+                  <div>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-small content-box">
+                        <h1 id="tasks-in-board">5</h1>
+                        <p>Tasks in Board</p>
+                     </article>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-small content-box">
+                        <h1 id="tasks-in-progress">2</h1>
+                        <p>Tasks in Progress</p>
+                     </article>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-small content-box">
+                        <h1 id="awaiting-feedback">2</h1>
+                        <p>Awaiting Feedback</p>
+                     </article>
                   </div>
-                </div>
-                <div>
-                  <h5><b>October 16, 2022</b></h5>
-                  <p>Upcoming Deadline</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-medium">
-                <img src="assets/img/to-do.png" alt="To-Do Icon" />
-                <div class="info-box-content">
-                  <h1>1</h1>
-                  <p>To-do</p>
-                </div>
-              </div>
-              <div onclick="window.location.href='/board.html'" class="info-box info-box-medium">
-                <img src="assets/img/done.png" alt="Done Icon" />
-                <div class="info-box-content">
-                  <h1>1</h1>
-                  <p>Done</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="greeting-wrapper">
-            <p>Good morning,</p>
-            <p>Sofia Müller</p>
-          </div>
-        </div>
+                  <div>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-large content-box">
+                        <div>
+                           <img
+                              src="assets/img/urgent.png"
+                              alt="Ugrent icon" />
+                           <div class="info-box-content">
+                              <h2><b>1</b></h2>
+                              <p>Urgent</p>
+                           </div>
+                        </div>
+                        <div>
+                           <h5><b>October 16, 2022</b></h5>
+                           <p>Upcoming Deadline</p>
+                        </div>
+                     </article>
+                  </div>
+                  <div>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-medium content-box">
+                        <img src="assets/img/to-do.png" alt="To-Do Icon" />
+                        <div class="info-box-content">
+                           <h1>1</h1>
+                           <p>To-do</p>
+                        </div>
+                     </article>
+                     <article
+                        onclick="window.location.href='/board.html'"
+                        class="info-box center flex-column info-box-medium content-box">
+                        <img src="assets/img/done.png" alt="Done Icon" />
+                        <div class="info-box-content">
+                           <h1>1</h1>
+                           <p>Done</p>
+                        </div>
+                     </article>
+                  </div>
+               </div>
+               <div class="greeting-wrapper">
+                  <p>Good morning,</p>
+                  <p>Sofia Müller</p>
+               </div>
+            </seqtion>
+         </main>
       </div>
-    </main>
-  </body>
+   </body>
 </html>
