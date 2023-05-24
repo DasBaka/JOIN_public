@@ -1,0 +1,57 @@
+<div
+   class="content-box new-contact-card display-none"
+   id="new-contact-card"
+   onclick="event.cancelBubble = true;">
+   <div class="new-contact-card-left pl-5">
+      <img src="assets/img/logo-white.png" alt="join logo white" />
+      <h1>Add contact</h1>
+      <h2>Tasks are better with a team!</h2>
+      <div class="blue-divider"></div>
+   </div>
+   <form id="new-contact-form" class="new-contact-form center pr-5">
+      <div class="color-input-relative">
+         <input
+            type="color"
+            id="color-input"
+            name="color-input"
+            class="color-input" />
+         <label
+            for="color-input"
+            class="user-icon user-icon-big edit-user-icon"
+            id="new-user-icon"
+            >AA</label
+         >
+      </div>
+      <div class="center flex-column">
+         <input
+            type="text"
+            id="form-name"
+            name="form-name"
+            placeholder="Name"
+            autocomplete="cc-name"
+            required /><br />
+         <input
+            type="email"
+            id="form-email"
+            name="form-email"
+            placeholder="Email"
+            autocomplete="email"
+            required /><br />
+         <input
+            type="tel"
+            class="form-text-input"
+            id="new-phone"
+            placeholder="Phone"
+            autocomplete="tel" />
+         <div class="w-100 gap-50 mt-5 space-between">
+            <button class="button-secondary" formnovalidate>Cancel</button>
+            <button
+               type="submit"
+               class="button-primary"
+               onsubmit="createNewUser('new-contact-form')">
+               Create Contact
+            </button>
+         </div>
+      </div>
+   </form>
+</div>
