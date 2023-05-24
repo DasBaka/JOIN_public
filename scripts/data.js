@@ -218,19 +218,46 @@ let categories = [
 ];
 
 let priorites = [
-   {
-      name: 'urgent',
-      icon_path: 'assets/img/priority-urgent.svg',
-      color: 'darkred',
-   },
-   {
-      name: 'medium',
-      icon_path: 'assets/img/priority-medium.svg',
-      color: 'darkorange',
-   },
-   {
-      name: 'low',
-      icon_path: 'assets/img/priority-low.svg',
-      color: 'darkgreen',
-   },
-];
+  {
+    "name": "urgent",
+    "icon_path": "assets/img/priority-urgent.svg",
+    "color": "darkred"
+  },
+  {
+    "name": "medium",
+    "icon_path": "assets/img/priority-medium.svg",
+    "color": "darkorange"
+  },
+  {
+    "name": "low",
+    "icon_path": "assets/img/priority-low.svg",
+    "color": "darkgreen"
+  }
+]
+
+let formDropDown = [
+  {
+    "id": "form-drop-down-category",
+    "dataArray": categories,
+    "heading": "Select task category",
+    "elementId": "name",
+    "elementName": [ "name" ],
+    "multiSelect": false,
+    "imgSrc": "assets/img/sort-down.png",
+    "headingOverwrite": null,
+    "selectedElements": [],
+    "expandStatus": false
+  },
+  {
+    "id": "form-drop-down-assignee",
+    "dataArray": users,
+    "heading": "Select contacts to assign",
+    "elementId": "username",
+    "elementName": [ "firstname", "lastname" ],
+    "multiSelect": true,
+    "imgSrc": "assets/img/sort-down.png",
+    "headingOverwrite": null,
+    "selectedElements": [],
+    "expandStatus": false
+  }
+]

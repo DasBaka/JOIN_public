@@ -20,10 +20,6 @@ function setActiveDragElement(taskId) {
   activeDragElement = taskId;
 }
 
-function getIndexOfValue(array, key, value) {
-  return array.findIndex(k => k[key] === value);
-}
-
 function applyEditTask(taskId) {
   let task = tasks[taskId];
 

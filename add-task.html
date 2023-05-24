@@ -1,17 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="styles/font_inter.css" />
-    <link rel="stylesheet" href="styles/style.css" />
-    <script src="scripts/script.js"></script>
-  </head>
-  <body onload="initialPageLoad()">
-    <nav include-html="templates/nav.html"></nav>
-    <header include-html="templates/banner.html"></header>
-    <div class="default-content-wrapper"></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="stylesheet" href="styles/font_inter.css" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/add-task.css">
+  <script src="scripts/data.js"></script>
+  <script src="scripts/script.js"></script>
+  <script src="scripts/task.js"></script>
+</head>
+
+<body onload="initialPageLoad()">
+  <nav include-html="templates/nav.html"></nav>
+  <header include-html="templates/banner.html"></header>
+  <main id="main-wrapper">
+    <div class="base-content-wrapper">
+      <div class="headline-wrapper">
+        <div class="title-wrapper">
+          <h1>Board</h1>
+        </div>
+      </div>
+      <div class="add-task-layout-divider">
+        <div class="add-task-layout-divider-first-column">
+          <div class="task-edit-form-item-wrapper">
+            <h6>Title</h6>
+            <input id="task-edit-form-input-title" type="text" placeholder="Enter a Title" value=""
+              class="form-default-input task-edit-heading-gap task-edit-form-input">
+          </div>
+          <div class="task-edit-form-item-wrapper">
+            <h6>Description</h6>
+            <textarea id="task-edit-form-input-description" rows="4" placeholder="Enter a Description"
+              class="form-default-input task-edit-heading-gap task-edit-form-input" style="font-size: 1rem"></textarea>
+          </div>
+          <div>
+            <h6>Category</h6>
+            <div id="form-drop-down-category" class="form-drop-down"></div>
+          </div>
+          <div>
+            <h6>Assigned to</h6>
+            <div id="form-drop-down-assignee" class="form-drop-down"></div>
+          </div>
+        </div>
+        <div>
+          <div class="task-edit-form-item-wrapper">
+            <h6>Due date</h6>
+            <input id="task-edit-form-input-dueDate" type="date" value=""
+              class="form-default-input task-edit-heading-gap task-edit-form-input"
+              style="font-size: 1rem; cursor: pointer;">
+          </div>
+          <div class="task-edit-form-item-wrapper">
+            <h6>Prio</h6>
+            <div id="task-edit-priority-buttons" class="task-edit-priority-buttons task-edit-heading-gap"></div>
+          </div>
+        </div>
+      </div>
+      <button class="button-primary task-edit-button" onclick="">
+        <h6>Ok</h6>
+        <!-- <img src="assets/img/check-white.png" alt="Checkmark"> -->
+      </button>
+  </main>
+</body>
+
 </html>
