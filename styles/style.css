@@ -939,6 +939,80 @@ main {
   margin-top: 5rem;
 }
 
+.form-default-input {
+  background-color: white;
+  border-radius: 10px;
+  border: rgb(226, 226, 226) solid 0.5px;
+  font: inherit;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+  width: 300px;
+}
+
+.form-default-input::placeholder {
+  color: rgb(226, 226, 226);
+}
+
+.form-input-img {
+  height: 20px;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-drop-down {
+  background-color: white;
+  border-radius: 10px;
+  border: rgb(226, 226, 226) solid 0.5px;
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+}
+
+.form-drop-down-content {
+  max-height: 132px;
+  overflow: scroll;
+}
+
+.form-drop-down-element {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 12px 12px 20px;
+  position: relative;
+}
+
+.form-drop-down-element:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.form-drop-down-element:active {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.form-drop-down-selected-element {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.form-drop-down-checkbox {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: black;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  height: 10px;
+  padding: 2px;
+  width: 10px;
+}
+
+.form-drop-down-checkbox-filled {
+  background-clip: content-box;
+  background-color: rgba(0, 0, 0);
+}
+=======
 #form-name {
   background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
   background-position: 96%;
