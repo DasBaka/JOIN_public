@@ -148,7 +148,7 @@ let tasks = [
       category: 'Marketing',
       assignees: ['anja schulz', 'benedikt ziegler'],
       due_date: '2023-04-01',
-      priority: 'normal',
+      priority: 'low',
       status: 'done',
       subtasks: [
          {
