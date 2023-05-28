@@ -13,10 +13,9 @@ function contactCardTemplate(contact, i, j) {
    return /*html*/ `
    <input type="radio" name="contact-list-btns" id="contact-btn-${i}-${j}" class="contact-btn" onclick="showContactCard(${i}, ${j})">
    <label for="contact-btn-${i}-${j}" class="contact-wrapper">
-       <div id="user-icon-${i}-${j}" class="user-icon" ${colorContactIcon(contact)}>${initialLetter(
-      contact,
-      0
-   )}${initialLetter(contact, contact.name.search(' ') + 1)}</div>
+       <div id="user-icon-${i}-${j}" class="user-icon" ${colorContactIcon(
+      contact
+   )}>${initialLettersUpperCase(contact)}</div>
        <div class="contact-details">
            <h4>${contact.name}</h4>
            <h6 style="color: #007cee">${contact.mail}</h6>

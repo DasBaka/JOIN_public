@@ -58,6 +58,16 @@ function initialLetter(name, pos) {
    return name.name.charAt(pos);
 }
 
+function initialLettersUpperCase(name) {
+   let rename = name;
+   rename.name = rename.name.replace(/^\s+/g, '');
+   let result = initialLetter(rename, 0);
+   if (rename.name.search(' ') + 1 != 0) {
+      result += initialLetter(name, name.name.search(' ') + 1);
+   }
+   return result.toUpperCase();
+}
+
 //Color-Interaction
 /**
  * Changes the (text) color based on the background-color. Recommended threshhold: 145 - 190;
@@ -100,6 +110,21 @@ function colorContactIcon(user) {
       responsiveColor(user.color) +
       `";`
    );
+}
+
+/**
+ * Sorts the Contacts array.
+ */
+function sort(arr, key) {
+   arr.sort(function (a, b) {
+      if (a[key].toUpperCase() < b[key].toUpperCase()) {
+         return -1;
+      }
+      if (a[key].toUpperCase() > b[key].toUpperCase()) {
+         return 1;
+      }
+      return 0;
+   });
 }
 
 function getIndexOfValue(array, key, value) {
@@ -197,5 +222,32 @@ function selectDropDownElement(id, elementId) {
    } else {
       config['selectedElements'].splice(indexOfelementId, 1);
       checkboxDiv.classList.remove('form-drop-down-checkbox-filled');
+   }
+}
+
+/**
+ * Groups an arrays based on the desired key/property.
+ * @param {array} array - Ungrouped raw array
+ * @param {string} key - Desired key/property to group every item in the array.
+ * @returns - ! Returns an object. Use Object.values to get an array with the form {group: ..., values: ...} !
+ */
+function groupItems(array, key) {
+   return array.reduce((acc, element) => {
+      let group = element[key];
+      if (!acc[group]) {
+         acc[group] = { group, value: [element] };
+      } else {
+         acc[group].value.push(element);
+      }
+      return acc;
+   }, {});
+}
+
+function getLengthOfGroup(arr, ref) {
+   let result = arr.findIndex((e) => e.group == ref);
+   if (result < 0) {
+      return 0;
+   } else {
+      return arr[result].value.length;
    }
 }

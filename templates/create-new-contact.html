@@ -8,9 +8,18 @@
       <h2>Tasks are better with a team!</h2>
       <div class="blue-divider"></div>
    </div>
-   <form id="new-contact-form" class="new-contact-form center pr-5">
+   <form
+      id="new-contact-form"
+      class="new-contact-form center pr-5"
+      onsubmit="event.preventDefault(); createNewContact(); closeModal(); toggleSlideAnimationRight('modal')">
       <div class="color-input-relative">
-         <input type="color" id="color-input" name="color-input" class="color-input" />
+         <input
+            type="color"
+            id="color-input"
+            name="color-input"
+            class="color-input"
+            value="#ffffff"
+            oninput="changePreview()" />
          <label for="color-input" class="user-icon user-icon-big edit-user-icon" id="new-user-icon"
             >AA</label
          >
@@ -22,28 +31,29 @@
             name="form-name"
             placeholder="Name"
             autocomplete="cc-name"
+            oninput="changePreview()"
             required /><br />
          <input
             type="email"
             id="form-email"
             name="form-email"
             placeholder="Email"
-            autocomplete="email"
-            required /><br />
+            autocomplete="email" /><br />
          <input
             type="tel"
             class="form-text-input"
-            id="new-phone"
+            id="form-phone"
             placeholder="Phone"
             autocomplete="tel" />
          <div class="w-100 gap-50 mt-5 space-between">
-            <button class="button-secondary" formnovalidate>Cancel</button>
             <button
-               type="submit"
-               class="button-primary"
-               onsubmit="createNewUser('new-contact-form')">
-               Create Contact
+               type="button"
+               class="button-secondary"
+               formnovalidate
+               onclick="closeModal(); toggleSlideAnimationRight('modal')">
+               Cancel
             </button>
+            <button type="submit" class="button-primary">Create Contact</button>
          </div>
       </div>
    </form>

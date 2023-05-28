@@ -1,8 +1,12 @@
 //setURL("http://f015901e@gruppenarbeit-493-join.developerakademie.net/smallest_backend_ever-master');
 let groupedContacts;
-sortContacts();
-addGroup();
-groupedContacts = Object.values(groupItems(contacts, 'letter'));
+groupAndSortContacts();
+
+function groupAndSortContacts() {
+   sort(contacts, 'name');
+   addGroup();
+   groupedContacts = Object.values(groupItems(contacts, 'letter'));
+}
 
 /**
  * Render function for the contact list.
@@ -10,6 +14,7 @@ groupedContacts = Object.values(groupItems(contacts, 'letter'));
 function renderContacts() {
    let list = 'contact-list-wrapper';
    initContainer(list);
+   groupAndSortContacts();
    initContactList(list);
 }
 
@@ -39,45 +44,12 @@ function initContainer(id) {
 
 //Contact-Manipulation and -Interaction
 /**
- * Sorts the Contacts array.
- */
-function sortContacts() {
-   contacts.sort(function (a, b) {
-      if (a.name.toUpperCase() < b.name.toUpperCase()) {
-         return -1;
-      }
-      if (a.name.toUpperCase() > b.name.toUpperCase()) {
-         return 1;
-      }
-      return 0;
-   });
-}
-
-/**
  * Adds the "letter"-group.
  */
 function addGroup() {
    contacts.forEach((element) => {
       element['letter'] = initialLetter(element, 0);
    });
-}
-
-/**
- * Groups an arrays based on the desired key/property.
- * @param {array} array - Ungrouped raw array
- * @param {string} key - Desired key/property to group every item in the array.
- * @returns - ! Returns an object. Use Object.values to get an array with the form {group: ..., values: ...} !
- */
-function groupItems(array, key) {
-   return array.reduce((acc, element) => {
-      let group = element[key];
-      if (!acc[group]) {
-         acc[group] = { group, value: [element] };
-      } else {
-         acc[group].value.push(element);
-      }
-      return acc;
-   }, {});
 }
 
 //Button-Functions for Contacts
@@ -158,11 +130,38 @@ function toggleSlideAnimationRight(id) {
    document.getElementById(id).classList.toggle('animate-right');
 }
 
-function toggleParent(id) {
-   document.getElementById(id).parentElement.classList.toggle('display-none');
-}
-
 function newContactForm() {
    let modal = document.getElementById('modal');
    modal.showModal();
+}
+
+function changePreview() {
+   let icon = document.getElementById('new-user-icon');
+   let name = document.getElementById('form-name');
+   name.name = name.value;
+   icon.color = getFormValue('color-input');
+   icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
+   if (name.name != '') {
+      icon.innerHTML = initialLettersUpperCase(name);
+   } else {
+      icon.innerHTML = 'AA';
+   }
+}
+
+function getFormValue(id) {
+   return document.getElementById(id).value;
+}
+
+function createNewContact() {
+   let newContact = {
+      name: getFormValue('form-name'),
+      mail: getFormValue('form-email'),
+      color: getFormValue('color-input'),
+      phone: getFormValue('form-phone'),
+   };
+   contacts.push(newContact);
+   document.getElementById('new-contact-form').reset();
+   document.getElementById('new-user-icon').innerHTML = 'AA';
+
+   renderContacts();
 }
