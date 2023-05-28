@@ -85,7 +85,7 @@ let tasks = [
       title: 'Website redesign',
       description: 'Modify the contents of the main website...',
       category: 'Design',
-      assignees: ['anton.meyer', 'anja.schulz', 'benedikt.ziegler'],
+      assignees: ['anton mayer', 'anja schulz', 'benedikt ziegler'],
       due_date: '2023-04-01',
       priority: 'low',
       status: 'to-do',
@@ -107,12 +107,7 @@ let tasks = [
       title: 'Call potential clients',
       description: 'Make the product presentation to prospective buyers',
       category: 'Sales',
-      assignees: [
-         'anton.meyer',
-         'anja.schulz',
-         'benedikt.ziegler',
-         'stefanie.farber',
-      ],
+      assignees: ['anton mayer', 'anja schulz', 'benedikt ziegler', 'stefanie sauer'],
       due_date: '2023-04-01',
       priority: 'urgent',
       status: 'in-progress',
@@ -124,11 +119,11 @@ let tasks = [
       description: 'Write open invoices for customer',
       category: 'Backoffice',
       assignees: [
-         'anton.meyer',
-         'anja.schulz',
-         'benedikt.ziegler',
-         'stefanie.farber',
-         'david.eisenberg',
+         'anton mayer',
+         'anja schulz',
+         'benedikt ziegler',
+         'stefanie sauer',
+         'david eisenberg',
       ],
       due_date: '2023-04-01',
       priority: 'medium',
@@ -140,7 +135,7 @@ let tasks = [
       title: 'Video cut',
       description: 'Edit the new company video',
       category: 'Media',
-      assignees: ['benedikt.ziegler'],
+      assignees: ['benedikt ziegler'],
       due_date: '2023-04-01',
       priority: 'medium',
       status: 'awaiting-feedback',
@@ -151,7 +146,7 @@ let tasks = [
       title: 'Social media strategy',
       description: 'Develop an ad campaign for brand positioning',
       category: 'Marketing',
-      assignees: ['anja.schulz', 'benedikt.ziegler'],
+      assignees: ['anja schulz', 'benedikt ziegler'],
       due_date: '2023-04-01',
       priority: 'low',
       status: 'done',
@@ -218,46 +213,46 @@ let categories = [
 ];
 
 let priorites = [
-  {
-    "name": "urgent",
-    "icon_path": "assets/img/priority-urgent.svg",
-    "color": "darkred"
-  },
-  {
-    "name": "medium",
-    "icon_path": "assets/img/priority-medium.svg",
-    "color": "darkorange"
-  },
-  {
-    "name": "low",
-    "icon_path": "assets/img/priority-low.svg",
-    "color": "darkgreen"
-  }
-]
+   {
+      name: 'urgent',
+      icon_path: 'assets/img/priority-urgent.svg',
+      color: 'darkred',
+   },
+   {
+      name: 'medium',
+      icon_path: 'assets/img/priority-medium.svg',
+      color: 'darkorange',
+   },
+   {
+      name: 'low',
+      icon_path: 'assets/img/priority-low.svg',
+      color: 'darkgreen',
+   },
+];
 
 let formDropDown = [
-  {
-    "id": "form-drop-down-category",
-    "dataArray": categories,
-    "heading": "Select task category",
-    "elementId": "name",
-    "elementName": [ "name" ],
-    "multiSelect": false,
-    "imgSrc": "assets/img/sort-down.png",
-    "headingOverwrite": null,
-    "selectedElements": [],
-    "expandStatus": false
-  },
-  {
-    "id": "form-drop-down-assignee",
-    "dataArray": users,
-    "heading": "Select contacts to assign",
-    "elementId": "username",
-    "elementName": [ "firstname", "lastname" ],
-    "multiSelect": true,
-    "imgSrc": "assets/img/sort-down.png",
-    "headingOverwrite": null,
-    "selectedElements": [],
-    "expandStatus": false
-  }
-]
+   {
+      id: 'form-drop-down-category',
+      dataArray: categories,
+      heading: 'Select task category',
+      elementId: 'name',
+      elementName: ['name'],
+      multiSelect: false,
+      imgSrc: 'assets/img/sort-down.png',
+      headingOverwrite: null,
+      selectedElements: [],
+      expandStatus: false,
+   },
+   {
+      id: 'form-drop-down-assignee',
+      dataArray: users,
+      heading: 'Select contacts to assign',
+      elementId: 'username',
+      elementName: ['firstname', 'lastname'],
+      multiSelect: true,
+      imgSrc: 'assets/img/sort-down.png',
+      headingOverwrite: null,
+      selectedElements: [],
+      expandStatus: false,
+   },
+];

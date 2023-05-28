@@ -16,8 +16,9 @@
 
 <body onload="initialPageLoad()">
   <nav include-html="templates/nav.html"></nav>
-  <header include-html="templates/banner.html"></header>
-  <main id="main-wrapper">
+  <div class="main-column">
+  <header include-html="templates/header.html"></header>
+  <main id="main-wrapper" class="relative flex-grow-1 flex-column pr-5 pl-5">
     <div class="base-content-wrapper">
       <div class="headline-wrapper">
         <div class="title-wrapper">
@@ -63,6 +64,7 @@
         <!-- <img src="assets/img/check-white.png" alt="Checkmark"> -->
       </button>
   </main>
+  </div>
 </body>
 
 </html>
