@@ -138,6 +138,20 @@ button {
    text-align: center;
 }
 
+dialog {
+   border: none;
+   padding: 0;
+   background-color: transparent;
+}
+
+dialog[open] {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
 .prc-side-padding {
    padding-left: 7.5%;
    padding-right: 7.5%;

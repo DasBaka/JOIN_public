@@ -26,18 +26,18 @@
                   <h1>Contacts</h1>
                   <h3>Better with a team</h3>
                </div>
-               <article class="main-content-wrapper display-none" id="contact-details"></article>
+               <article class="main-content-wrapper" id="contact-details"></article>
             </seqtion>
             <button
                class="button-primary new-contact-btn"
-               onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')">
+               onclick="newContactForm(); toggleSlideAnimationRight('modal')">
                New contact
             </button>
          </main>
       </div>
-      <seqtion
+      <dialog
          include-html="templates/create-new-contact.html"
-         onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')"
-         class="pop-in display-none"></seqtion>
+         id="modal"
+         onclick="closeModal(); toggleSlideAnimationRight('modal')"></dialog>
    </body>
 </html>

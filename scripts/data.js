@@ -85,7 +85,7 @@ let tasks = [
       title: 'Website redesign',
       description: 'Modify the contents of the main website...',
       category: 'Design',
-      assignees: ['anton mayer', 'anja schulz', 'benedikt ziegler'],
+      assignees: ['anton mayer', 'johannes baum', 'benedikt ziegler'],
       due_date: '2023-04-01',
       priority: 'low',
       status: 'to-do',

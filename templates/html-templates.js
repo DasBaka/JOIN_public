@@ -200,7 +200,7 @@ function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
    let name = extra ? /*html*/ `<p>${contacts[assigneeIndex]['name']}</p>` : '';
    return (
       /*html*/ `
-  <div style="background-color: ${contacts[assigneeIndex]['color']};"
+  <div ${colorContactIcon(contacts[assigneeIndex])}
     class="board-user-icon">${assigneeInitials}</div>` + name
    );
 }

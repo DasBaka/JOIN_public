@@ -97,9 +97,7 @@ function showContactCard(groupId, contactId) {
  * @param {number} contactId - Identifier of the contact (in the group value).
  */
 function toggleBoxes(groupId, contactId) {
-   let btn = document.getElementById(
-      'contact-btn-' + groupId + '-' + contactId
-   );
+   let btn = document.getElementById('contact-btn-' + groupId + '-' + contactId);
    if (contactIsChecked(btn)) {
       resetContacts();
    } else if (atLeastOneContactIsChecked()) {
@@ -115,9 +113,7 @@ function contactIsChecked(btn) {
 }
 
 function atLeastOneContactIsChecked() {
-   return (
-      document.querySelectorAll('input[type=radio].checked').length > 0
-   );
+   return document.querySelectorAll('input[type=radio].checked').length > 0;
 }
 
 function resetContacts() {
@@ -133,11 +129,7 @@ function switchCards(btn, groupId, contactId) {
 function implementCard(btn, groupId, contactId) {
    addIntoContainer(
       'contact-details',
-      contactDetailsTemplate(
-         groupedContacts[groupId]['value'][contactId],
-         groupId,
-         contactId
-      )
+      contactDetailsTemplate(groupedContacts[groupId]['value'][contactId], groupId, contactId)
    );
    btn.classList.add('checked');
 }
@@ -163,22 +155,14 @@ function uncheckBtns() {
 }
 
 function toggleSlideAnimationRight(id) {
-   document.getElementById(id).classList.toggle('display-none');
    document.getElementById(id).classList.toggle('animate-right');
 }
 
 function toggleParent(id) {
-   document
-      .getElementById(id)
-      .parentElement.classList.toggle('display-none');
+   document.getElementById(id).parentElement.classList.toggle('display-none');
 }
 
-function colorContactIcon(user) {
-   return (
-      `style="background-color:` +
-      user.color +
-      `; color:` +
-      responsiveColor(user.color) +
-      `";`
-   );
+function newContactForm() {
+   let modal = document.getElementById('modal');
+   modal.showModal();
 }

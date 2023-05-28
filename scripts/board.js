@@ -285,11 +285,6 @@ function showTaskDetails(taskId) {
    modal.showModal();
 }
 
-function closeModal() {
-   let modal = document.getElementById('modal');
-   modal.close();
-}
-
 function editTaskDetails(taskId, show) {
    /*    if (!!document.getElementById('task-detailed-wrapper')) {
       document.getElementById('task-detailed-wrapper').remove();

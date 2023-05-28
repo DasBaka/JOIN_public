@@ -90,12 +90,29 @@ function hexToRgb(hex) {
       : null;
 }
 
+function colorContactIcon(user) {
+   return (
+      `style="background-color:` +
+      user.color +
+      `; color:` +
+      responsiveColor(user.color) +
+      `; border-color:` +
+      responsiveColor(user.color) +
+      `";`
+   );
+}
+
 function getIndexOfValue(array, key, value) {
    return array.findIndex((k) => k[key] === value);
 }
 
 function getIndexOfValueLowerCase(array, key, ref) {
    return array.findIndex((e) => e[key].toLowerCase() == ref);
+}
+
+function closeModal() {
+   let modal = document.getElementById('modal');
+   modal.close();
 }
 
 function initDropDown() {
