@@ -109,8 +109,8 @@ let tasks = [
       category: 'Sales',
       assignees: ['anton mayer', 'anja schulz', 'benedikt ziegler', 'stefanie sauer'],
       due_date: '2023-04-01',
-      priority: 'urgent',
-      status: 'in-progress',
+      priority: 'medium',
+      status: 'to-do',
       subtasks: [],
    },
    {
@@ -125,8 +125,8 @@ let tasks = [
          'stefanie sauer',
          'david eisenberg',
       ],
-      due_date: '2023-04-01',
-      priority: 'medium',
+      due_date: '2023-04-02',
+      priority: 'urgent',
       status: 'awaiting-feedback',
       subtasks: [],
    },
@@ -148,7 +148,7 @@ let tasks = [
       category: 'Marketing',
       assignees: ['anja schulz', 'benedikt ziegler'],
       due_date: '2023-04-01',
-      priority: 'low',
+      priority: 'normal',
       status: 'done',
       subtasks: [
          {

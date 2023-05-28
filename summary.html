@@ -8,10 +8,12 @@
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <link rel="stylesheet" href="styles/summary.css" />
+      <script src="scripts/data.js"></script>
       <script src="scripts/script.js"></script>
+      <script src="scripts/summary.js"></script>
    </head>
 
-   <body onload="initialPageLoad()">
+   <body onload="initialPageLoad(); initSummary()">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
@@ -49,13 +51,13 @@
                         <div>
                            <img src="assets/img/urgent.png" alt="Ugrent icon" />
                            <div class="info-box-content">
-                              <h2><b>1</b></h2>
+                              <h2><b id="urgents">1</b></h2>
                               <p>Urgent</p>
                            </div>
                         </div>
                         <div>
-                           <h5><b>October 16, 2022</b></h5>
-                           <p>Upcoming Deadline</p>
+                           <h5 id="deadline"></h5>
+                           <p></p>
                         </div>
                      </article>
                   </div>
@@ -65,7 +67,7 @@
                         class="info-box center flex-column info-box-medium content-box">
                         <img src="assets/img/to-do.png" alt="To-Do Icon" />
                         <div class="info-box-content">
-                           <h1>1</h1>
+                           <h1 id="to-do">1</h1>
                            <p>To-do</p>
                         </div>
                      </article>
@@ -74,14 +76,14 @@
                         class="info-box center flex-column info-box-medium content-box">
                         <img src="assets/img/done.png" alt="Done Icon" />
                         <div class="info-box-content">
-                           <h1>1</h1>
+                           <h1 id="done">1</h1>
                            <p>Done</p>
                         </div>
                      </article>
                   </div>
                </div>
                <div class="greeting-wrapper">
-                  <p>Good morning,</p>
+                  <p id="greeting">Good morning,</p>
                   <p>Sofia Müller</p>
                </div>
             </seqtion>
