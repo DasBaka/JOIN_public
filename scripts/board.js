@@ -85,7 +85,7 @@ function assigneeCheckboxSelection(HTMLElementId) {
 function assigneeSelectionInviteContact() {
   let assigneeSelection = document.getElementById('task-edit-assignee-selection');
   let contactInvite = document.getElementById('task-edit-assignee-contact-invite');
-  
+
   if (contactInvite.classList.contains('display-none')) {
     assigneeSelection.classList.add('display-none');
     contactInvite.classList.remove('display-none');
