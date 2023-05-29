@@ -26,9 +26,9 @@ h5,
 h6 {
   font-weight: normal;
   -webkit-margin-before: 0;
-          margin-block-start: 0;
+  margin-block-start: 0;
   -webkit-margin-after: 0;
-          margin-block-end: 0;
+  margin-block-end: 0;
 }
 
 h1 {
@@ -77,7 +77,7 @@ a:hover {
 }
 
 input,
-input + label {
+input+label {
   cursor: pointer;
 }
 
@@ -93,9 +93,14 @@ input[type=tel] {
   font-size: 1.25rem;
   margin-bottom: 1rem;
 }
-input[type=text]::-moz-placeholder, input[type=password]::-moz-placeholder, input[type=email]::-moz-placeholder, input[type=tel]::-moz-placeholder {
+
+input[type=text]::-moz-placeholder,
+input[type=password]::-moz-placeholder,
+input[type=email]::-moz-placeholder,
+input[type=tel]::-moz-placeholder {
   color: #d1d1d1;
 }
+
 input[type=text]::placeholder,
 input[type=password]::placeholder,
 input[type=email]::placeholder,
@@ -908,7 +913,7 @@ main {
 .logo {
   width: 6.5rem;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .divider-blue-line {
@@ -962,7 +967,7 @@ main {
   transform: translate(-50%, -50%);
 }
 
-.form-drop-down {
+.form-dd {
   background-color: white;
   border-radius: 10px;
   border: rgb(226, 226, 226) solid 0.5px;
@@ -971,33 +976,33 @@ main {
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
-  width: 300px;
 }
 
-.form-drop-down-content {
+.form-dd-content {
   max-height: 132px;
   overflow: scroll;
 }
 
-.form-drop-down-element {
+.form-dd-element {
   display: flex;
   justify-content: space-between;
   padding: 12px 12px 12px 20px;
   position: relative;
 }
 
-.form-drop-down-element:hover {
+.form-dd-element:hover {
   background-color: rgba(0, 0, 0, 0.03);
 }
-.form-drop-down-element:active {
+
+.form-dd-element:active {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
-.form-drop-down-selected-element {
+.form-dd-selected-element {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.form-drop-down-checkbox {
+.form-dd-checkbox {
   background-color: rgba(0, 0, 0, 0.05);
   border-color: black;
   border-radius: 5px;
@@ -1008,11 +1013,38 @@ main {
   width: 10px;
 }
 
-.form-drop-down-checkbox-filled {
+.form-dd-checkbox-filled {
   background-clip: content-box;
   background-color: rgba(0, 0, 0);
 }
-=======
+
+.form-dd-additional-element-button-wrapper {
+  display: flex;
+  gap: 7px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.form-dd-additional-element-button-wrapper img {
+  border-radius: 20px;
+  height: 20px;
+  padding: 5px;
+}
+
+.form-dd-additional-element-button-wrapper img:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.form-dd-additional-element-button-wrapper img:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.grey-divider-div {
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 0.75px;
+}
+
 #form-name {
   background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
   background-position: 96%;
@@ -1039,4 +1071,5 @@ main {
       16px
    );
    min-height: 0vw;
-} *//*# sourceMappingURL=style.css.map */
+} */
+/*# sourceMappingURL=style.css.map */

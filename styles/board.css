@@ -437,12 +437,6 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.grey-divider-div {
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-width: 0.75px;
-}
-
 .task-edit-assignee-preview {
   display: flex;
   gap: 5px;
