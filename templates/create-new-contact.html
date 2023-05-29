@@ -2,7 +2,7 @@
    class="content-box new-contact-card"
    id="new-contact-card"
    onclick="event.cancelBubble = true;">
-   <div class="new-contact-card-left pl-5">
+   <div class="new-contact-card-left">
       <img src="assets/img/logo-white.png" alt="join logo white" />
       <h1>Add contact</h1>
       <h2>Tasks are better with a team!</h2>
@@ -10,7 +10,7 @@
    </div>
    <form
       id="new-contact-form"
-      class="new-contact-form center pr-5"
+      class="new-contact-form center"
       onsubmit="event.preventDefault(); createNewContact(); closeModal(); toggleSlideAnimationRight('modal')">
       <div class="color-input-relative">
          <input
@@ -24,7 +24,7 @@
             >AA</label
          >
       </div>
-      <div class="center flex-column flex-grow-1">
+      <div class="flex-column">
          <input
             type="text"
             id="form-name"
@@ -45,7 +45,7 @@
             id="form-phone"
             placeholder="Phone"
             autocomplete="tel" />
-         <div class="w-100 gap-50 mt-5 space-between">
+         <div class="submit-buttons-wrapper space-between">
             <button
                type="button"
                class="button-secondary"

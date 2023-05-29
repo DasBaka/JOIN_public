@@ -6,6 +6,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Join</title>
       <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/animations.css" />
+      <link rel="stylesheet" href="styles/auth.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <script src="scripts/data.js"></script>
       <script src="scripts/script.js"></script>
@@ -13,18 +15,18 @@
    </head>
 
    <body class="flex-column change-backgroundcolor">
-      <seqtion class="space-between w-100 p-2">
+      <seqtion class="login-header">
          <div alt="join logo" class="logo logo-positioning"></div>
-         <div class="flex-row h-50 center gap-175 display-content">
+         <div class="flex-row center sign-up-reminder display-content">
             <h4>Not a Join user?</h4>
             <button onclick="window.location.href='sign-up.html'" class="button-primary">
                Sign up
             </button>
          </div>
       </seqtion>
-      <seqtion class="center flex-grow-1 w-100 display-content">
-         <div class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box">
-            <h1 class="p-1">Log in</h1>
+      <seqtion class="center auth-main-wrapper display-content">
+         <div class="auth-main prc-side-padding center flex-column content-box">
+            <h1>Log in</h1>
             <div class="divider-blue-line"></div>
             <form class="center flex-column" onsubmit="event.preventDefault(), logIn()">
                <input
@@ -40,8 +42,8 @@
                   name="form-password"
                   placeholder="Password"
                   required /><br />
-               <div class="center gap-225 pb-1 w-100 flex-row">
-                  <div class="center gap-50">
+               <div class="center remember-me flex-row">
+                  <div class="center">
                      <input
                         type="checkbox"
                         id="form-save-credentials"
@@ -50,7 +52,7 @@
                   </div>
                   <a href="reset-password.html" value="Forgot my password">Forgot my password</a>
                </div>
-               <div class="w-100 gap-50 mb-1 mt-1 space-between">
+               <div class="submit-buttons-wrapper space-between">
                   <button type="submit" class="button-primary">Log in</button>
                   <button
                      class="button-secondary"

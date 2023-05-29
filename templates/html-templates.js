@@ -74,7 +74,7 @@ function boardTemplate(status) {
 
 function taskCardTemplate(task, categoryIndex, priorityIndex) {
    return /*html*/ `
-   <div id="task-preview-wrapper-${task.id}" draggable="true" class="task-preview-wrapper p-1 grabbable"
+   <div id="task-preview-wrapper-${task.id}" draggable="true" class="task-preview-wrapper grabbable"
      onclick="showTaskDetails('${task.id}')"
      ondragstart="setActiveDragElement('${task.id}'); highlightAvailableDragArea(true); hideOriginalElementOnDrag('${task.id}', true)" 
      ondragend="highlightAvailableDragArea(false); hideOriginalElementOnDrag('${task.id}', false)">

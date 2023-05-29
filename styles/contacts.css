@@ -116,10 +116,11 @@
    display: flex;
    background-color: rgb(40, 50, 68);
    color: white;
-   flex-grow: 1;
+   flex-shrink: 1;
+   flex-basis: 40%;
    justify-content: center;
    flex-direction: column;
-   padding: 0 3rem 6rem;
+   padding: 0 3rem 6rem 5%;
    gap: 1rem;
    border-radius: 16px 0 0 16px;
 }
@@ -143,7 +144,17 @@
    display: flex;
    align-items: center;
    justify-content: space-around;
-   flex-grow: 5;
+   flex-shrink: 1;
+   flex-basis: 60%;
+   padding-right: 5%;
+   box-sizing: border-box;
+}
+
+.new-contact-form div {
+   flex-grow: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .color-input {
@@ -158,11 +169,7 @@
 
 .color-input-relative {
    position: relative;
-   display: flex;
-   justify-content: center;
-   align-items: center;
    margin-bottom: 6rem;
-   flex-grow: 1;
 }
 
 .edit-user-icon {
@@ -211,21 +218,8 @@
    background-position: 96%;
 }
 
-.animate-right {
-   position: relative;
-   animation: animateright 0.5s ease-in-out;
-}
-
-@keyframes animateright {
-   from {
-      left: 100%;
-      opacity: 0;
-   }
-
-   to {
-      left: 0;
-      opacity: 1;
-   }
+.submit-buttons-wrapper {
+   margin-top: 3.75rem;
 }
 
 @media (max-width: 900px) {
