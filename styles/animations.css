@@ -1,6 +1,6 @@
 .logo-positioning {
    position: relative;
-   animation: logo-positioning 1.5s ease-in;
+   animation: logo-positioning 1.25s ease-in;
 }
 
 @keyframes logo-positioning {
@@ -30,7 +30,7 @@
 }
 
 .display-content {
-   animation: display-content 1.5s ease-in;
+   animation: display-content 1.25s ease-in;
 }
 
 @keyframes display-content {
@@ -48,7 +48,7 @@
 }
 
 .change-backgroundcolor {
-   animation: change-backgroundcolor 1.5s ease-in;
+   animation: change-backgroundcolor 1.25s ease-in;
 }
 
 @keyframes change-backgroundcolor {
