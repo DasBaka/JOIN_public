@@ -6,6 +6,13 @@
    justify-content: space-between;
 }
 
+.login-footer {
+   display: none;
+   padding: 3rem;
+   box-sizing: border-box;
+   width: 100%;
+}
+
 .sign-up-reminder {
    gap: 1.75rem;
    height: 50%;
@@ -34,6 +41,10 @@
 }
 
 .remember-me {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
    gap: 2.25rem;
    padding-bottom: 1.5rem;
    width: 100%;
@@ -44,9 +55,13 @@
 }
 
 .blue-arrow {
+   background-image: url('../assets/img/blue-arrow.png');
+   background-repeat: no-repeat;
+   width: 3rem;
+   height: 3rem;
    position: absolute;
-   left: 2rem;
-   top: 2rem;
+   left: 1rem;
+   top: 1rem;
    margin: 2.25rem 0 0 0.75rem;
    cursor: pointer;
 }
@@ -59,4 +74,38 @@
 .single-form > input ~ button {
    padding-left: 1.5rem;
    padding-right: 1.5rem;
+}
+
+@media (max-width: 960px) {
+   .auth-main {
+      max-width: 100%;
+      width: 85%;
+   }
+
+   .login-header > .sign-up-reminder {
+      display: none;
+   }
+
+   .login-footer {
+      display: block;
+   }
+
+   .remember-me {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: 1.5rem;
+   }
+
+   .remember-me input {
+      margin: 0;
+   }
+
+   form {
+      width: 80%;
+   }
+
+   .blue-arrow {
+      top: -1rem;
+      background-image: url('../assets/img/black-arrow.png');
+   }
 }

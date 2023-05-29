@@ -41,6 +41,10 @@ nav > .logo {
    padding-left: 2.5rem;
 }
 
+nav .logo {
+   background-image: url('../assets/img/logo-white.png');
+}
+
 @media (max-width: 960px) {
    nav {
       position: absolute;

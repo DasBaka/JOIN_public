@@ -43,7 +43,7 @@
    }
 
    100% {
-      opacity: 100;
+      opacity: 100%;
    }
 }
 
@@ -79,5 +79,19 @@
    to {
       left: 0;
       opacity: 1;
+   }
+}
+
+@keyframes greetings {
+   0% {
+      opacity: 100%;
+   }
+
+   33% {
+      opacity: 100%;
+   }
+
+   100% {
+      opacity: 0;
    }
 }

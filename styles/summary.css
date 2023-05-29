@@ -30,8 +30,8 @@
 
 .info-box {
    cursor: pointer;
-   padding: 25px;
-   margin: 15px;
+   padding: 1.5rem;
+   margin: 1rem;
    transition: 0.125s;
    flex: 1 1 0px;
    height: 110px;
@@ -98,4 +98,44 @@
 
 #deadline {
    font-weight: 700;
+}
+
+@media (max-width: 960px) {
+   main *:not(section, .greeting-wrapper, .greeting-wrapper p) {
+      animation: display-content 1.5s ease-in;
+   }
+
+   .info-box {
+      margin: 0.75rem;
+      padding: 1rem;
+   }
+
+   .info-box-small {
+      gap: 0;
+   }
+
+   .greeting-wrapper {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
+      text-align: center;
+      opacity: 0;
+      animation: greetings 1s ease-in;
+   }
+
+   .info-box-large div:first-child {
+      margin-right: 1.5rem;
+      padding: 0 1.5rem;
+   }
+
+   .info-box-large div:last-child {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+   }
 }
