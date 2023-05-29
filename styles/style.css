@@ -946,12 +946,6 @@ main {
    color: rgb(42, 142, 205);
 }
 
-.logo {
-   width: 6.5rem;
-   -o-object-fit: contain;
-   object-fit: contain;
-}
-
 .divider-blue-line {
    border: rgb(45, 155, 221) solid 1px;
    margin-bottom: 30px;
@@ -1072,6 +1066,82 @@ main {
 #form-password:placeholder-shown {
    background: url(../assets/img/lock.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
+}
+
+.logo {
+   background-image: url('../assets/img/logo-black.png');
+   background-repeat: no-repeat;
+   width: 6.5rem;
+   height: 7.75rem;
+   -o-object-fit: contain;
+   object-fit: contain;
+}
+
+.logo-positioning {
+   position: relative;
+   animation: logo-positioning 1.5s ease-in;
+}
+
+@keyframes logo-positioning {
+   0% {
+      background-image: url('../assets/img/logo-white.png');
+      background-repeat: no-repeat;
+      scale: 1.75;
+      left: calc(50vw - (6.5rem) / 1.75);
+      top: calc(50vh - (7.75rem) / 1.75);
+   }
+
+   33% {
+      background-image: url('../assets/img/logo-white.png');
+      background-repeat: no-repeat;
+      scale: 1.75;
+      left: calc(50vw - (6.5rem) / 1.75);
+      top: calc(50vh - (7.75rem) / 1.75);
+   }
+
+   100% {
+      background-image: url('../assets/img/logo-black.png');
+      background-repeat: no-repeat;
+      scale: 1;
+      left: 0;
+      top: 0;
+   }
+}
+
+.display-content {
+   animation: display-content 1.5s ease-in;
+}
+
+@keyframes display-content {
+   0% {
+      opacity: 0;
+   }
+
+   33% {
+      opacity: 0;
+   }
+
+   100% {
+      opacity: 100;
+   }
+}
+
+.change-backgroundcolor {
+   animation: change-backgroundcolor 1.5s ease-in;
+}
+
+@keyframes change-backgroundcolor {
+   0% {
+      background-color: #2a3647;
+   }
+
+   33% {
+      background-color: #2a3647;
+   }
+
+   100% {
+      background-color: whitesmoke;
+   }
 }
 
 /* #searchInput::-webkit-input-placeholder {

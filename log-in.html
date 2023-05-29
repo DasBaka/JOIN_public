@@ -3,9 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Join</title>
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
@@ -14,29 +12,21 @@
       <script src="scripts/auth.js"></script>
    </head>
 
-   <body class="flex-column">
+   <body class="flex-column change-backgroundcolor">
       <seqtion class="space-between w-100 p-2">
-         <img
-            src="assets/img/logo-black.png"
-            alt="join logo"
-            class="logo" />
-         <div class="flex-row h-50 center gap-175">
+         <div alt="join logo" class="logo logo-positioning"></div>
+         <div class="flex-row h-50 center gap-175 display-content">
             <h4>Not a Join user?</h4>
-            <button
-               onclick="window.location.href='sign-up.html'"
-               class="button-primary">
+            <button onclick="window.location.href='sign-up.html'" class="button-primary">
                Sign up
             </button>
          </div>
       </seqtion>
-      <seqtion class="center flex-grow-1 w-100">
-         <div
-            class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box">
+      <seqtion class="center flex-grow-1 w-100 display-content">
+         <div class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box">
             <h1 class="p-1">Log in</h1>
             <div class="divider-blue-line"></div>
-            <form
-               class="center flex-column"
-               onsubmit="event.preventDefault(), logIn()">
+            <form class="center flex-column" onsubmit="event.preventDefault(), logIn()">
                <input
                   type="email"
                   id="form-email"
@@ -58,16 +48,13 @@
                         name="form-save-credentials" />
                      <label for="form-save-credentials">Remember me</label>
                   </div>
-                  <a href="reset-password.html" value="Forgot my password"
-                     >Forgot my password</a
-                  >
+                  <a href="reset-password.html" value="Forgot my password">Forgot my password</a>
                </div>
                <div class="w-100 gap-50 mb-1 mt-1 space-between">
-                  <button type="submit" class="button-primary">
-                     Log in
-                  </button>
+                  <button type="submit" class="button-primary">Log in</button>
                   <button
                      class="button-secondary"
+                     type="button"
                      onclick="window.location.href='summary.html'"
                      formnovalidate>
                      Guest Login
