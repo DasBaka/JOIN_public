@@ -1054,22 +1054,22 @@ main {
    background-color: rgba(0, 0, 0);
 }
 
-#form-name {
+#form-name:placeholder-shown {
    background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
 }
 
-#form-email {
+#form-email:placeholder-shown {
    background: url(../assets/img/Vector.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
 }
 
-#form-phone {
+#form-phone:placeholder-shown {
    background: url(../assets/img/phone-line.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
 }
 
-#form-password {
+#form-password:placeholder-shown {
    background: url(../assets/img/lock.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
 }

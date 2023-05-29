@@ -148,10 +148,6 @@ function changePreview() {
    }
 }
 
-function getFormValue(id) {
-   return document.getElementById(id).value;
-}
-
 function createNewContact() {
    let newContact = {
       name: getFormValue('form-name'),

@@ -21,3 +21,20 @@ function checkLogin() {
    /*    console.log('no match'); */
    return false;
 }
+
+function createNewUser() {
+   let newUser = {
+      name: getFormValue('form-name'),
+      mail: getFormValue('form-email'),
+      password: getFormValue('form-password'),
+      color: '#ffffff',
+      phone: '',
+   };
+   users.push(newUser);
+   document.getElementById('sign-up-form').reset();
+   document.getElementById('sign-up-btn').innerHTML = 'Done!';
+}
+
+function refreshButton() {
+   document.getElementById('sign-up-btn').innerHTML = 'Sign up';
+}

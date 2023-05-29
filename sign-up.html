@@ -3,33 +3,33 @@
    <head>
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Join</title>
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
+      <script src="scripts/data.js"></script>
+      <script src="scripts/auth.js"></script>
       <script src="scripts/script.js"></script>
    </head>
 
    <body class="flex-column">
       <seqtion class="space-between w-100 p-2">
-         <img
-            src="assets/img/logo-black.png"
-            alt="join logo"
-            class="logo" />
+         <img src="assets/img/logo-black.png" alt="join logo" class="logo" />
       </seqtion>
       <seqtion class="center flex-grow-1">
-         <div
-            class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box relative">
+         <div class="w-50 w-max-3 p-1 pr-5 pl-5 center flex-column content-box relative">
             <img
-               onclick="history.back()"
+               onclick="window.location.href='log-in.html'"
                class="top-left-corner mt-3 ml-1 pointer"
                src="assets/img/blue-arrow.png"
                alt="blue arrow to previous page" />
             <h1 class="p-1">Sign up</h1>
             <div class="divider-blue-line"></div>
-            <form class="center flex-column" action="/action_page.php">
+            <form
+               class="center flex-column"
+               id="sign-up-form"
+               onsubmit="event.preventDefault(); createNewUser()"
+               oninput="refreshButton()">
                <input
                   type="text"
                   id="form-name"
@@ -50,9 +50,7 @@
                   name="form-password"
                   placeholder="Password"
                   required /><br />
-               <button type="submit" class="button-primary m-1">
-                  Sign up
-               </button>
+               <button type="submit" id="sign-up-btn" class="button-primary m-1">Sign up</button>
             </form>
          </div>
       </seqtion>

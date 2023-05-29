@@ -135,6 +135,10 @@ function getIndexOfValueLowerCase(array, key, ref) {
    return array.findIndex((e) => e[key].toLowerCase() == ref);
 }
 
+function getFormValue(id) {
+   return document.getElementById(id).value;
+}
+
 function closeModal() {
    let modal = document.getElementById('modal');
    modal.close();
