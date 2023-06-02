@@ -23,14 +23,18 @@
             <aside id="contact-list-wrapper" class="contact-list-wrapper"></aside>
             <section class="prc-side-padding">
                <div class="title-wrapper">
-                  <h1>Contacts</h1>
+                  <div class="space-between">
+                     <h1>Contacts</h1>
+                     <div onclick="resetContacts()" class="back-arrow"></div>
+                  </div>
                   <h3>Better with a team</h3>
+                  <div class="line"></div>
                </div>
                <article class="main-content-wrapper" id="contact-details"></article>
             </section>
             <button
                class="button-primary new-contact-btn"
-               onclick="newContactForm(); toggleSlideAnimationRight('modal')">
+               onclick="newContactForm();  transmuteForm('add');">
                New contact
             </button>
          </main>
@@ -38,6 +42,6 @@
       <dialog
          include-html="templates/create-new-contact.html"
          id="modal"
-         onclick="closeModal(); toggleSlideAnimationRight('modal')"></dialog>
+         onclick="closeModal()"></dialog>
    </body>
 </html>

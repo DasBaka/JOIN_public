@@ -1,11 +1,13 @@
 //setURL("http://f015901e@gruppenarbeit-493-join.developerakademie.net/smallest_backend_ever-master');
-let groupedContacts;
-groupAndSortContacts();
+let groupedUsers;
+groupAndSortUser();
 
-function groupAndSortContacts() {
-   sort(contacts, 'name');
+let editable;
+
+function groupAndSortUser() {
+   sort(users, 'name');
    addGroup();
-   groupedContacts = Object.values(groupItems(contacts, 'letter'));
+   groupedUsers = Object.values(groupItems(users, 'letter'));
 }
 
 /**
@@ -14,19 +16,19 @@ function groupAndSortContacts() {
 function renderContacts() {
    let list = 'contact-list-wrapper';
    initContainer(list);
-   groupAndSortContacts();
+   groupAndSortUser();
    initContactList(list);
 }
 
 function initContactList(list) {
-   for (let i = 0; i < groupedContacts.length; i++) {
+   for (let i = 0; i < groupedUsers.length; i++) {
       addIntoContainer(list, alphabeticalContactDividerTemplate(i));
       initContacts(list, i);
    }
 }
 
 function initContacts(list, i) {
-   let contactArray = groupedContacts[i]['value'];
+   let contactArray = groupedUsers[i]['value'];
    for (let j = 0; j < contactArray.length; j++) {
       addIntoContainer(list, contactCardTemplate(contactArray[j], i, j));
    }
@@ -47,7 +49,7 @@ function initContainer(id) {
  * Adds the "letter"-group.
  */
 function addGroup() {
-   contacts.forEach((element) => {
+   users.forEach((element) => {
       element['letter'] = initialLetter(element, 0);
    });
 }
@@ -101,7 +103,7 @@ function switchCards(btn, groupId, contactId) {
 function implementCard(btn, groupId, contactId) {
    addIntoContainer(
       'contact-details',
-      contactDetailsTemplate(groupedContacts[groupId]['value'][contactId], groupId, contactId)
+      contactDetailsTemplate(groupedUsers[groupId]['value'][contactId], groupId, contactId)
    );
    btn.classList.add('checked');
 }
@@ -132,7 +134,14 @@ function toggleSlideAnimationRight(id) {
 
 function newContactForm() {
    let modal = document.getElementById('modal');
+   changePreview();
    modal.showModal();
+}
+
+function resetFormValues(formId) {
+   transmuteForm('add');
+   letInnerHTML('new-user-icon', 'AA');
+   document.getElementById(formId).reset();
 }
 
 function changePreview() {
@@ -141,6 +150,10 @@ function changePreview() {
    name.name = name.value;
    icon.color = getFormValue('color-input');
    icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
+   changePrevieName(name, icon);
+}
+
+function changePrevieName(name, icon) {
    if (name.name != '') {
       icon.innerHTML = initialLettersUpperCase(name);
    } else {
@@ -148,16 +161,60 @@ function changePreview() {
    }
 }
 
+function submitContactDetails() {
+   let state = document.getElementById('modal-submit-btn').innerHTML;
+   if (state == 'Create Contact') {
+      createNewContact();
+   } else if (state == 'Save') {
+      modifyContact(...editable);
+   }
+}
+
 function createNewContact() {
    let newContact = {
       name: getFormValue('form-name'),
+      id: '',
       mail: getFormValue('form-email'),
       color: getFormValue('color-input'),
       phone: getFormValue('form-phone'),
+      password: '',
    };
-   contacts.push(newContact);
-   document.getElementById('new-contact-form').reset();
-   document.getElementById('new-user-icon').innerHTML = 'AA';
+   users.push(newContact);
+   resetFormValues('new-contact-form');
 
+   renderContacts();
+}
+
+function transmuteForm(state) {
+   let trans = ['contact-modal-h1', 'contact-modal-h2', 'modal-submit-btn'];
+   let edit = ['Edit Contact', '', 'Save'];
+   let add = ['Add Contact', 'Tasks are better with a team!', 'Create Contact'];
+
+   trans.forEach((el, i) => {
+      if (state == 'edit') {
+         letInnerHTML(el, edit[i]);
+      } else if (state == 'add') {
+         letInnerHTML(el, add[i]);
+      }
+   });
+}
+
+function editContact(groupId, contactId) {
+   editable = [groupId, contactId];
+   let contact = groupedUsers[groupId]['value'][contactId];
+   transmuteForm('edit');
+   letFormValue('form-name', contact.name);
+   letFormValue('form-email', contact.mail);
+   letFormValue('color-input', contact.color);
+   letFormValue('form-phone', contact.phone);
+   newContactForm();
+}
+
+function modifyContact(groupId, contactId) {
+   let contact = groupedUsers[groupId]['value'][contactId];
+   contact.name = getFormValue('form-name');
+   contact.mail = getFormValue('form-email');
+   contact.color = getFormValue('color-input');
+   contact.phone = getFormValue('form-phone');
    renderContacts();
 }

@@ -50,7 +50,7 @@
 }
 
 .info-box-small {
-   gap: 10px;
+   justify-content: space-between;
 }
 
 .info-box-medium,
@@ -100,6 +100,12 @@
    font-weight: 700;
 }
 
+@media (max-width: 450px) {
+   :root {
+      font-size: 14px;
+   }
+}
+
 @media (max-width: 960px) {
    main *:not(section, .greeting-wrapper, .greeting-wrapper p) {
       animation: display-content 1.5s ease-in;
@@ -107,7 +113,7 @@
 
    .info-box {
       margin: 0.75rem;
-      padding: 1rem;
+      padding: 0.75rem;
    }
 
    .info-box-small {

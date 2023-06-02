@@ -48,7 +48,7 @@ nav .logo {
 @media (max-width: 960px) {
    nav {
       position: absolute;
-      height: 100px;
+      height: 6.625rem;
       bottom: 0;
       width: 100vw;
       z-index: 10;

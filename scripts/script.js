@@ -61,9 +61,9 @@ function initialLetter(name, pos) {
 function initialLettersUpperCase(name) {
    let rename = name;
    rename.name = rename.name.replace(/^\s+/g, '');
-   let result = initialLetter(rename, 0);
+   let result = initialLetter(rename, 0); // firstname
    if (rename.name.search(' ') + 1 != 0) {
-      result += initialLetter(name, name.name.search(' ') + 1);
+      result += initialLetter(name, name.name.search(' ') + 1); // lastname
    }
    return result.toUpperCase();
 }
@@ -137,6 +137,14 @@ function getIndexOfValueLowerCase(array, key, ref) {
 
 function getFormValue(id) {
    return document.getElementById(id).value;
+}
+
+function letFormValue(id, content) {
+   document.getElementById(id).value = content;
+}
+
+function letInnerHTML(id, content) {
+   document.getElementById(id).innerHTML = content;
 }
 
 function closeModal() {

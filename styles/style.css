@@ -401,7 +401,30 @@ main {
    width: 100%;
 }
 
+.back-arrow {
+   background-image: url('../assets/img/black-arrow.png');
+   background-repeat: no-repeat;
+   background-size: contain;
+   width: 1.5rem;
+   height: 1.5rem;
+   cursor: pointer;
+   margin: 2rem 1rem;
+}
+
 @media (max-width: 960px) {
+   input[type='text'],
+   input[type='password'],
+   input[type='email'],
+   input[type='search'],
+   input[type='tel'] {
+      margin-bottom: 0;
+   }
+
+   button {
+      font-size: 1.25rem;
+      min-width: 7.5rem;
+   }
+
    .prc-side-padding {
       padding-left: 2rem;
       padding-right: 2rem;
@@ -432,5 +455,11 @@ main {
       height: 50px;
       width: 25%;
       border-bottom: rgb(45, 155, 221) solid 3px;
+   }
+}
+
+@media (max-width: 450px) {
+   :root {
+      font-size: 12px;
    }
 }

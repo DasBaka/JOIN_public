@@ -4,14 +4,14 @@
    onclick="event.cancelBubble = true;">
    <div class="new-contact-card-left">
       <img src="assets/img/logo-white.png" alt="join logo white" />
-      <h1>Add contact</h1>
-      <h2>Tasks are better with a team!</h2>
+      <h1 id="contact-modal-h1">Add contact</h1>
+      <h2 id="contact-modal-h2">Tasks are better with a team!</h2>
       <div class="blue-divider"></div>
    </div>
    <form
       id="new-contact-form"
       class="new-contact-form center"
-      onsubmit="event.preventDefault(); createNewContact(); closeModal(); toggleSlideAnimationRight('modal')">
+      onsubmit="event.preventDefault(); submitContactDetails(); closeModal()">
       <div class="color-input-relative">
          <input
             type="color"
@@ -50,10 +50,12 @@
                type="button"
                class="button-secondary"
                formnovalidate
-               onclick="closeModal(); toggleSlideAnimationRight('modal')">
+               onclick="closeModal(); resetFormValues('new-contact-form')">
                Cancel
             </button>
-            <button type="submit" class="button-primary">Create Contact</button>
+            <button type="submit" id="modal-submit-btn" class="button-primary">
+               Create Contact
+            </button>
          </div>
       </div>
    </form>

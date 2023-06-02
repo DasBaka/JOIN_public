@@ -6,7 +6,7 @@
    height: 3rem;
    aspect-ratio: 1 / 1;
    justify-content: center;
-   margin: 0 2.66rem 0.66rem 0.66rem;
+   margin: 0 1.5rem 1rem 1rem;
    font-size: 0.875rem;
 }
 
@@ -32,7 +32,7 @@
 
 .contact-wrapper {
    display: flex;
-   padding: 1rem 0 1rem;
+   padding: 1rem;
    border-radius: 10px;
 }
 
@@ -50,12 +50,20 @@
    color: white;
 }
 
-.contact-details {
-   justify-content: space-between;
+aside .contact-details {
+   overflow: hidden;
 }
 
-.contact-details h6 {
-   margin-bottom: 2.5px;
+aside .contact-details h4 {
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: normal;
+}
+
+aside .contact-details h6 {
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
 }
 
 .contact-wrapper:last-of-type {
@@ -95,7 +103,13 @@
 .contact-details-card-title span {
    display: flex;
    align-items: end;
-   margin-right: 20%;
+   gap: 0.75rem;
+   cursor: pointer;
+}
+
+.contact-details-card-title span:hover {
+   text-decoration: underline;
+   color: rgb(42, 142, 205);
 }
 
 .contact-details-card h6 {
@@ -191,7 +205,6 @@
    background: url(../assets/img/Capa_1.png) no-repeat 6px 6px;
    background-color: #2a3647;
    background-position: 96%;
-   width: fit-content;
    position: absolute;
    bottom: 8%;
    right: 16%;
@@ -201,6 +214,10 @@
    display: flex;
    width: 100%;
    gap: 1rem;
+}
+
+.back-arrow {
+   display: none;
 }
 
 #new-name {
@@ -222,13 +239,36 @@
    margin-top: 3.75rem;
 }
 
-@media (max-width: 900px) {
-   .contact-list-wrapper {
-      height: calc(100vh - 5rem - 110px);
+#modal[open] {
+   animation: animateright 0.4s ease-in-out;
+}
+
+@media (max-width: 960px) {
+   .back-arrow {
+      display: flex;
    }
 
-   .contact-wrapper:last-of-type {
-      margin-bottom: 3rem !important;
+   .title-wrapper div.space-between {
+      width: 100%;
+   }
+
+   .main-content-wrapper {
+      margin: 0 2.5rem;
+   }
+
+   .user-icon.user-icon-big {
+      margin: 0;
+      height: 7.5rem;
+      font-size: 2.5rem;
+   }
+
+   .main-content-wrapper .contact-wrapper {
+      padding: 0;
+   }
+
+   .contact-wrapper h2 {
+      font-size: 2.25rem;
+      font-weight: normal;
    }
 
    .new-contact-card {
@@ -246,17 +286,25 @@
    }
 
    .new-contact-card-left {
+      text-align: center;
       height: 40%;
       border-radius: 16px 16px 0 0;
+      padding: 3rem 5% 0;
+      margin-bottom: 3rem;
    }
 
    .new-contact-form {
       flex-grow: 1;
+      padding: 0;
       flex-direction: column;
    }
 
+   .new-contact-form div {
+      width: 90%;
+   }
+
    .color-input-relative {
-      margin: -8rem 0 2rem;
+      margin: -9rem 0 1rem;
       z-index: 1000;
    }
 
@@ -264,5 +312,23 @@
       flex-grow: 8;
       justify-content: center;
       width: 90%;
+   }
+
+   .new-contact-btn {
+      right: 5%;
+      top: 8%;
+      bottom: auto;
+   }
+
+   .submit-buttons-wrapper {
+      flex-direction: row;
+      width: 100%;
+      margin-top: 0;
+   }
+}
+
+@media (max-width: 450px) {
+   .new-contact-card-left h2 {
+      display: none;
    }
 }
