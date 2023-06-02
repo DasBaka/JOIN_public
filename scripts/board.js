@@ -207,10 +207,8 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
 
    for (let j = 0; j < assigneeArray.length; j++) {
       let assignee = assigneeArray[j];
-      let assigneeIndex = getIndexOfValueLowerCase(contacts, 'name', assignee);
-      let assigneeInitials =
-         initialLetter(contacts[assigneeIndex], 0) +
-         initialLetter(contacts[assigneeIndex], contacts[assigneeIndex].name.search(' ') + 1);
+      let assigneeIndex = getIndexOfValueLowerCase(users, 'name', assignee);
+      let assigneeInitials = initialLettersUpperCase(users[assigneeIndex]);
 
       if (previewListEnabled) {
          if (assigneeArray.length > previewListLength && j > 1) {
@@ -256,7 +254,7 @@ function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
    content.innerHTML = taskEditAssigneeSelecTemplate(taskId, false);
 
    for (let i = 0; i < users.length; i++) {
-      const user = contacts[i];
+      const user = users[i];
 
       content.innerHTML += assigneeEditTemplate(i, user);
 

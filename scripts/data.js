@@ -1,81 +1,101 @@
 let users = [
    {
+      name: 'Anton Mayer',
+      id: '',
+      mail: 'antom@gmail.com',
+      color: '#000000',
+      phone: '',
+      password: '',
+   },
+   {
+      name: 'Anja Schulz',
+      id: '',
+      mail: 'schulz@hotmail.com',
+      color: '#000000',
+      phone: '',
+      password: '',
+   },
+   {
       name: 'Michael Mustermann',
+      id: '',
       mail: 'mm@mm.mm',
       color: '#ffffff',
       phone: '',
       password: 'mm',
    },
-];
-
-let contacts = [
-   {
-      name: 'Anton Mayer',
-      mail: 'antom@gmail.com',
-      color: '#000000',
-      phone: '',
-   },
-   {
-      name: 'Anja Schulz',
-      mail: 'schulz@hotmail.com',
-      color: '#000000',
-      phone: '',
-   },
    {
       name: 'Benedikt Ziegler',
+      id: '',
       mail: 'benedikt@gmail.com',
       color: '#000000',
       phone: '',
+      password: '',
    },
    {
       name: 'David Eisenberg',
+      id: '',
       mail: 'davidberg@gmail.com',
       color: '#000000',
       phone: '',
+      password: '',
    },
    {
       name: 'Eva Fischer',
+      id: '',
       mail: 'eva@gmail.com',
       color: '#000000',
       phone: '',
+      password: '',
    },
    {
       name: 'Emmanuel Maurer',
+      id: '',
       mail: 'emmanuelma@gmail.com',
       color: '#ffffff',
       phone: '',
+      password: '',
    },
    {
       name: 'Marcel Bauer',
+      id: '',
       mail: 'bauer@gmail.com',
       color: '#ffffff',
       phone: '',
+      password: '',
    },
 
    {
       name: 'Jonas Holl',
+      id: '',
       mail: 'jh1234@gmail.com',
       color: '#ffffff',
       phone: '',
+      password: '',
    },
 
    {
       name: 'Johannes Baum',
+      id: '',
       mail: 'treethree@gmail.com',
       color: '#abcdef',
       phone: '',
+      password: '',
    },
    {
       name: 'Friedrich Mai',
+      id: '',
       mail: 'f82mai@gmail.com',
       color: '#ffffff',
       phone: '',
+      password: '',
    },
    {
       name: 'Stefanie Sauer',
+      id: '',
       mail: 'sauermachtlustig@gmail.com',
       color: '#ffffff',
       phone: '',
+      password: '',
    },
 ];
 

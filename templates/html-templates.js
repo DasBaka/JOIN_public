@@ -13,9 +13,8 @@ function contactCardTemplate(contact, i, j) {
    return /*html*/ `
    <input type="radio" name="contact-list-btns" id="contact-btn-${i}-${j}" class="contact-btn" onclick="showContactCard(${i}, ${j})">
    <label for="contact-btn-${i}-${j}" class="contact-wrapper">
-       <div id="user-icon-${i}-${j}" class="user-icon" ${colorContactIcon(
-      contact
-   )}>${initialLettersUpperCase(contact)}</div>
+       <div id="user-icon-${i}-${j}" class="user-icon" ${colorContactIcon(contact)}>
+       ${initialLettersUpperCase(contact)}</div>
        <div class="contact-details">
            <h4>${contact.name}</h4>
            <h6 style="color: #007cee">${contact.mail}</h6>
@@ -40,7 +39,7 @@ function contactDetailsTemplate(contact, i, j) {
    <div>
      <div class="contact-details-card-title">
        <h4>Contact Information</h4>
-       <span><img src="assets/img/edit.png"/>Edit Contact</span>
+       <span onclick="editContact(${i}, ${j})"><img src="assets/img/edit.png"/>Edit Contact</span>
      </div>
      <div class="contact-details-card">
        <h6><b>Email</b></h6>
@@ -52,7 +51,7 @@ function contactDetailsTemplate(contact, i, j) {
 }
 
 function alphabeticalContactDividerTemplate(i) {
-   return /*html*/ `<h4 class="contact-list-divider">${groupedContacts[i]['group']}</h4>`;
+   return /*html*/ `<h4 class="contact-list-divider">${groupedUsers[i]['group']}</h4>`;
 }
 
 function boardTemplate(status) {
@@ -196,10 +195,10 @@ function furtherAssigneeAmountTemplate(assigneeArray) {
 }
 
 function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
-   let name = extra ? /*html*/ `<p>${contacts[assigneeIndex]['name']}</p>` : '';
+   let name = extra ? /*html*/ `<p>${users[assigneeIndex]['name']}</p>` : '';
    return (
       /*html*/ `
-  <div ${colorContactIcon(contacts[assigneeIndex])}
+  <div ${colorContactIcon(users[assigneeIndex])}
     class="board-user-icon">${assigneeInitials}</div>` + name
    );
 }
