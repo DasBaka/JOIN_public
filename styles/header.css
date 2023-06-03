@@ -22,12 +22,21 @@
    border-radius: 20px 0px 20px 20px;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
    color: white;
-   cursor: pointer;
-   padding: 1rem 2rem;
    position: absolute;
    right: 30px;
    top: 70px;
    z-index: 4;
+   overflow: hidden;
+}
+
+.logout-button {
+   display: none;
+   cursor: pointer;
+   padding: 1rem 2rem;
+}
+
+.banner-log-out-wrapper div:last-child {
+   display: flex;
 }
 
 .banner-log-out-background {
@@ -46,6 +55,15 @@ header .logo {
 }
 
 @media (max-width: 960px) {
+   .banner-log-out-wrapper div {
+      display: flex;
+      padding: 1rem;
+   }
+
+   .banner-log-out-wrapper div:nth-child(2) {
+      padding: 0 1rem;
+   }
+
    header h4 {
       position: absolute;
       top: 6.5rem;
