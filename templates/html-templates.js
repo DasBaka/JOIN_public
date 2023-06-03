@@ -39,7 +39,16 @@ function contactDetailsTemplate(contact, i, j) {
    <div>
      <div class="contact-details-card-title">
        <h4>Contact Information</h4>
-       <span onclick="editContact(${i}, ${j})"><img src="assets/img/edit.png"/>Edit Contact</span>
+       <div class="editable-wrapper">
+        <div onclick="deleteContact(${i}, ${j})">
+          <img src="assets/img/delete.png" class="editable-image-wrapper"/>
+          <span>Delete Contact</span>
+        </div>
+        <div onclick="editContact(${i}, ${j})">
+          <img src="assets/img/edit.png" class="editable-image-wrapper"/>
+          <span>Edit Contact</span>
+        </div>
+        </div>
      </div>
      <div class="contact-details-card">
        <h6><b>Email</b></h6>

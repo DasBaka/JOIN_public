@@ -32,7 +32,7 @@
 
 .contact-wrapper {
    display: flex;
-   padding: 1rem;
+   padding: 1rem 1rem 0;
    border-radius: 10px;
 }
 
@@ -92,8 +92,15 @@ aside .contact-details h6 {
    max-width: 800px;
    flex-direction: row;
    justify-content: space-between;
-   align-items: baseline;
-   margin: 2.5rem 0;
+   margin: 2.5rem 0 0;
+}
+
+.editable-wrapper div {
+   display: flex;
+   gap: 0.5rem;
+   align-items: center;
+   margin-bottom: 1rem;
+   cursor: pointer;
 }
 
 .contact-details-card-title h4 {
@@ -101,13 +108,13 @@ aside .contact-details h6 {
 }
 
 .contact-details-card-title span {
+   align-items: center;
    display: flex;
-   align-items: end;
    gap: 0.75rem;
    cursor: pointer;
 }
 
-.contact-details-card-title span:hover {
+.editable-wrapper div:hover span {
    text-decoration: underline;
    color: rgb(42, 142, 205);
 }
@@ -116,8 +123,8 @@ aside .contact-details h6 {
    margin-bottom: 1rem;
 }
 
-.main-content-wrapper {
-   width: 75%;
+.main-content-wrapper > div:last-child {
+   padding-left: 2rem;
 }
 
 .new-contact-card {
@@ -254,6 +261,7 @@ aside .contact-details h6 {
 
    .main-content-wrapper {
       margin: 0 2.5rem;
+      height: 100%;
    }
 
    .user-icon.user-icon-big {
@@ -324,6 +332,51 @@ aside .contact-details h6 {
       flex-direction: row;
       width: 100%;
       margin-top: 0;
+   }
+
+   .editable-wrapper {
+      position: absolute;
+      right: 0;
+      bottom: 15rem;
+   }
+
+   .editable-wrapper > div {
+      border-radius: 12px;
+      border-style: solid;
+      cursor: pointer;
+      padding: 0.75rem;
+      height: 4rem;
+      aspect-ratio: 1 / 1;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .editable-wrapper div:first-child {
+      background-color: white;
+      border: black solid 1px;
+   }
+   .editable-wrapper div:last-child {
+      background-color: #2a3647;
+      border-color: #2a3647;
+   }
+   .editable-wrapper div:first-child:hover {
+      border-color: rgb(45, 155, 221);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+      background-color: rgb(45, 155, 221);
+   }
+   .editable-wrapper div:last-child:hover {
+      background-color: rgb(45, 155, 221);
+      border-color: rgb(45, 155, 221);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+   }
+   .editable-wrapper div:last-child img {
+      filter: invert();
+      mix-blend-mode: color-dodge;
+   }
+
+   .editable-image-wrapper + span {
+      display: none;
    }
 }
 

@@ -216,7 +216,7 @@ header h4 {
 
 main {
    display: flex;
-   flex-grow: 1;
+   height: 100%;
 }
 
 .flex-column {
@@ -289,6 +289,7 @@ main {
 
 .main-content-wrapper {
    margin-top: 5rem;
+   height: 100%;
 }
 
 .form-default-input {
@@ -411,6 +412,36 @@ main {
    margin: 2rem 1rem;
 }
 
+main:has(section.legal-notice) {
+   height: 100%;
+   overflow: hidden;
+}
+
+.legal-notice {
+   text-align: justify;
+   padding-bottom: 7.5rem;
+   /* Hide scrollbar for IE, Edge and Firefox */
+   overflow-y: scroll;
+   -ms-overflow-style: none;
+   /* IE and Edge */
+   scrollbar-width: none;
+   /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.legal-notice::-webkit-scrollbar {
+   display: none;
+}
+
+.legal-notice p,
+li {
+   line-height: 1.4rem;
+}
+
+.legal-notice li {
+   padding-bottom: 0.5rem;
+}
+
 @media (max-width: 960px) {
    input[type='text'],
    input[type='password'],
@@ -456,39 +487,7 @@ main {
       width: 25%;
       border-bottom: rgb(45, 155, 221) solid 3px;
    }
-}
 
-main:has(section.legal-notice) {
-   height: 100%;
-   overflow: hidden;
-}
-
-.legal-notice {
-   text-align: justify;
-   padding-bottom: 7.5rem;
-   /* Hide scrollbar for IE, Edge and Firefox */
-   overflow-y: scroll;
-   -ms-overflow-style: none;
-   /* IE and Edge */
-   scrollbar-width: none;
-   /* Firefox */
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.legal-notice::-webkit-scrollbar {
-   display: none;
-}
-
-.legal-notice p,
-li {
-   line-height: 1.4rem;
-}
-
-.legal-notice li {
-   padding-bottom: 0.5rem;
-}
-
-@media (max-width: 960px) {
    main:has(section.legal-notice) section.title-wrapper {
       flex-direction: row;
       margin: 5rem 0 1rem;

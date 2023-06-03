@@ -17,6 +17,7 @@ function renderContacts() {
    let list = 'contact-list-wrapper';
    initContainer(list);
    groupAndSortUser();
+   resetContacts();
    initContactList(list);
 }
 
@@ -216,5 +217,17 @@ function modifyContact(groupId, contactId) {
    contact.mail = getFormValue('form-email');
    contact.color = getFormValue('color-input');
    contact.phone = getFormValue('form-phone');
+   renderContacts();
+}
+
+function deleteContact(groupId, contactId) {
+   let contact = groupedUsers[groupId]['value'][contactId];
+   let text = 'Do you want to delete ' + contact.name + '?';
+   if (confirm(text) == true) {
+      users.splice(
+         users.findIndex((e) => e.id == contact.id),
+         1
+      );
+   }
    renderContacts();
 }

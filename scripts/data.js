@@ -1,7 +1,7 @@
 let users = [
    {
       name: 'Anton Mayer',
-      id: '',
+      id: 'u0001',
       mail: 'antom@gmail.com',
       color: '#000000',
       phone: '',
@@ -9,7 +9,7 @@ let users = [
    },
    {
       name: 'Anja Schulz',
-      id: '',
+      id: 'u0002',
       mail: 'schulz@hotmail.com',
       color: '#000000',
       phone: '',
@@ -17,7 +17,7 @@ let users = [
    },
    {
       name: 'Michael Mustermann',
-      id: '',
+      id: 'u0003',
       mail: 'mm@mm.mm',
       color: '#ffffff',
       phone: '',
@@ -25,7 +25,7 @@ let users = [
    },
    {
       name: 'Benedikt Ziegler',
-      id: '',
+      id: 'u0004',
       mail: 'benedikt@gmail.com',
       color: '#000000',
       phone: '',
@@ -33,7 +33,7 @@ let users = [
    },
    {
       name: 'David Eisenberg',
-      id: '',
+      id: 'u0005',
       mail: 'davidberg@gmail.com',
       color: '#000000',
       phone: '',
@@ -41,7 +41,7 @@ let users = [
    },
    {
       name: 'Eva Fischer',
-      id: '',
+      id: 'u0006',
       mail: 'eva@gmail.com',
       color: '#000000',
       phone: '',
@@ -49,7 +49,7 @@ let users = [
    },
    {
       name: 'Emmanuel Maurer',
-      id: '',
+      id: 'u0007',
       mail: 'emmanuelma@gmail.com',
       color: '#ffffff',
       phone: '',
@@ -57,7 +57,7 @@ let users = [
    },
    {
       name: 'Marcel Bauer',
-      id: '',
+      id: 'u0008',
       mail: 'bauer@gmail.com',
       color: '#ffffff',
       phone: '',
@@ -66,7 +66,7 @@ let users = [
 
    {
       name: 'Jonas Holl',
-      id: '',
+      id: 'u0009',
       mail: 'jh1234@gmail.com',
       color: '#ffffff',
       phone: '',
@@ -75,7 +75,7 @@ let users = [
 
    {
       name: 'Johannes Baum',
-      id: '',
+      id: 'u0010',
       mail: 'treethree@gmail.com',
       color: '#abcdef',
       phone: '',
@@ -83,7 +83,7 @@ let users = [
    },
    {
       name: 'Friedrich Mai',
-      id: '',
+      id: 'u0011',
       mail: 'f82mai@gmail.com',
       color: '#ffffff',
       phone: '',
@@ -91,7 +91,7 @@ let users = [
    },
    {
       name: 'Stefanie Sauer',
-      id: '',
+      id: 'u0012',
       mail: 'sauermachtlustig@gmail.com',
       color: '#ffffff',
       phone: '',
