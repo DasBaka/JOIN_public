@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="styles/font_inter.css" />
-    <link rel="stylesheet" href="styles/style.css" />
-    <script src="scripts/script.js"></script>
-  </head>
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Join</title>
+      <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/style.css" />
+      <script src="scripts/data.js"></script>
+      <script src="scripts/script.js"></script>
+   </head>
 
-  <body onload="initialPageLoad()">
-    <nav include-html="templates/nav.html"></nav>
-    <header include-html="templates/banner.html"></header>
-    <main>
-      <div class="base-content-wrapper">
-        <div class="content-wrapper">
-          <img onclick="history.back()" class="previous-page-arrow" src="assets/img/black-arrow.png" alt="Black arrow" />
-          <h1>Help</h1>
-          <h3>What is Join?</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in scelerisque nulla convallis. Vestibulum eros lorem,
-            sollicitudin eget eros non, varius aliquam mauris. Sed turpis ipsum, condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo, hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare
-            ipsum at ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet semper justo.
-          </p>
-          <br />
-          <h3>How to use it</h3>
-          <div class="table-bullet-list">
-            <table>
-              <tr>
-                <td>
-                  <h3>1.</h3>
-                </td>
-                <td>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in scelerisque nulla convallis. Vestibulum eros lorem,
-                    sollicitudin eget eros non, varius aliquam mauris.
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h3>2.</h3>
-                </td>
-                <td>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio felis, iaculis ut massa eget, ornare lacinia urna.</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h3>3.</h3>
-                </td>
-                <td>
-                  <p>
-                    Nunc erat justo, hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet
-                    semper justo.
-                  </p>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
+   <body onload="initialPageLoad()">
+      <nav include-html="templates/nav.html"></nav>
+      <div class="main-column">
+         <header include-html="templates/header.html"></header>
+         <main class="relative flex-column prc-side-padding">
+            <section class="title-wrapper space-between">
+               <h1>Help</h1>
+               <div onclick="history.back()" class="back-arrow" alt="Black arrow"></div>
+            </section>
+            <section class="legal-notice">
+               <h3><b>What is Join?</b></h3>
+               <p>
+                  Join is a kanban board is a visual management tool used to help teams track and
+                  prioritize tasks in a workflow. The board is divided into columns that represent
+                  different stages of the workflow, and tasks are represented as cards that are
+                  moved from one column to the next as they progress. This allows teams to have a
+                  clear and up-to-date view of what work is in progress, what needs to be done next,
+                  and what has been completed. The use of a kanban board helps teams to manage work
+                  more efficiently, reduce bottlenecks and improve communication.
+               </p>
+               <br />
+               <h3><b>How to use it</b></h3>
+               <ol>
+                  <li>
+                     <b>Define Workflow</b>: Start by defining the workflow for your projects or
+                     tasks, breaking them down into individual steps or stages. Assign each step to
+                     a specific column on the kanban board.
+                  </li>
+                  <li>
+                     <b>Add Cards</b> : Add work items to the board as cards, assigning each card to
+                     the appropriate column based on its current status in the workflow.
+                  </li>
+                  <li>
+                     <b>Move Cards</b> : Move the cards from column to column as the work
+                     progresses, updating the board in real-time to reflect the current status of
+                     each work item. Use the board to track progress, identify bottlenecks, and make
+                     informed decisions about what work to tackle next.
+                  </li>
+               </ol>
+            </section>
+         </main>
       </div>
-    </main>
-  </body>
+   </body>
 </html>

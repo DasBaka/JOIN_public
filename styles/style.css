@@ -464,6 +464,7 @@ main:has(section.legal-notice) {
 }
 
 .legal-notice {
+   text-align: justify;
    padding-bottom: 7.5rem;
    /* Hide scrollbar for IE, Edge and Firefox */
    overflow-y: scroll;
@@ -476,6 +477,15 @@ main:has(section.legal-notice) {
 /* Hide scrollbar for Chrome, Safari and Opera */
 .legal-notice::-webkit-scrollbar {
    display: none;
+}
+
+.legal-notice p,
+li {
+   line-height: 1.4rem;
+}
+
+.legal-notice li {
+   padding-bottom: 0.5rem;
 }
 
 @media (max-width: 960px) {
