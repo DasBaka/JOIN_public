@@ -1,0 +1,50 @@
+.title-wrapper h1 {
+  border-right-style: none;
+}
+
+.form-divider {
+  display: flex;
+}
+
+.form-divider > div:first-child {
+  border-right-color: rgba(0, 0, 0, 0.2);
+  border-right-width: 1px;
+  border-right-style: solid;
+  padding-right: 60px;
+  margin-right: 60px;
+}
+
+.subtask-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.headline-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.form-pb {
+  display: flex;
+  gap: 10px;
+}
+
+.form-pb-button {
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.15) 0px 0.5px 4px 0.5px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px 10px 15px;
+  background-color: white;
+}
+
+.form-pb-button:hover {
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 4px 1px;
+}
+
+.form-pb-button:active {
+  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 1px;
+}
