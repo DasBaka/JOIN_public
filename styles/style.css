@@ -580,6 +580,11 @@ button {
   box-sizing: border-box;
 }
 
+.mt-05 {
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
 .mt-1 {
   margin-top: 0.75rem;
   box-sizing: border-box;
@@ -1018,7 +1023,7 @@ main {
   background-color: rgba(0, 0, 0);
 }
 
-.form-dd-additional-element-button-wrapper {
+.form-input-actions {
   display: flex;
   gap: 7px;
   position: absolute;
@@ -1026,16 +1031,16 @@ main {
   top: 0px;
 }
 
-.form-dd-additional-element-button-wrapper img {
+.form-input-actions img {
   border-radius: 20px;
   height: 20px;
   padding: 5px;
 }
 
-.form-dd-additional-element-button-wrapper img:hover {
+.form-input-actions img:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
-.form-dd-additional-element-button-wrapper img:active {
+.form-input-actions img:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
 

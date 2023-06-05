@@ -4,7 +4,6 @@ let formDropDownConfig = [];
 async function initialPageLoad() {
   await includeHTML();
   activeNavElement();
-  initDropDown();
 }
 
 function initialRedirect() {

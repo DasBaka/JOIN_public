@@ -327,30 +327,8 @@
   width: 20px;
 }
 
-.task-edit-priority {
-  border-radius: 10px;
-  box-shadow: rgba(99, 99, 99, 0.15) 0px 0.5px 4px 0.5px;
-  cursor: pointer;
-  display: flex;
-  gap: 10px;
-  padding: 10px 15px 10px 15px;
-}
-
 .task-edit-form-item-wrapper {
   width: 100%;
-}
-
-.task-edit-priority:hover {
-  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 4px 1px;
-}
-
-.task-edit-priority:active {
-  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 1px;
-}
-
-.task-edit-priority-buttons {
-  display: flex;
-  gap: 10px;
 }
 
 .task-edit-form-input {
