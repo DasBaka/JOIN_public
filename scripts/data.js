@@ -79,6 +79,8 @@ let contacts = [
   },
 ];
 
+let tmpTask = [];
+
 let tasks = [
   {
     id: 0,
