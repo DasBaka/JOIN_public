@@ -3,24 +3,26 @@
    <head>
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Join</title>
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
+      <link rel="stylesheet" href="styles/animations.css" />
       <link rel="stylesheet" href="styles/summary.css" />
+      <script src="scripts/data.js"></script>
       <script src="scripts/script.js"></script>
+      <script src="scripts/summary.js"></script>
    </head>
 
-   <body onload="initialPageLoad()">
+   <body onload="initialPageLoad(); initSummary()">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
-         <main class="relative flex-grow-1 flex-column pr-5 pl-5">
+         <main class="relative flex-column prc-side-padding">
             <section class="title-wrapper">
                <h1>Summary</h1>
                <h3>Everything in a nutshell!</h3>
+               <div class="line"></div>
             </section>
             <section class="info-box-greeting-wrapper">
                <div class="summary-table">
@@ -49,17 +51,15 @@
                         onclick="window.location.href='/board.html'"
                         class="info-box center flex-column info-box-large content-box">
                         <div>
-                           <img
-                              src="assets/img/urgent.png"
-                              alt="Ugrent icon" />
+                           <img src="assets/img/urgent.png" alt="Ugrent icon" />
                            <div class="info-box-content">
-                              <h2><b>1</b></h2>
+                              <h2><b id="urgents">1</b></h2>
                               <p>Urgent</p>
                            </div>
                         </div>
                         <div>
-                           <h5><b>October 16, 2022</b></h5>
-                           <p>Upcoming Deadline</p>
+                           <h5 id="deadline"></h5>
+                           <p></p>
                         </div>
                      </article>
                   </div>
@@ -69,7 +69,7 @@
                         class="info-box center flex-column info-box-medium content-box">
                         <img src="assets/img/to-do.png" alt="To-Do Icon" />
                         <div class="info-box-content">
-                           <h1>1</h1>
+                           <h1 id="to-do">1</h1>
                            <p>To-do</p>
                         </div>
                      </article>
@@ -78,14 +78,14 @@
                         class="info-box center flex-column info-box-medium content-box">
                         <img src="assets/img/done.png" alt="Done Icon" />
                         <div class="info-box-content">
-                           <h1>1</h1>
+                           <h1 id="done">1</h1>
                            <p>Done</p>
                         </div>
                      </article>
                   </div>
                </div>
                <div class="greeting-wrapper">
-                  <p>Good morning,</p>
+                  <p id="greeting">Good morning,</p>
                   <p>Sofia Müller</p>
                </div>
             </section>

@@ -1,54 +1,59 @@
 <div
-   class="content-box new-contact-card display-none"
+   class="content-box new-contact-card"
    id="new-contact-card"
    onclick="event.cancelBubble = true;">
-   <div class="new-contact-card-left pl-5">
+   <div class="new-contact-card-left">
       <img src="assets/img/logo-white.png" alt="join logo white" />
-      <h1>Add contact</h1>
-      <h2>Tasks are better with a team!</h2>
+      <h1 id="contact-modal-h1">Add contact</h1>
+      <h2 id="contact-modal-h2">Tasks are better with a team!</h2>
       <div class="blue-divider"></div>
    </div>
-   <form id="new-contact-form" class="new-contact-form center pr-5">
+   <form
+      id="new-contact-form"
+      class="new-contact-form center"
+      onsubmit="event.preventDefault(); submitContactDetails(); closeModal()">
       <div class="color-input-relative">
          <input
             type="color"
             id="color-input"
             name="color-input"
-            class="color-input" />
-         <label
-            for="color-input"
-            class="user-icon user-icon-big edit-user-icon"
-            id="new-user-icon"
+            class="color-input"
+            value="#ffffff"
+            oninput="changePreview()" />
+         <label for="color-input" class="user-icon user-icon-big edit-user-icon" id="new-user-icon"
             >AA</label
          >
       </div>
-      <div class="center flex-column">
+      <div class="flex-column">
          <input
             type="text"
             id="form-name"
             name="form-name"
             placeholder="Name"
             autocomplete="cc-name"
+            oninput="changePreview()"
             required /><br />
          <input
             type="email"
             id="form-email"
             name="form-email"
             placeholder="Email"
-            autocomplete="email"
-            required /><br />
+            autocomplete="email" /><br />
          <input
             type="tel"
             class="form-text-input"
-            id="new-phone"
+            id="form-phone"
             placeholder="Phone"
             autocomplete="tel" />
-         <div class="w-100 gap-50 mt-5 space-between">
-            <button class="button-secondary" formnovalidate>Cancel</button>
+         <div class="submit-buttons-wrapper space-between">
             <button
-               type="submit"
-               class="button-primary"
-               onsubmit="createNewUser('new-contact-form')">
+               type="button"
+               class="button-secondary"
+               formnovalidate
+               onclick="closeModal(); resetFormValues('new-contact-form')">
+               Cancel
+            </button>
+            <button type="submit" id="modal-submit-btn" class="button-primary">
                Create Contact
             </button>
          </div>

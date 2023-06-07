@@ -3,15 +3,13 @@
    <head>
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-         name="viewport"
-         content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Join</title>
       <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/animations.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <link rel="stylesheet" href="styles/contacts.css" />
       <link rel="stylesheet" href="styles/contact-list.css" />
-      <!--<script src="scripts/mini_backend.js"></script>-->
       <script src="scripts/script.js"></script>
       <script src="scripts/data.js"></script>
       <script src="templates/html-templates.js"></script>
@@ -19,31 +17,31 @@
    </head>
    <body onload="initialPageLoad(), renderContacts()">
       <nav include-html="templates/nav.html"></nav>
-      <div class="main-column flex-column">
+      <div class="main-column">
          <header include-html="templates/header.html"></header>
          <main>
-            <aside
-               id="contact-list-wrapper"
-               class="contact-list-wrapper"></aside>
-            <seqtion class="pr-5 pl-5">
+            <aside id="contact-list-wrapper" class="contact-list-wrapper"></aside>
+            <section class="prc-side-padding">
                <div class="title-wrapper">
-                  <h1>Contacts</h1>
+                  <div class="space-between">
+                     <h1>Contacts</h1>
+                     <div onclick="resetContacts()" class="back-arrow"></div>
+                  </div>
                   <h3>Better with a team</h3>
+                  <div class="line"></div>
                </div>
-               <article
-                  class="main-content-wrapper display-none"
-                  id="contact-details"></article>
-            </seqtion>
+               <article class="main-content-wrapper" id="contact-details"></article>
+            </section>
             <button
                class="button-primary new-contact-btn"
-               onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')">
+               onclick="newContactForm();  transmuteForm('add');">
                New contact
             </button>
          </main>
       </div>
-      <seqtion
+      <dialog
          include-html="templates/create-new-contact.html"
-         onclick="toggleSlideAnimationRight('new-contact-card'), toggleParent('new-contact-card')"
-         class="pop-in display-none"></seqtion>
+         id="modal"
+         onclick="closeModal()"></dialog>
    </body>
 </html>
