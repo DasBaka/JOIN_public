@@ -263,6 +263,12 @@ main {
    color: rgb(42, 142, 205);
 }
 
+.logo {
+  width: 6.5rem;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
 .divider-blue-line {
    border: rgb(45, 155, 221) solid 1px;
    margin-bottom: 30px;
@@ -315,60 +321,91 @@ main {
    transform: translate(-50%, -50%);
 }
 
-.form-drop-down {
-   background-color: white;
-   border-radius: 10px;
-   border: rgb(226, 226, 226) solid 0.5px;
-   cursor: pointer;
-   font: inherit;
-   margin-bottom: 10px;
-   overflow: hidden;
-   position: relative;
-   width: 300px;
+.form-dd {
+  background-color: white;
+  border-radius: 10px;
+  border: rgb(226, 226, 226) solid 0.5px;
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
 }
 
-.form-drop-down-content {
-   max-height: 132px;
-   overflow: scroll;
+.form-dd-content {
+  max-height: 132px;
+  overflow: scroll;
 }
 
-.form-drop-down-element {
-   display: flex;
-   justify-content: space-between;
-   padding: 12px 12px 12px 20px;
-   position: relative;
+.form-dd-element {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 12px 12px 20px;
+  position: relative;
 }
 
-.form-drop-down-element:hover {
-   background-color: rgba(0, 0, 0, 0.03);
-}
-.form-drop-down-element:active {
-   background-color: rgba(0, 0, 0, 0.075);
+.form-dd-element:hover {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
-.form-drop-down-selected-element {
-   background-color: rgba(0, 0, 0, 0.05);
+.form-dd-element:active {
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
-.form-drop-down-checkbox {
-   background-color: rgba(0, 0, 0, 0.05);
-   border-color: black;
-   border-radius: 5px;
-   border-style: solid;
-   border-width: 1px;
-   height: 10px;
-   padding: 2px;
-   width: 10px;
+.form-dd-selected-element {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.form-drop-down-checkbox-filled {
-   background-clip: content-box;
-   background-color: rgba(0, 0, 0);
+.form-dd-checkbox {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: black;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  height: 10px;
+  padding: 2px;
+  width: 10px;
+}
+
+.form-dd-checkbox-filled {
+  background-clip: content-box;
+  background-color: rgba(0, 0, 0);
 }
 
 #form-name:placeholder-shown {
    background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
+
+.form-input-actions {
+  display: flex;
+  gap: 7px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.form-input-actions img {
+  border-radius: 20px;
+  height: 20px;
+  padding: 5px;
+}
+
+.form-input-actions img:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.form-input-actions img:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.grey-divider-div {
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 0.75px;
+}
+
+#form-name {
+  background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
+  background-position: 96%;
 }
 
 #form-email:placeholder-shown {
