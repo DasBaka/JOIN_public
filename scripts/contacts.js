@@ -17,7 +17,6 @@ function renderContacts() {
    let list = 'contact-list-wrapper';
    initContainer(list);
    groupAndSortUser();
-   resetContacts();
    initContactList(list);
 }
 
@@ -184,6 +183,7 @@ function createNewContact() {
    resetFormValues('new-contact-form');
 
    renderContacts();
+   resetContacts();
 }
 
 function transmuteForm(state) {
@@ -218,6 +218,7 @@ function modifyContact(groupId, contactId) {
    contact.color = getFormValue('color-input');
    contact.phone = getFormValue('form-phone');
    renderContacts();
+   resetContacts();
 }
 
 function deleteContact(groupId, contactId) {
@@ -230,4 +231,5 @@ function deleteContact(groupId, contactId) {
       );
    }
    renderContacts();
+   resetContacts();
 }
