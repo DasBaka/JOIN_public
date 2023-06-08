@@ -172,6 +172,35 @@ function renderSubtaskProgress(task) {
     <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>`;
 }
 
+function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
+   let content = document.getElementById(HTMLElementId);
+   content.innerHTML = '';
+
+   for (let i = 0; i < priorites.length; i++) {
+      const priority = priorites[i];
+      content.innerHTML += /*html*/ `
+    <div id="task-edit-priority-${
+       priority['name']
+    }" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${
+         priority['name']
+      }')">
+      <h6>${capitalizeFirstLetter(priority.name)}</h6>
+      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
+    </div>`;
+
+      let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
+      if (priority['name'] == activePriority) {
+         priorityWrapper.style.backgroundColor = `${priority['color']}`;
+         priorityWrapper.style.color = 'white';
+         activeTaskPriority = priority['name'];
+      } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
+         priorityWrapper.style.backgroundColor = `${priority['color']}`;
+         priorityWrapper.style.color = 'white';
+         activeTaskPriority = priority['name'];
+      }
+   }
+}
+
 function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, previewListLength) {
    let assigneeListWrapper = document.getElementById(HTMLElementId);
    assigneeListWrapper.innerHTML = '';

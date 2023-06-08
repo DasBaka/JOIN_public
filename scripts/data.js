@@ -256,7 +256,7 @@ let priorites = [
 
 let formDropDown = [
    {
-      id: 'form-drop-down-category',
+      id: 'form-dd-category',
       dataArray: categories,
       heading: 'Select task category',
       elementId: 'name',
@@ -268,11 +268,11 @@ let formDropDown = [
       expandStatus: false,
    },
    {
-      id: 'form-drop-down-assignee',
+      id: 'form-dd-assignee',
       dataArray: users,
       heading: 'Select contacts to assign',
       elementId: 'username',
-      elementName: ['firstname', 'lastname'],
+      elementName: ['name'],
       multiSelect: true,
       imgSrc: 'assets/img/sort-down.png',
       headingOverwrite: null,
