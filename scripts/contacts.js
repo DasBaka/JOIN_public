@@ -150,10 +150,10 @@ function changePreview() {
    name.name = name.value;
    icon.color = getFormValue('color-input');
    icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
-   changePrevieName(name, icon);
+   changePreviewName(name, icon);
 }
 
-function changePrevieName(name, icon) {
+function changePreviewName(name, icon) {
    if (name.name != '') {
       icon.innerHTML = initialLettersUpperCase(name);
    } else {

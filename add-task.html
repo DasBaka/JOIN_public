@@ -15,7 +15,7 @@
    </head>
 
    <body
-      onload="initialPageLoad(), initDrop(), renderPriorityButtons('form-pb'), renderSubtasks('subtasks-list', null, true)">
+      onload="initialPageLoad(), initDropDown(), renderPriorityButtons('form-pb'), renderSubtasks('subtasks-list', null, true)">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
@@ -23,7 +23,7 @@
             <section class="title-wrapper">
                <h1>Add task</h1>
             </section>
-            <form onsubmit="return false">
+            <form onsubmit="">
                <div class="form-divider">
                   <section>
                      <article>
@@ -67,7 +67,7 @@
                               <img
                                  src="assets/img/cross.svg"
                                  style="transform: rotate(45deg)"
-                                 onclick="pushNewCategory" />
+                                 onclick="" />
                               <div class="grey-divider-div"></div>
                               <img src="assets/img/check-black.png" onclick="" />
                            </label>
@@ -76,20 +76,6 @@
                      <article>
                         <h6>Assigned to</h6>
                         <details id="assignee-inputs"></details>
-                        <div id="new-assignee-input" class="add-new-wrapper display-none">
-                           <input
-                              type="text"
-                              id="form-input-category"
-                              placeholder="Contact email" />
-                           <label for="form-input-subtask">
-                              <img
-                                 src="assets/img/cross.svg"
-                                 style="transform: rotate(45deg)"
-                                 onclick="" />
-                              <div class="grey-divider-div"></div>
-                              <img src="assets/img/check-black.png" onclick="" />
-                           </label>
-                        </div>
                         <div class="task-preview-footer-wrapper">
                            <div id="assignees" class="board-user-icon-wrapper"></div>
                         </div>
@@ -130,7 +116,7 @@
                      </article>
                   </section>
                </div>
-               <button class="button-primary button" onclick="">
+               <button type="submit" class="button-primary button" onclick="">
                   <h6>Ok</h6>
                   <!-- <img src="assets/img/check-white.png" alt="Checkmark"> -->
                </button>

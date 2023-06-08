@@ -214,22 +214,27 @@ let statuses = [
 let categories = [
    {
       name: 'Sales',
+      id: 'c001',
       color: 'fuchsia',
    },
    {
       name: 'Design',
+      id: 'c002',
       color: 'orangered',
    },
    {
       name: 'Backoffice',
+      id: 'c003',
       color: 'deepskyblue',
    },
    {
       name: 'Media',
+      id: 'c004',
       color: 'orange',
    },
    {
       name: 'Marketing',
+      id: 'c005',
       color: 'blue',
    },
 ];
@@ -249,32 +254,5 @@ let priorites = [
       name: 'low',
       icon_path: 'assets/img/priority-low.svg',
       color: 'darkgreen',
-   },
-];
-
-let formDropDown = [
-   {
-      id: 'form-dd-category',
-      dataArray: categories,
-      heading: 'Select task category',
-      elementId: 'name',
-      elementName: ['name'],
-      multiSelect: false,
-      imgSrc: 'assets/img/sort-down.png',
-      headingOverwrite: null,
-      selectedElements: [],
-      expandStatus: false,
-   },
-   {
-      id: 'form-dd-assignee',
-      dataArray: users,
-      heading: 'Select contacts to assign',
-      elementId: 'username',
-      elementName: ['name'],
-      multiSelect: true,
-      imgSrc: 'assets/img/sort-down.png',
-      headingOverwrite: null,
-      selectedElements: [],
-      expandStatus: false,
    },
 ];
