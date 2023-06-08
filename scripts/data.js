@@ -101,8 +101,6 @@ let users = [
 
 let tmpTask = [];
 
-let tmpTask = [];
-
 let tasks = [
    {
       id: 0,

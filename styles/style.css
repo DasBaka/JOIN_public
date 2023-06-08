@@ -372,10 +372,6 @@ main {
    background-color: rgba(0, 0, 0);
 }
 
-#form-name:placeholder-shown {
-   background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
-   background-position: 96%;
-
 .form-input-actions {
    display: flex;
    gap: 7px;
