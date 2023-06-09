@@ -1,10 +1,3 @@
-let users = [];
-
-function logIn() {
-   checkLogin();
-   return false;
-}
-
 async function init() {
    loadUsers();
 }
@@ -17,23 +10,20 @@ async function loadUsers() {
    }
 }
 
-function checkLogin() {
+function login() {
    let loginMail = document.getElementById('form-email').value;
    let pw = document.getElementById('form-password').value;
    for (let i = 0; i < users.length; i++) {
       let e = users[i];
       if (e.mail == loginMail) {
          if (e.password == pw) {
-            /*             console.log('success'); */
-            window.location.href = 'summary.html';
+            window.location.href = 'summary.html'; // success
          } else {
-            /*             console.log('wrong pw'); */
-            return false;
+            return false; // wrong password
          }
-      }
+      } // user still not found
    }
-   /*    console.log('no match'); */
-   return false;
+   return false; // user not found
 }
 
 async function createNewUser() {
