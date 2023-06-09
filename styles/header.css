@@ -24,7 +24,7 @@
    color: white;
    position: absolute;
    right: 30px;
-   top: 70px;
+   top: 4.5rem;
    z-index: 4;
    overflow: hidden;
 }
@@ -81,5 +81,11 @@ header .logo {
       margin: 0.5rem;
       margin-left: 1.5rem;
       background-size: contain;
+   }
+}
+
+@media (max-width: 450px) {
+   header h4 {
+      display: none !important;
    }
 }

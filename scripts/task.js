@@ -1,200 +1,218 @@
-function initDropDown(id) {
-   for (let i = 0; i < formDropDown.length; i++) {
-      const item = formDropDown[i];
-      if (!document.getElementById(item['id'])) {
-         continue;
-      }
-      if (id && item['id'] != id) {
-         continue;
-      }
-      let content = document.getElementById(item['id']);
+let categoryList = {
+   id: 'category-inputs',
+   arr: categories,
+   preText: 'Select task category',
+   sufText: 'New category',
+};
 
-      content.innerHTML = /*html*/ `
-    <div class="form-dd-element" onclick="expandDropDown('${item['id']}')">
-      <h6 id="${item['id']}-heading">${item['heading']}</h6>
-      <img class="form-input-img" src="${item['imgSrc']}">
-    </div>
-    <div id="${item['id']}-content" class="form-dd-content" ></div>`;
+let assigneeList = {
+   id: 'assignee-inputs',
+   arr: users,
+   preText: 'Select contacs to assign',
+   sufText: 'Invite new contact',
+};
+
+let assigneeArray = [];
+let subTasksArray = [];
+
+function initAddTaskForm() {
+   renderCategoryList();
+   renderAssigneeList();
+   renderPriorityButtons('form-pb');
+}
+
+function renderCategoryList() {
+   let div = document.getElementById(categoryList.id);
+   let arr = categoryList.arr;
+   div.innerHTML = /*html*/ `
+   <summary>
+      <div id="category-summary">${categoryList.preText}</div>
+      <img src="assets/img/sort-down.png"/>
+   </summary>
+   <div class="list-wrapper" id="category-list"></div>`;
+   initList('category-list', arr, categoryList);
+}
+
+function initList(id, arr, listName) {
+   let list = document.getElementById(id);
+   list.innerHTML = '';
+   switch (id) {
+      case 'category-list':
+         caseCategory(id, arr, listName, list);
+         break;
+      case 'assignee-list':
+         caseAssignee(id, arr, list);
+         break;
    }
 }
 
-function expandDropDown(id) {
-   let content = document.getElementById(`${id}-content`);
-   let heading = document.getElementById(`${id}-heading`);
-   let config = formDropDown[getIndexOfValue(formDropDown, 'id', `${id}`)];
-
-   if (config['expandStatus']) {
-      content.innerHTML = '';
-      config['expandStatus'] = false;
-      if (config['headingOverwrite']) {
-         heading.innerText = config['headingOverwrite'];
-      }
-      return;
+function caseCategory(id, arr, listName, list) {
+   for (let i = 0; i < arr.length; i++) {
+      list.innerHTML += radioButtonTemplate(id, arr[i]);
    }
+   list.innerHTML += categoryListEnd(id, listName.sufText);
+}
 
-   config['expandStatus'] = true;
-   heading.innerText = config['heading'];
-
-   if (config['additionalElement'] && config['additionalElement']['firstElement'] == true) {
-      additionalDropDownElement(id, true);
-   }
-
-   for (let i = 0; i < config['dataArray'].length; i++) {
-      const item = config['dataArray'][i];
-      let elementId = item[config['elementId']];
-      let elementName = '';
-
-      for (let j = 0; j < config['elementName'].length; j++) {
-         elementName = `${elementName} ${item[config['elementName'][j]]}`;
-      }
-
-      content.innerHTML += /*html*/ `
-    <div id="${id}-element-${elementId}" class="form-dd-element" onclick="selectDropDownElement('${id}', '${elementId}')">
-      <h6>${elementName}</h6>
-      <div id="${id}-checkbox-${elementId}" class="form-dd-checkbox display-none"></div>
-    </div>`;
-
-      if (config['multiSelect']) {
-         document.getElementById(`${id}-checkbox-${elementId}`).classList.remove('display-none');
-      }
-
-      if (config['selectedElements'].indexOf(elementId) > -1) {
-         document
-            .getElementById(`${id}-element-${elementId}`)
-            .classList.add('form-dd-selected-element');
-         document
-            .getElementById(`${id}-checkbox-${elementId}`)
-            .classList.add('form-dd-checkbox-filled');
-      }
-   }
-
-   if (config['additionalElement'] && config['additionalElement']['firstElement'] == false) {
-      additionalDropDownElement(id, true);
+function caseAssignee(id, arr, list) {
+   for (let i = 0; i < arr.length; i++) {
+      list.innerHTML += checkboxTemplate(id, arr[i]);
    }
 }
 
-function selectDropDownElement(id, elementId) {
-   let config = formDropDown[getIndexOfValue(formDropDown, 'id', `${id}`)];
-   let indexOfelementId = config['selectedElements'].indexOf(elementId);
-   let checkboxDiv = document.getElementById(`${id}-checkbox-${elementId}`);
+function renderAssigneeList() {
+   let div = document.getElementById(assigneeList.id);
+   let arr = assigneeList.arr;
+   div.innerHTML = `<summary><div id="assignee-summary">${assigneeList.preText}</div><img src="assets/img/sort-down.png"/></summary><div class="list-wrapper" id="assignee-list"></div>`;
+   initList('assignee-list', arr, assigneeList);
+}
 
-   if (config['multiSelect'] == false) {
-      config['headingOverwrite'] = elementId;
-      config['selectedElements'] = [elementId];
-      expandDropDown(id);
-      return;
-   }
+function chosenCategory(name) {
+   document.getElementById('category-summary').innerHTML = name;
+   document.getElementById('category-inputs').open = false;
+}
 
-   if (indexOfelementId == -1) {
-      config['selectedElements'].push(elementId);
-      checkboxDiv.classList.add('form-dd-checkbox-filled');
+function toggleAddField(id, outerDivId) {
+   document.getElementById(id).classList.toggle('display-none');
+   document.getElementById(outerDivId).classList.toggle('display-none');
+}
+
+function refreshAssignees(inputId, contactId) {
+   checkCheckedLimit();
+   let id = document.getElementById(inputId + '-' + contactId);
+   if (id.checked) {
+      let arrayId = getIndexOfValue(users, 'id', contactId);
+      assigneeArray.push(users[arrayId]);
    } else {
-      config['selectedElements'].splice(indexOfelementId, 1);
-      checkboxDiv.classList.remove('form-dd-checkbox-filled');
+      let arrayId = getIndexOfValue(assigneeArray, 'id', contactId);
+      assigneeArray.splice(arrayId, 1);
+   }
+   sort(assigneeArray, 'name');
+   renderAssigneePreview();
+}
+
+function checkCheckedLimit() {
+   let id = document.getElementById('assignee-list');
+   let checked = id.querySelectorAll('input[type="checkbox"]:checked');
+   let unchecked = id.querySelectorAll('input[type="checkbox"]:not(:checked)');
+   if (checked.length == 8) {
+      unchecked.forEach((el) => (el.disabled = true));
+   } else if (checked.length < 8) {
+      unchecked.forEach((el) => (el.disabled = false));
    }
 }
 
-function additionalDropDownElement(id, render) {
-   let content = document.getElementById(`${id}-content`);
-   let config = formDropDown[getIndexOfValue(formDropDown, 'id', `${id}`)];
-
-   if (render == true) {
-      content.innerHTML += /*html*/ `
-  <div id="additional-element" class="form-dd-element" onclick="additionalDropDownElement('${id}', false)">
-    <h6>${config['additionalElement']['elementName']}</h6>
-    <img class="form-input-img" src="${config['additionalElement']['imgSrc']}">
-  </div>`;
-      return;
-   }
-
-   content = document.getElementById(id);
-   config['expandStatus'] = false;
-   content.innerHTML = /*html*/ `
-    <input type="text" placeholder="${config['additionalElement']['placeHolder']}" value="">
-    <div class="form-input-actions">
-      <img src="assets/img/cross.svg" style="transform: rotate(45deg);" onclick="initDropDown('${id}')">
-      <div class="grey-divider-div"></div>
-      <img src="assets/img/check-black.png">
-    </div>`;
+function renderAssigneePreview() {
+   let preview = document.getElementById('assignees');
+   preview.innerHTML = '';
+   assigneeArray.forEach((el, index) => {
+      let initials = initialLettersUpperCase(el);
+      preview.innerHTML += userPreviewBoardIconTemplate(index, initials, false);
+   });
 }
 
-function renderPriorityButtons(HTMLElementId, activePriority) {
-   let content = document.getElementById(HTMLElementId);
+function renderPriorityButtons() {
+   let content = document.getElementById('form-pb');
    content.innerHTML = '';
-
    for (let i = 0; i < priorites.length; i++) {
       const priority = priorites[i];
-      content.innerHTML += /*html*/ `
-    <div id="form-pb-${
-       priority['name']
-    }" class="form-pb-button" onclick="renderPriorityButtons('form-pb', '${priority['name']}')">
-      <h6>${capitalizeFirstLetter(priority.name)}</h6>
-      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
-    </div>`;
-
-      let priorityButton = document.getElementById('form-pb-' + priority['name']);
-      if (priority['name'] == activePriority) {
-         priorityButton.style.backgroundColor = `${priority['color']}`;
-         priorityButton.style.color = 'white';
+      let id = 'form-pb-' + priority.name;
+      content.innerHTML += priorityBtnTemplate(id, priority);
+      if (i == priorites.length - 1) {
+         document.getElementById(id).checked = true;
+         colorPrioBtn(id, priority.color);
       }
    }
 }
 
-function renderSubtasks(HTMLId, taskId, useTmpTask) {
-   let content = document.getElementById(HTMLId);
-   let subTasks;
-
-   if (useTmpTask) {
-      subTasks = tmpTask;
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
-   }
-
-   content.innerHTML = '';
-   for (let i = 0; i < subTasks.length; i++) {
-      const subTask = subTasks[i];
-
-      content.innerHTML += /*html*/ `
-    <div class="subtask-wrapper">
-      <input type="checkbox">
-      <p>${subTask['title']}</p>
-      <img src="assets/img/cross.svg" style="transform: rotate(45deg); width: 20px; cursor: pointer" onclick="removeSubTask('subtasks-list', ${subTask['id']}, true)">
-    </div>`;
-   }
-}
-
-function addSubTask(formId, HTMLId, taskId, useTmpTask) {
-   let name = document.getElementById(formId).value;
-   let subTasks;
-
-   if (useTmpTask) {
-      subTasks = tmpTask;
-      if (tmpTask.length == 0) {
-         taskId = 0;
+function colorPrioBtn(id, color) {
+   let btns = document.getElementById('form-pb');
+   let priorityButton = btns.querySelectorAll('input');
+   priorityButton.forEach((el) => {
+      let btn = el.nextSibling.nextSibling;
+      if (el.checked & (el.id == id)) {
+         btn.style.backgroundColor = `${color}`;
+         btn.style.color = 'white';
+      } else if (el.id == id) {
+         return;
       } else {
-         taskId = tmpTask[tmpTask.length - 1]['id'] + 1;
+         el.checked = false;
+         btn.style.backgroundColor = `white`;
+         btn.style.color = 'black';
       }
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
-   }
-
-   subTasks.push({
-      id: taskId,
-      title: name,
-      status: 'open',
    });
-   renderSubtasks(HTMLId, taskId, useTmpTask);
 }
 
-function removeSubTask(HTMLId, taskId, useTmpTask) {
-   let subTasks;
+function changePreview() {
+   let icon = document.getElementById('new-category-icon');
+   icon.color = getFormValue('color-input-task');
+   icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
+}
 
-   if (useTmpTask) {
-      subTasks = tmpTask;
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
+function renderSubtasks() {
+   let content = document.getElementById('subtasks-list');
+   content.innerHTML = '';
+   for (let i = 0; i < subTasksArray.length; i++) {
+      const subTask = subTasksArray[i];
+      content.innerHTML += subtaskPreviewTemplate(subTask);
    }
+}
 
-   subTasks.splice(taskId, 1);
-   renderSubtasks(HTMLId, taskId, useTmpTask);
+function addSubTask() {
+   checkSubtaskLimit();
+   let name = document.getElementById('form-input-subtask').value;
+   if (replacer(name) != '') {
+      let newTask = {
+         id: subTasksArray.length,
+         title: name,
+         status: 'open',
+      };
+      subTasksArray.push(newTask);
+      renderSubtasks();
+   }
+   emptyInput('form-input-subtask');
+}
+
+function removeSubTask(taskId) {
+   subTasksArray.forEach((el) => {
+      if (el.id > taskId) {
+         el.id -= 1;
+      }
+   });
+   subTasksArray.splice(taskId, 1);
+   renderSubtasks();
+}
+
+function checkSubtaskLimit() {
+   let id = document.getElementById('subtasks-list');
+   let input = document.getElementById('form-input-subtask');
+   let tasks = id.getElementsByClassName('subtask-wrapper');
+   if (tasks.length == 8) {
+      input.disabled = true;
+   } else if (tasks.length < 8) {
+      input.disabled = false;
+   }
+}
+
+function emptyInput(id) {
+   document.getElementById(id).value = '';
+}
+
+function resetCategoryInput() {
+   emptyInput('form-input-category');
+   chosenCategory('Select task category');
+   toggleAddField('new-category-input', 'category-inputs');
+}
+
+function addCategory() {
+   let name = document.getElementById('form-input-category').value;
+   if (replacer(name) != '') {
+      let newCategory = {
+         id: 'c' + String(categories.length + 1).padStart(3, '0'),
+         name: name,
+         color: document.getElementById('color-input-task').value,
+      };
+      categories.push(newCategory);
+      renderCategoryList();
+      resetCategoryInput();
+   }
 }

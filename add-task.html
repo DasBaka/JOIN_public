@@ -1,81 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Join</title>
+      <link rel="stylesheet" href="styles/font_inter.css" />
+      <link rel="stylesheet" href="styles/style.css" />
+      <script src="templates/html-templates.js"></script>
+      <script src="scripts/data.js"></script>
+      <script src="scripts/script.js"></script>
+      <script src="scripts/task.js"></script>
+   </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join</title>
-  <link rel="stylesheet" href="styles/font_inter.css" />
-  <link rel="stylesheet" href="styles/style.css" />
-  <link rel="stylesheet" href="styles/task.css">
-  <script src="scripts/data.js"></script>
-  <script src="scripts/script.js"></script>
- <script src="scripts/task.js"></script>
-</head>
-
-<body
-  onload="initialPageLoad(), initDropDown(), renderPriorityButtons('form-pb'), renderSubtasks('subtasks-list', null, true)">
-  <nav include-html="templates/nav.html"></nav>
-  <div class="main-column">
-    <header include-html="templates/header.html"></header>
-    <main id="main-wrapper" class="relative flex-column prc-side-padding">
-      <div class="base-content-wrapper">
-        <div class="headline-wrapper">
-          <div class="title-wrapper">
-            <h1>Board</h1>
-          </div>
-        </div>
-        <section class="form-divider">
-          <div>
-            <div>
-              <h6>Title</h6>
-              <input id="form-input-title" type="text" placeholder="Enter a Title" value="" class="mt-05">
-            </div>
-            <div>
-              <h6>Description</h6>
-              <textarea id="form-input-description" rows="4" placeholder="Enter a Description"
-                class="form-default-input form-input mt-05"></textarea>
-            </div>
-            <div>
-              <h6>Category</h6>
-              <div id="form-dd-category" class="form-dd mt-05"></div>
-            </div>
-            <div>
-              <h6>Assigned to</h6>
-              <div id="form-dd-assignee" class="form-dd mt-05"></div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <h6>Due date</h6>
-              <input id="form-input-dueDate" type="date" value="" class="form-default-input mt-05">
-            </div>
-            <div>
-              <h6>Prio</h6>
-              <div id="form-pb" class="form-pb mt-05"></div>
-            </div>
-            <div>
-              <h6>Subtasks</h6>
-              <div class="relative">
-                <input id="form-input-subtask" type="text" placeholder="Add new subtask" value="" class="mt-05">
-                <div class="form-input-actions">
-                  <img src="assets/img/cross.svg" style="transform: rotate(45deg);" onclick="">
-                  <div class="grey-divider-div"></div>
-                  <img src="assets/img/check-black.png"
-                    onclick="addSubTask('form-input-subtask', 'subtasks-list', null, true)">
-                </div>
-              </div>
-              <div id="subtasks-list"></div>
-            </div>
-          </div>
-        </section>
-        <button class="button-primary button" onclick="">
-          <h6>Ok</h6>
-          <!-- <img src="assets/img/check-white.png" alt="Checkmark"> -->
-        </button>
-    </main>
-  </div>
-</body>
-
+   <body onload="initialPageLoad();">
+      <nav include-html="templates/nav.html"></nav>
+      <div class="main-column">
+         <header include-html="templates/header.html"></header>
+         <main id="main-wrapper" class="relative flex-column prc-side-padding">
+            <section class="title-wrapper">
+               <h1>Add task</h1>
+            </section>
+            <form include-html="templates/add-task-form.html" onsubmit="return false;"></form>
+         </main>
+      </div>
+   </body>
 </html>

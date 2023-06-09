@@ -211,3 +211,43 @@ function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
     class="board-user-icon">${assigneeInitials}</div>` + name
    );
 }
+
+function categoryListEnd(id, txt) {
+   return /*html*/ `<div><input type="radio" name="${id}" id="${id}-${txt}" class="display-none" value="" onclick="toggleAddField('new-category-input', 'category-inputs')"><label for="${id}-${txt}">${txt}</label></div>`;
+}
+
+function radioButtonTemplate(id, el) {
+   return /*html*/ `
+  <div class="category-list-wrapper">
+    <input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}">
+    <label  for="${id}-${el.id}" class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
+    <label for="${id}-${el.id}">${el.name}</label>
+  </div>
+  `;
+}
+
+function checkboxTemplate(id, el) {
+   return /*html*/ `
+  <div><label for="${id}-${el.id}">${el.name}</label><input type="checkbox" name="${id}" id="${id}-${el.id}" value="${el.id}" onchange="refreshAssignees('${id}', '${el.id}')"></div>
+  `;
+}
+
+function priorityBtnTemplate(id, priority) {
+   return /*html*/ `<div>
+<input type="checkbox" class="display-none" value="${
+      priority.name
+   }" id="${id}"  onclick="colorPrioBtn('${id}', '${priority.color}')"/>
+<label for="form-pb-${priority.name}" class="form-pb-button center ">
+<h6>${capitalizeFirstLetter(priority.name)}</h6>
+<img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
+</div>`;
+}
+
+function subtaskPreviewTemplate(subTask) {
+   return /*html*/ `
+<div class="subtask-wrapper">
+ <input type="checkbox">
+ <p>${subTask['title']}</p>
+ <img src="assets/img/cross.svg" onclick="removeSubTask(${subTask['id']})">
+</div>`;
+}

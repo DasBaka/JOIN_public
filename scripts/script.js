@@ -2,7 +2,14 @@ let login_status = false;
 let formDropDownConfig = [];
 
 async function initialPageLoad() {
-   await includeHTML();
+   await includeHTML().then(() => {
+      if (document.querySelectorAll("script[src='scripts/task.js']").length > 0) {
+         // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
+         // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
+         initAddTaskForm();
+      }
+   });
+
    activeNavElement();
 }
 
@@ -18,7 +25,7 @@ async function includeHTML() {
    let includeElements = document.querySelectorAll('[include-html]');
    for (let i = 0; i < includeElements.length; i++) {
       const element = includeElements[i];
-      file = element.getAttribute('include-html'); // "includes/header.html"
+      file = element.getAttribute('include-html');
       let resp = await fetch(file);
       if (resp.ok) {
          element.innerHTML = await resp.text();
@@ -59,12 +66,16 @@ function initialLetter(name, pos) {
 
 function initialLettersUpperCase(name) {
    let rename = name;
-   rename.name = rename.name.replace(/^\s+/g, '');
+   rename.name = replacer(rename.name);
    let result = initialLetter(rename, 0); // firstname
    if (rename.name.search(' ') + 1 != 0) {
       result += initialLetter(name, name.name.search(' ') + 1); // lastname
    }
    return result.toUpperCase();
+}
+
+function replacer(txt) {
+   return txt.replace(/^\s+/g, '');
 }
 
 //Color-Interaction

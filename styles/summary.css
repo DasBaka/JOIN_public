@@ -100,12 +100,6 @@
    font-weight: 700;
 }
 
-@media (max-width: 450px) {
-   :root {
-      font-size: 14px;
-   }
-}
-
 @media (max-width: 960px) {
    main *:not(section, .greeting-wrapper, .greeting-wrapper p) {
       animation: display-content 1.5s ease-in;
@@ -121,6 +115,7 @@
    }
 
    .greeting-wrapper {
+      pointer-events: none;
       position: absolute;
       left: 0;
       right: 0;
@@ -143,5 +138,14 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+   }
+   article.info-box > img {
+      width: 3rem;
+   }
+}
+
+@media (max-width: 450px) {
+   .info-box {
+      height: unset;
    }
 }

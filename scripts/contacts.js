@@ -150,10 +150,10 @@ function changePreview() {
    name.name = name.value;
    icon.color = getFormValue('color-input');
    icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
-   changePrevieName(name, icon);
+   changePreviewName(name, icon);
 }
 
-function changePrevieName(name, icon) {
+function changePreviewName(name, icon) {
    if (name.name != '') {
       icon.innerHTML = initialLettersUpperCase(name);
    } else {
@@ -163,7 +163,7 @@ function changePrevieName(name, icon) {
 
 function submitContactDetails() {
    let state = document.getElementById('modal-submit-btn').innerHTML;
-   if (state == 'Create Contact') {
+   if (state == 'Add Contact') {
       createNewContact();
    } else if (state == 'Save') {
       modifyContact(...editable);
@@ -189,7 +189,7 @@ function createNewContact() {
 function transmuteForm(state) {
    let trans = ['contact-modal-h1', 'contact-modal-h2', 'modal-submit-btn'];
    let edit = ['Edit Contact', '', 'Save'];
-   let add = ['Add Contact', 'Tasks are better with a team!', 'Create Contact'];
+   let add = ['Add Contact', 'Tasks are better with a team!', 'Add Contact'];
 
    trans.forEach((el, i) => {
       if (state == 'edit') {
