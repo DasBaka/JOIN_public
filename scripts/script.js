@@ -2,7 +2,16 @@ let login_status = false;
 let formDropDownConfig = [];
 
 async function initialPageLoad() {
-   await includeHTML();
+   await includeHTML()
+      .then(() => {
+         // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
+         initAddTaskForm();
+      })
+      .catch(() => {
+         console.info('Info: task.js not found.');
+         // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
+         // This should just inform to include the necessary JS.
+      });
    activeNavElement();
 }
 
@@ -18,7 +27,7 @@ async function includeHTML() {
    let includeElements = document.querySelectorAll('[include-html]');
    for (let i = 0; i < includeElements.length; i++) {
       const element = includeElements[i];
-      file = element.getAttribute('include-html'); // "includes/header.html"
+      file = element.getAttribute('include-html');
       let resp = await fetch(file);
       if (resp.ok) {
          element.innerHTML = await resp.text();

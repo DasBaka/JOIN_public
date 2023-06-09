@@ -14,9 +14,11 @@ let assigneeList = {
 
 let assigneeArray = [];
 
-function initDropDown() {
+function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
+   renderPriorityButtons('form-pb');
+   renderSubtasks('subtasks-list', null, true);
 }
 
 function renderCategoryList() {
@@ -44,21 +46,11 @@ function initList(id, arr, listName) {
    }
 }
 
-function categoryListEnd(id, txt) {
-   return /*html*/ `<div><input type="radio" name="${id}" id="${id}-${txt}" class="display-none" value="" onclick="toggleAddField('new-category-input', 'category-inputs')"><label for="${id}-${txt}">${txt}</label></div>`;
-}
-
 function renderAssigneeList() {
    let div = document.getElementById(assigneeList.id);
    let arr = assigneeList.arr;
    div.innerHTML = `<summary><div id="assignee-summary">${assigneeList.preText}</div><img src="assets/img/sort-down.png"/></summary><div class="list-wrapper" id="assignee-list"></div>`;
    initList('assignee-list', arr, assigneeList);
-}
-
-function radioButtonTemplate(id, el) {
-   return /*html*/ `
-   <div><input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}"><label for="${id}-${el.id}">${el.name}</label></div>
-   `;
 }
 
 function chosenCategory(name) {
@@ -69,12 +61,6 @@ function chosenCategory(name) {
 function toggleAddField(id, outerDivId) {
    document.getElementById(id).classList.toggle('display-none');
    document.getElementById(outerDivId).classList.toggle('display-none');
-}
-
-function checkboxTemplate(id, el) {
-   return /*html*/ `
-   <div><label for="${id}-${el.id}">${el.name}</label><input type="checkbox" name="${id}" id="${id}-${el.id}" value="${el.id}" onchange="refreshAssignees('${id}', '${el.id}')"></div>
-   `;
 }
 
 function refreshAssignees(inputId, contactId) {
@@ -116,14 +102,7 @@ function renderPriorityButtons() {
    for (let i = 0; i < priorites.length; i++) {
       const priority = priorites[i];
       let id = 'form-pb-' + priority.name;
-      content.innerHTML += /*html*/ `<div>
-      <input type="checkbox" class="display-none" value="${
-         priority.name
-      }" id="${id}"  onclick="colorPrioBtn('${id}', '${priority.color}')"/>
-      <label for="form-pb-${priority.name}" class="form-pb-button">
-      <h6>${capitalizeFirstLetter(priority.name)}</h6>
-      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
-    </div>`;
+      content.innerHTML += priorityBtnTemplate(id, priority);
       if (i == priorites.length - 1) {
          document.getElementById(id).checked = true;
          colorPrioBtn(id, priority.color);
@@ -136,14 +115,12 @@ function colorPrioBtn(id, color) {
    let priorityButton = btns.querySelectorAll('input');
    priorityButton.forEach((el) => {
       let btn = el.nextSibling.nextSibling;
-      if (!el.classList.contains('checked') & (el.id == id)) {
-         el.classList.toggle('checked');
+      if (el.checked & (el.id == id)) {
          btn.style.backgroundColor = `${color}`;
          btn.style.color = 'white';
       } else if (el.id == id) {
          return;
       } else {
-         el.classList.remove('checked');
          el.checked = false;
          btn.style.backgroundColor = `white`;
          btn.style.color = 'black';
@@ -165,12 +142,7 @@ function renderSubtasks(HTMLId, taskId, useTmpTask) {
    for (let i = 0; i < subTasks.length; i++) {
       const subTask = subTasks[i];
 
-      content.innerHTML += /*html*/ `
-    <div class="subtask-wrapper">
-      <input type="checkbox">
-      <p>${subTask['title']}</p>
-      <img src="assets/img/cross.svg" style="transform: rotate(45deg); width: 20px; cursor: pointer" onclick="removeSubTask('subtasks-list', ${subTask['id']}, true)">
-    </div>`;
+      content.innerHTML += subtaskPreviewTemplate(subTask);
    }
 }
 
