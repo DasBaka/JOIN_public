@@ -129,8 +129,8 @@ aside .contact-details h6 {
 
 .new-contact-card {
    display: flex;
-   height: 65%;
-   width: 90%;
+   height: 90%;
+   width: 95%;
 }
 
 .new-contact-card-left {
@@ -323,8 +323,8 @@ aside .contact-details h6 {
    }
 
    .new-contact-btn {
-      right: 5%;
-      top: 8%;
+      right: 1rem;
+      top: 6rem;
       bottom: auto;
    }
 
@@ -381,7 +381,15 @@ aside .contact-details h6 {
 }
 
 @media (max-width: 450px) {
+   article.main-content-wrapper {
+      padding-top: 1rem;
+   }
+
    .new-contact-card-left h2 {
       display: none;
+   }
+
+   .main-content-wrapper > div:last-child {
+      padding-left: 0;
    }
 }

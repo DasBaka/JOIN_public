@@ -280,10 +280,6 @@ label {
    justify-content: right;
 }
 
-.button-wrapper button {
-   font-weight: normal;
-}
-
 @media (max-width: 960px) {
    .title-wrapper {
       margin-bottom: 0;
@@ -340,5 +336,12 @@ label {
 @media (max-width: 550px) {
    .form-divider + .button-wrapper button:first-child {
       display: none;
+   }
+}
+
+@media (max-width: 450px) {
+   .form-divider + .button-wrapper {
+      top: 2.5rem;
+      right: 0.5rem;
    }
 }

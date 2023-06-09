@@ -263,12 +263,6 @@ main {
    color: rgb(42, 142, 205);
 }
 
-.logo {
-   width: 6.5rem;
-   -o-object-fit: contain;
-   object-fit: contain;
-}
-
 .divider-blue-line {
    border: rgb(45, 155, 221) solid 1px;
    margin-bottom: 30px;
@@ -399,7 +393,7 @@ main {
    border-width: 0.75px;
 }
 
-#form-name {
+#form-name:placeholder-shown {
    background: url(../assets/img/user-line.png) no-repeat 0.5rem 0.5rem;
    background-position: 96%;
 }
@@ -422,10 +416,9 @@ main {
 .logo {
    background-image: url('../assets/img/logo-black.png');
    background-repeat: no-repeat;
+   background-size: contain;
    width: 6.5rem;
    height: 7.75rem;
-   -o-object-fit: contain;
-   object-fit: contain;
 }
 
 .submit-buttons-wrapper {
@@ -536,6 +529,10 @@ li {
       font-size: 12px;
    }
 
+   button {
+      font-weight: normal;
+   }
+
    .title-wrapper {
       margin-top: 2.5rem;
       margin-bottom: 2.5rem;
@@ -573,14 +570,6 @@ li {
 
    h5 {
       font-size: 1.125rem;
-   }
-
-   h6 {
-      font-size: 0.9rem;
-   }
-
-   p {
-      font-size: 0.9rem;
    }
 
    span {

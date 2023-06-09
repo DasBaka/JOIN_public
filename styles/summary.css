@@ -115,6 +115,7 @@
    }
 
    .greeting-wrapper {
+      pointer-events: none;
       position: absolute;
       left: 0;
       right: 0;
@@ -137,6 +138,9 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+   }
+   article.info-box > img {
+      width: 3rem;
    }
 }
 
