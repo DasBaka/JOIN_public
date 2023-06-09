@@ -218,7 +218,11 @@ function categoryListEnd(id, txt) {
 
 function radioButtonTemplate(id, el) {
    return /*html*/ `
-  <div><input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}"><label for="${id}-${el.id}">${el.name}</label></div>
+  <div class="category-list-wrapper">
+    <input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}">
+    <label  for="${id}-${el.id}" class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
+    <label for="${id}-${el.id}">${el.name}</label>
+  </div>
   `;
 }
 
@@ -233,7 +237,7 @@ function priorityBtnTemplate(id, priority) {
 <input type="checkbox" class="display-none" value="${
       priority.name
    }" id="${id}"  onclick="colorPrioBtn('${id}', '${priority.color}')"/>
-<label for="form-pb-${priority.name}" class="form-pb-button">
+<label for="form-pb-${priority.name}" class="form-pb-button center ">
 <h6>${capitalizeFirstLetter(priority.name)}</h6>
 <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
 </div>`;
@@ -244,6 +248,6 @@ function subtaskPreviewTemplate(subTask) {
 <div class="subtask-wrapper">
  <input type="checkbox">
  <p>${subTask['title']}</p>
- <img src="assets/img/cross.svg" style="transform: rotate(45deg); width: 20px; cursor: pointer" onclick="removeSubTask('subtasks-list', ${subTask['id']}, true)">
+ <img src="assets/img/cross.svg" onclick="removeSubTask(${subTask['id']})">
 </div>`;
 }

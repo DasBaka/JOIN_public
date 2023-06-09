@@ -34,10 +34,13 @@
                   id="new-category-icon"></label>
             </div>
             <input type="text" id="form-input-category" placeholder="New category name" />
-            <label for="form-input-subtask">
-               <img src="assets/img/cross.svg" style="transform: rotate(45deg)" onclick="" />
+            <label for="form-input-category">
+               <img
+                  src="assets/img/cross.svg"
+                  style="transform: rotate(45deg)"
+                  onclick="resetCategoryInput()" />
                <div class="grey-divider-div"></div>
-               <img src="assets/img/check-black.png" onclick="" />
+               <img src="assets/img/check-black.png" onclick="addCategory()" />
             </label>
          </div>
       </article>
@@ -63,7 +66,10 @@
          <div class="add-new-wrapper">
             <input type="text" id="form-input-subtask" placeholder="Add new subtask" />
             <label for="form-input-subtask">
-               <img src="assets/img/cross.svg" style="transform: rotate(45deg)" onclick="" />
+               <img
+                  src="assets/img/cross.svg"
+                  style="transform: rotate(45deg)"
+                  onclick="emptyInput('form-input-subtask')" />
                <div class="grey-divider-div"></div>
                <img
                   src="assets/img/check-black.png"

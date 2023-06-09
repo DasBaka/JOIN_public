@@ -13,12 +13,12 @@ let assigneeList = {
 };
 
 let assigneeArray = [];
+let subTasksArray = [];
 
 function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
    renderPriorityButtons('form-pb');
-   renderSubtasks('subtasks-list', null, true);
 }
 
 function renderCategoryList() {
@@ -33,16 +33,24 @@ function initList(id, arr, listName) {
    list.innerHTML = '';
    switch (id) {
       case 'category-list':
-         for (let i = 0; i < arr.length; i++) {
-            list.innerHTML += radioButtonTemplate(id, arr[i]);
-         }
-         list.innerHTML += categoryListEnd(id, listName.sufText);
+         caseCategory(id, arr, listName, list);
          break;
       case 'assignee-list':
-         for (let i = 0; i < arr.length; i++) {
-            list.innerHTML += checkboxTemplate(id, arr[i]);
-         }
+         caseAssignee(id, arr, list);
          break;
+   }
+}
+
+function caseCategory(id, arr, listName, list) {
+   for (let i = 0; i < arr.length; i++) {
+      list.innerHTML += radioButtonTemplate(id, arr[i]);
+   }
+   list.innerHTML += categoryListEnd(id, listName.sufText);
+}
+
+function caseAssignee(id, arr, list) {
+   for (let i = 0; i < arr.length; i++) {
+      list.innerHTML += checkboxTemplate(id, arr[i]);
    }
 }
 
@@ -78,8 +86,9 @@ function refreshAssignees(inputId, contactId) {
 }
 
 function checkCheckedLimit() {
-   let checked = document.querySelectorAll('input[type="checkbox"]:checked');
-   let unchecked = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+   let id = document.getElementById('assignee-list');
+   let checked = id.querySelectorAll('input[type="checkbox"]:checked');
+   let unchecked = id.querySelectorAll('input[type="checkbox"]:not(:checked)');
    if (checked.length == 8) {
       unchecked.forEach((el) => (el.disabled = true));
    } else if (checked.length < 8) {
@@ -128,62 +137,77 @@ function colorPrioBtn(id, color) {
    });
 }
 
-function renderSubtasks(HTMLId, taskId, useTmpTask) {
-   let content = document.getElementById(HTMLId);
-   let subTasks;
-
-   if (useTmpTask) {
-      subTasks = tmpTask;
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
-   }
-
-   content.innerHTML = '';
-   for (let i = 0; i < subTasks.length; i++) {
-      const subTask = subTasks[i];
-
-      content.innerHTML += subtaskPreviewTemplate(subTask);
-   }
-}
-
-function addSubTask(formId, HTMLId, taskId, useTmpTask) {
-   let name = document.getElementById(formId).value;
-   let subTasks;
-
-   if (useTmpTask) {
-      subTasks = tmpTask;
-      if (tmpTask.length == 0) {
-         taskId = 0;
-      } else {
-         taskId = tmpTask[tmpTask.length - 1]['id'] + 1;
-      }
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
-   }
-
-   subTasks.push({
-      id: taskId,
-      title: name,
-      status: 'open',
-   });
-   renderSubtasks(HTMLId, taskId, useTmpTask);
-}
-
-function removeSubTask(HTMLId, taskId, useTmpTask) {
-   let subTasks;
-
-   if (useTmpTask) {
-      subTasks = tmpTask;
-   } else {
-      subTasks = tasks[taskId]['subtasks'];
-   }
-
-   subTasks.splice(taskId, 1);
-   renderSubtasks(HTMLId, taskId, useTmpTask);
-}
-
 function changePreview() {
    let icon = document.getElementById('new-category-icon');
    icon.color = getFormValue('color-input-task');
    icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
+}
+
+function renderSubtasks() {
+   let content = document.getElementById('subtasks-list');
+   content.innerHTML = '';
+   for (let i = 0; i < subTasksArray.length; i++) {
+      const subTask = subTasksArray[i];
+      content.innerHTML += subtaskPreviewTemplate(subTask);
+   }
+}
+
+function addSubTask() {
+   checkSubtaskLimit();
+   let name = document.getElementById('form-input-subtask').value;
+   if (replacer(name) != '') {
+      let newTask = {
+         id: subTasksArray.length,
+         title: name,
+         status: 'open',
+      };
+      subTasksArray.push(newTask);
+      renderSubtasks();
+   }
+   emptyInput('form-input-subtask');
+}
+
+function removeSubTask(taskId) {
+   subTasksArray.forEach((el) => {
+      if (el.id > taskId) {
+         el.id -= 1;
+      }
+   });
+   subTasksArray.splice(taskId, 1);
+   renderSubtasks();
+}
+
+function checkSubtaskLimit() {
+   let id = document.getElementById('subtasks-list');
+   let input = document.getElementById('form-input-subtask');
+   let tasks = id.getElementsByClassName('subtask-wrapper');
+   if (tasks.length == 8) {
+      input.disabled = true;
+   } else if (tasks.length < 8) {
+      input.disabled = false;
+   }
+}
+
+function emptyInput(id) {
+   document.getElementById(id).value = '';
+}
+
+function resetCategoryInput() {
+   emptyInput('form-input-category');
+   chosenCategory('Select task category');
+   toggleAddField('new-category-input', 'category-inputs');
+}
+
+function addCategory() {
+   let name = document.getElementById('form-input-category').value;
+   if (replacer(name) != '') {
+      let newCategory = {
+         id: 'c' + String(categories.length + 1).padStart(3, '0'),
+         name: name,
+         color: document.getElementById('color-input-task').value,
+      };
+      categories.push(newCategory);
+      renderCategoryList();
+      resetCategoryInput();
+   }
 }

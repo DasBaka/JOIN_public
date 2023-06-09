@@ -68,12 +68,16 @@ function initialLetter(name, pos) {
 
 function initialLettersUpperCase(name) {
    let rename = name;
-   rename.name = rename.name.replace(/^\s+/g, '');
+   rename.name = replacer(rename.name);
    let result = initialLetter(rename, 0); // firstname
    if (rename.name.search(' ') + 1 != 0) {
       result += initialLetter(name, name.name.search(' ') + 1); // lastname
    }
    return result.toUpperCase();
+}
+
+function replacer(txt) {
+   return txt.replace(/^\s+/g, '');
 }
 
 //Color-Interaction
