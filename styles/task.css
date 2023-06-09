@@ -278,6 +278,7 @@ label {
    display: flex;
    gap: 10px;
    justify-content: right;
+   max-width: 95rem;
 }
 
 @media (max-width: 960px) {

@@ -2,15 +2,14 @@ let login_status = false;
 let formDropDownConfig = [];
 
 async function initialPageLoad() {
-   await includeHTML()
-      .then(() => {
+   await includeHTML().then(() => {
+      if (document.querySelectorAll("script[src='scripts/task.js']").length > 0) {
          // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
+         // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
          initAddTaskForm();
-      })
-      .catch((err) => {
-         console.info('Info: ' + err);
-      });
-   // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
+      }
+   });
+
    activeNavElement();
 }
 
