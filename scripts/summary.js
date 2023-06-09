@@ -69,3 +69,18 @@ function getNextDeadline() {
    );
    return date;
 }
+
+/**
+ * Counts the object amount of a specific group (needs a grouped Array).
+ * @param {array} arr - grouped array
+ * @param {key} ref - group identifier
+ * @returns - object amount
+ */
+function getLengthOfGroup(arr, ref) {
+   let result = arr.findIndex((e) => e.group == ref);
+   if (result < 0) {
+      return 0;
+   } else {
+      return arr[result].value.length;
+   }
+}
