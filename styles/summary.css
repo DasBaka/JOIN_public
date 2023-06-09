@@ -100,12 +100,6 @@
    font-weight: 700;
 }
 
-@media (max-width: 450px) {
-   :root {
-      font-size: 14px;
-   }
-}
-
 @media (max-width: 960px) {
    main *:not(section, .greeting-wrapper, .greeting-wrapper p) {
       animation: display-content 1.5s ease-in;
@@ -143,5 +137,11 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+   }
+}
+
+@media (max-width: 450px) {
+   .info-box {
+      height: unset;
    }
 }

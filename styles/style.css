@@ -535,4 +535,55 @@ li {
    :root {
       font-size: 12px;
    }
+
+   .title-wrapper {
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+   }
+
+   .title-wrapper h1 {
+      margin-bottom: 0.5rem;
+   }
+
+   .title-wrapper h3 {
+      display: none;
+   }
+
+   .prc-side-padding {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+   }
+
+   h1 {
+      font-size: 3rem;
+      font-weight: 700;
+   }
+
+   h2 {
+      font-size: 2.75rem;
+   }
+
+   h3 {
+      font-size: 1.7rem;
+   }
+
+   h4 {
+      font-size: 1.25rem;
+   }
+
+   h5 {
+      font-size: 1.125rem;
+   }
+
+   h6 {
+      font-size: 0.9rem;
+   }
+
+   p {
+      font-size: 0.9rem;
+   }
+
+   span {
+      font-size: 0.875rem;
+   }
 }

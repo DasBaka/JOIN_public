@@ -6,7 +6,7 @@
    <section>
       <article>
          <h6>Title</h6>
-         <input id="form-input-title" type="text" placeholder="Enter a Title" value="" />
+         <input id="form-input-title" type="text" placeholder="Enter a Title" value="" required />
       </article>
       <article>
          <h6>Description</h6>
@@ -18,7 +18,7 @@
       </article>
       <article>
          <h6>Category</h6>
-         <details id="category-inputs"></details>
+         <details id="category-inputs" class="add-new-wrapper"></details>
          <div id="new-category-input" class="add-new-wrapper display-none">
             <div class="color-input-relative">
                <input
@@ -80,7 +80,7 @@
       </article>
    </section>
 </div>
-<button type="submit" class="button-primary button" onclick="">
-   <h6>Ok</h6>
-   <!-- <img src="assets/img/check-white.png" alt="Checkmark"> -->
-</button>
+<div class="button-wrapper">
+   <button type="reset" class="button-secondary" onclick="">Reset</button>
+   <button type="submit" class="button-primary" onclick="">Create</button>
+</div>

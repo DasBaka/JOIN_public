@@ -7,11 +7,10 @@ async function initialPageLoad() {
          // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
          initAddTaskForm();
       })
-      .catch(() => {
-         console.info('Info: task.js not found.');
-         // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
-         // This should just inform to include the necessary JS.
+      .catch((err) => {
+         console.info('Info: ' + err);
       });
+   // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
    activeNavElement();
 }
 

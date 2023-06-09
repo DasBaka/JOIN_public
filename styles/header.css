@@ -83,3 +83,9 @@ header .logo {
       background-size: contain;
    }
 }
+
+@media (max-width: 450px) {
+   header h4 {
+      display: none;
+   }
+}

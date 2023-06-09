@@ -24,7 +24,12 @@ function initAddTaskForm() {
 function renderCategoryList() {
    let div = document.getElementById(categoryList.id);
    let arr = categoryList.arr;
-   div.innerHTML = `<summary><div id="category-summary">${categoryList.preText}</div><img src="assets/img/sort-down.png"/></summary><div class="list-wrapper" id="category-list"></div>`;
+   div.innerHTML = /*html*/ `
+   <summary>
+      <div id="category-summary">${categoryList.preText}</div>
+      <img src="assets/img/sort-down.png"/>
+   </summary>
+   <div class="list-wrapper" id="category-list"></div>`;
    initList('category-list', arr, categoryList);
 }
 

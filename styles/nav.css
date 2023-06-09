@@ -77,3 +77,9 @@ nav .logo {
       flex-grow: 1;
    }
 }
+
+@media (max-width: 450px) {
+   nav {
+      height: 6rem;
+   }
+}
