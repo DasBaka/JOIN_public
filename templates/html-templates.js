@@ -217,11 +217,12 @@ function categoryListEnd(id, txt) {
 }
 
 function radioButtonTemplate(id, el) {
+   let string = JSON.stringify(el).replace(/"/g, "'");
    return /*html*/ `
-  <div class="category-list-wrapper">
-    <input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}">
-    <label  for="${id}-${el.id}" class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
-    <label for="${id}-${el.id}">${el.name}</label>
+  <div class="category-list-wrapper" id="${id}-${
+      el.id
+   }" file-json="${string}" onclick="chosenCategory('${id}', '${el.id}')">
+    ${categoryListItemTemplate(el)}
   </div>
   `;
 }
@@ -250,4 +251,29 @@ function subtaskPreviewTemplate(subTask) {
  <p>${subTask['title']}</p>
  <img src="assets/img/cross.svg" onclick="removeSubTask(${subTask['id']})">
 </div>`;
+}
+
+function categoryListBeginning() {
+   return /*html*/ `
+   <summary>
+      <div id="category-summary">${categoryList.preText}</div>
+      <img src="assets/img/sort-down.png"/>
+   </summary>
+   <div class="list-wrapper" id="category-list"></div>`;
+}
+
+function emptyRadioButtonTemplate(id) {
+   return /*html*/ `
+  <div class="category-list-wrapper" onclick="chosenCategory(false)">
+    <input type="radio" name="${id}" id="${id}-empty" class="display-none" value="">
+    <label for="${id}-empty" class="user-icon user-icon-small edit-user-icon" style="opacity: 0"></label>
+    <label for="${id}-empty"></label>
+  </div>
+  `;
+}
+
+function categoryListItemTemplate(el) {
+   return /*html*/ `    
+  <label class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
+  <label>${el.name}</label> `;
 }

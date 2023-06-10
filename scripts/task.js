@@ -24,12 +24,7 @@ function initAddTaskForm() {
 function renderCategoryList() {
    let div = document.getElementById(categoryList.id);
    let arr = categoryList.arr;
-   div.innerHTML = /*html*/ `
-   <summary>
-      <div id="category-summary">${categoryList.preText}</div>
-      <img src="assets/img/sort-down.png"/>
-   </summary>
-   <div class="list-wrapper" id="category-list"></div>`;
+   div.innerHTML = categoryListBeginning();
    initList('category-list', arr, categoryList);
 }
 
@@ -47,6 +42,7 @@ function initList(id, arr, listName) {
 }
 
 function caseCategory(id, arr, listName, list) {
+   list.innerHTML += emptyRadioButtonTemplate(id);
    for (let i = 0; i < arr.length; i++) {
       list.innerHTML += radioButtonTemplate(id, arr[i]);
    }
@@ -66,8 +62,18 @@ function renderAssigneeList() {
    initList('assignee-list', arr, assigneeList);
 }
 
-function chosenCategory(name) {
-   document.getElementById('category-summary').innerHTML = name;
+function chosenCategory(id, el) {
+   if (id == false) {
+      document.getElementById('category-summary').innerHTML = categoryList.preText;
+   } else {
+      let item = JSON.parse(
+         document
+            .getElementById(id + '-' + el)
+            .getAttribute('file-json')
+            .replace(/'/g, '"')
+      );
+      document.getElementById('category-summary').innerHTML = categoryListItemTemplate(item);
+   }
    document.getElementById('category-inputs').open = false;
 }
 
@@ -199,7 +205,7 @@ function emptyInput(id) {
 
 function resetCategoryInput() {
    emptyInput('form-input-category');
-   chosenCategory('Select task category');
+   chosenCategory(false);
    toggleAddField('new-category-input', 'category-inputs');
 }
 

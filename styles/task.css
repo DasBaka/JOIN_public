@@ -281,6 +281,17 @@ label {
    max-width: 95rem;
 }
 
+#category-summary:has(label) {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+#category-summary:has(label) label.user-icon-small {
+   height: 1rem;
+   width: 1rem;
+}
+
 @media (max-width: 960px) {
    .title-wrapper {
       margin-bottom: 0;
