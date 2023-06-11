@@ -60,14 +60,29 @@ function checkUser(user, check, checkPW, limit) {
       return true;
    } else if (!checkPW) {
       if (isMailCorrect(user, check)) {
-         resetPassword();
+         document.getElementById('modal').showModal();
          return true;
       } else userNotFoundResponse(check, limit);
    } else userNotFoundResponse(check, limit);
 }
 
+function redirectForReset() {
+   let query = new URLSearchParams();
+   query.append('mail', encodeURI(document.getElementById('form-email').value));
+   location.href = 'reset-password.html?' + query.toString();
+}
+
 function resetPassword() {
-   confirm('Mail was sent!');
+   let pw = document.getElementById('form-password');
+   let check = document.getElementById('form-password-confirmation');
+   if (pw.value == check.value) {
+      let mail = decodeURIComponent(window.location.search.split('?mail=')[1]);
+      let id = getIndexOfValue(users, 'mail', mail);
+      users[id].password = pw.value;
+   } else {
+      check.setCustomValidity('Does not match');
+      document.getElementById('login-form').reportValidity();
+   }
 }
 
 function userNotFoundResponse(check, limit) {
