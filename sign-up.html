@@ -28,9 +28,9 @@
             <div class="divider-blue-line"></div>
             <form
                class="center flex-column"
-               id="sign-up-form"
-               onsubmit="event.preventDefault(); createNewUser()"
-               oninput="refreshButton()">
+               id="login-form"
+               onsubmit="event.preventDefault(); login(false); resetFormValidation();"
+               oninput="refreshButton(); resetFormValidation();">
                <input
                   type="text"
                   id="form-name"
