@@ -6,14 +6,17 @@ let formDropDownConfig = [];
  */
 async function initialPageLoad() {
    await includeHTML().then(() => {
-      if (document.querySelectorAll("script[src='scripts/task.js']").length > 0) {
+      if (isTaskJSneeded()) {
          // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
          // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
          initAddTaskForm();
       }
    });
-
    activeNavElement();
+}
+
+function isTaskJSneeded() {
+   return document.querySelectorAll("script[src='scripts/task.js']").length > 0;
 }
 
 function initialRedirect() {
@@ -22,6 +25,18 @@ function initialRedirect() {
    } else {
       window.location.href = '/summary.html';
    }
+}
+
+async function repeatPageLoadForModal(link) {
+   let modal = document.getElementById('modal');
+   if (link) {
+      modal.setAttribute('include-html', link);
+   }
+   await includeHTML().then(() => {
+      if (isTaskJSneeded & (link == 'templates/add-task-form.html')) {
+         initAddTaskForm();
+      }
+   });
 }
 
 /**

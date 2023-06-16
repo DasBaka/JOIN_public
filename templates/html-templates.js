@@ -31,7 +31,7 @@ function contactDetailsTemplate(contact, i, j) {
    }</div>
      <div class="contact-details flex-column contact-details-big">
        <h2>${contact.name}</h2>
-       <div>
+       <div class="add-task-for-contact" onclick="repeatPageLoadForModal('templates/add-task-form.html'); addTaskForContact(${i}, ${j})">
          <h5 style="color: #29abe2"><img src="assets/img/blue_cross.png"/>Add Task</h5>
        </div>
      </div>

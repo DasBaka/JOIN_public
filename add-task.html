@@ -17,11 +17,14 @@
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
-         <main id="main-wrapper" class="relative flex-column prc-side-padding">
-            <section class="title-wrapper">
+         <main
+            id="main-wrapper"
+            include-html="templates/add-task-form.html"
+            class="relative flex-column prc-side-padding">
+            <!--             <section class="title-wrapper">
                <h1>Add task</h1>
             </section>
-            <form include-html="templates/add-task-form.html" onsubmit="return false;"></form>
+            <div include-html="templates/add-task-form.html"></div> -->
          </main>
       </div>
    </body>

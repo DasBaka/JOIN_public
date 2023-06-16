@@ -34,7 +34,7 @@
             </section>
             <button
                class="button-primary new-contact-btn"
-               onclick="newContactForm();  transmuteForm('add');">
+               onclick="repeatPageLoadForModal('templates/create-new-contact.html'); newContactForm();  transmuteForm('add');">
                New contact
             </button>
          </main>
@@ -42,6 +42,7 @@
       <dialog
          include-html="templates/create-new-contact.html"
          id="modal"
+         class="content-box"
          onclick="closeModal()"></dialog>
    </body>
 </html>

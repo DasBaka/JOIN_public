@@ -219,6 +219,7 @@ function modifyContact(groupId, contactId) {
    contact.phone = getFormValue('form-phone');
    renderContacts();
    resetContacts();
+   document.getElementById('contact-btn-' + groupId + '-' + contactId).click();
 }
 
 function deleteContact(groupId, contactId) {
@@ -232,4 +233,12 @@ function deleteContact(groupId, contactId) {
    }
    renderContacts();
    resetContacts();
+}
+
+function addTaskForContact(groupId, contactId) {
+   let modal = document.getElementById('modal');
+   /*    let id = groupedUsers[groupId]['value'][contactId].id;
+   console.log(document.getElementById('assignee-list-' + id));
+   refreshAssignees('assignee-list', id); */
+   modal.showModal();
 }
