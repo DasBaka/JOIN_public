@@ -229,7 +229,7 @@ label {
    align-items: center;
 }
 
-.user-icon {
+form .user-icon {
    align-items: center;
    border-radius: 50%;
    border: solid 2px white;
@@ -240,13 +240,13 @@ label {
    font-size: 0.875rem;
 }
 
-.user-icon-small {
+form .user-icon-small {
    height: 2rem;
    width: 2rem;
    font-size: 1rem;
 }
 
-.edit-user-icon {
+form .edit-user-icon {
    border: solid 1px rgba(0, 0, 0, 0.25) !important;
    background-color: white;
 }
@@ -292,8 +292,17 @@ label {
    width: 1rem;
 }
 
+#category-summary {
+   all: unset !important;
+   pointer-events: none;
+}
+
+#category-summary + label {
+   pointer-events: none;
+}
+
 @media (max-width: 960px) {
-   .title-wrapper {
+   .title-wrapper:has(+ form) {
       margin-bottom: 0;
    }
 

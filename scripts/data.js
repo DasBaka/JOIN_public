@@ -101,7 +101,7 @@ let users = [
 
 let tasks = [
    {
-      id: 0,
+      id: 't0001',
       title: 'Website redesign',
       description: 'Modify the contents of the main website...',
       category: 'Design',
@@ -123,7 +123,7 @@ let tasks = [
       ],
    },
    {
-      id: 1,
+      id: 't0002',
       title: 'Call potential clients',
       description: 'Make the product presentation to prospective buyers',
       category: 'Sales',
@@ -134,7 +134,7 @@ let tasks = [
       subtasks: [],
    },
    {
-      id: 2,
+      id: 't0003',
       title: 'Accounting invoices',
       description: 'Write open invoices for customer',
       category: 'Backoffice',
@@ -151,7 +151,7 @@ let tasks = [
       subtasks: [],
    },
    {
-      id: 3,
+      id: 't0004',
       title: 'Video cut',
       description: 'Edit the new company video',
       category: 'Media',
@@ -162,7 +162,7 @@ let tasks = [
       subtasks: [],
    },
    {
-      id: 4,
+      id: 't0005',
       title: 'Social media strategy',
       description: 'Develop an ad campaign for brand positioning',
       category: 'Marketing',
@@ -172,17 +172,17 @@ let tasks = [
       status: 'done',
       subtasks: [
          {
-            id: 0,
+            id: 's01',
             title: 'Subtask 1',
             status: 'done',
          },
          {
-            id: 1,
+            id: 's02',
             title: 'Subtask 2',
             status: 'done',
          },
          {
-            id: 2,
+            id: 's03',
             title: 'Subtask 3',
             status: 'open',
          },

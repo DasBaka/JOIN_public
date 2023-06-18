@@ -15,10 +15,13 @@ let assigneeList = {
 let assigneeArray = [];
 let subTasksArray = [];
 
+let currentCategory;
+let currentStatus = 'to-do';
+
 function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
-   renderPriorityButtons('form-pb');
+   renderPriorityButtons();
 }
 
 function renderCategoryList() {
@@ -64,7 +67,8 @@ function renderAssigneeList() {
 
 function chosenCategory(id, el) {
    if (id == false) {
-      document.getElementById('category-summary').innerHTML = categoryList.preText;
+      document.getElementById('category-summary').value = '';
+      document.getElementById('category-summary-label').innerHTML = categoryList.preText;
    } else {
       let item = JSON.parse(
          document
@@ -72,7 +76,8 @@ function chosenCategory(id, el) {
             .getAttribute('file-json')
             .replace(/'/g, '"')
       );
-      document.getElementById('category-summary').innerHTML = categoryListItemTemplate(item);
+      document.getElementById('category-summary').value = 'categoryListItemTemplate(item)';
+      document.getElementById('category-summary-label').innerHTML = categoryListItemTemplate(item);
    }
    document.getElementById('category-inputs').open = false;
 }
@@ -168,7 +173,7 @@ function addSubTask() {
    let name = document.getElementById('form-input-subtask').value;
    if (replacer(name) != '') {
       let newTask = {
-         id: subTasksArray.length,
+         id: findFreeId(subTasksArray, 's', 2),
          title: name,
          status: 'open',
       };
@@ -179,12 +184,8 @@ function addSubTask() {
 }
 
 function removeSubTask(taskId) {
-   subTasksArray.forEach((el) => {
-      if (el.id > taskId) {
-         el.id -= 1;
-      }
-   });
-   subTasksArray.splice(taskId, 1);
+   let id = getIndexOfValue(subTasksArray, 'id', taskId);
+   subTasksArray.splice(id, 1);
    renderSubtasks();
 }
 
@@ -213,7 +214,7 @@ function addCategory() {
    let name = document.getElementById('form-input-category').value;
    if (replacer(name) != '') {
       let newCategory = {
-         id: 'c' + String(categories.length + 1).padStart(3, '0'),
+         id: findFreeId(categories, 'c', 3),
          name: name,
          color: document.getElementById('color-input-task').value,
       };
@@ -221,4 +222,65 @@ function addCategory() {
       renderCategoryList();
       resetCategoryInput();
    }
+}
+
+function resetAddTaskForm() {
+   document.getElementById('add-task-form').reset();
+   assigneeArray = [];
+   subTasksArray = [];
+   initAddTaskForm();
+   closeModal();
+}
+
+function createTask() {
+   let form = document.getElementById('add-task-form');
+   categoryValidityCheck();
+   if (form.reportValidity()) {
+      let newTask = newTaskTemplate();
+      tasks.push(newTask);
+      window.alert('Task ' + newTask.title + ' was created!');
+      if (window.location.pathname == '/board.html') {
+         closeModal();
+         initBoard();
+      } else {
+         window.location.href = '/board.html';
+      }
+   }
+}
+
+function categoryValidityCheck() {
+   if (document.getElementById('category-summary').childElementCount != 2) {
+      document.getElementById('category-summary').setCustomValidity('Please select a category!');
+   }
+}
+
+function newTaskTemplate() {
+   return {
+      id: findFreeId(tasks, 't', 4),
+      title: getFormValue('form-input-title'),
+      description: getFormValue('form-input-description') || '',
+      category: document.getElementById('category-summary').lastElementChild?.innerHTML || '',
+      assignees: getAssignees(),
+      due_date: getFormValue('form-input-dueDate'),
+      priority: getPriority(),
+      status: currentStatus,
+      subtasks: subTasksArray,
+   };
+}
+
+function getPriority() {
+   let btns = document.getElementsByName('priority');
+   for (let i = 0; i < btns.length; i++) {
+      if (btns[i].checked) {
+         return btns[i].value;
+      }
+   }
+}
+
+function getAssignees() {
+   let userIds = [];
+   assigneeArray.forEach((el) => {
+      userIds.push(el.id);
+   });
+   return userIds;
 }

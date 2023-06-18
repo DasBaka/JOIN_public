@@ -145,7 +145,7 @@ dialog {
 }
 
 dialog[open] {
-   width: 90%;
+   width: fit-content;
    height: 90%;
    display: flex;
    justify-content: center;

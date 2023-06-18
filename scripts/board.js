@@ -20,7 +20,7 @@ function allowDrop(event) {
  * @param {String} status - new task status
  */
 function moveElementTo(status) {
-   tasks[activeDragElement]['status'] = status;
+   tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] = status;
    initBoard();
 }
 
@@ -37,14 +37,13 @@ function setActiveDragElement(taskId) {
  * @param {String} taskId - The task id on which task the changes shall be written to
  */
 function applyEditTask(taskId) {
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
 
-   task['title'] = document.getElementById('task-edit-from-input-title').value;
-   task['description'] = document.getElementById('task-edit-from-input-description').value;
-   task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
-   task['priority'] = activeTaskPriority;
+   task['title'] = getFormValue('task-edit-from-input-title');
+   task['description'] = getFormValue('task-edit-from-input-description');
+   task['due_date'] = getFormValue('task-edit-from-input-dueDate');
+   task['priority'] = getPriority();
    task['assignees'] = activeTaskAssignees;
-   editTaskDetails(taskId, false);
    initBoard();
 }
 
@@ -55,7 +54,7 @@ function applyEditTask(taskId) {
  */
 function highlightSelectedDragArea(area, highlight) {
    let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
-   if (tasks[activeDragElement]['status'] == area) {
+   if (tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] == area) {
       return;
    }
    if (highlight) {
@@ -69,7 +68,7 @@ function highlightSelectedDragArea(area, highlight) {
  * Helper function to temporarily hide the original location "shadow" of the currently dragged element
  * @param {String} taskId - task id of the element which shall be changed
  * @param {Boolean} hide - wheather the provided element shall be hidden or displayed
- * TODO: 
+ * TODO:
  */
 function hideOriginalElementOnDrag(taskId, hide) {
    let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
@@ -97,7 +96,7 @@ function highlightAvailableDragArea(action) {
       let activeDragElementColumn = document.getElementById('board-tasks-column-' + status['name']);
 
       if (action) {
-         if (tasks[activeDragElement]['status'] == status['name']) {
+         if (tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] == status['name']) {
             continue;
          }
          activeDragElementColumn.innerHTML += /*html*/ `
@@ -320,7 +319,7 @@ function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
  */
 function showTaskDetails(taskId) {
    let modal = document.getElementById('modal');
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
 
    let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
    let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
@@ -343,12 +342,21 @@ function editTaskDetails(taskId, show) {
    } */
 
    let content = document.getElementById('modal');
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
    activeTaskAssignees = task['assignees'].slice();
 
    content.innerHTML = editTaskTemplate(task, taskId);
 
-   renderPriorityButtons(taskId, 'task-edit-priority-buttons', null);
+   /*    renderPriorityButtons(taskId, 'task-edit-priority-buttons', null); */
+   renderPriorityButtons('task-edit-priority-buttons');
+   document.getElementById('form-pb-' + task.priority).click();
    renderTaskAssigneeSelection(taskId, 'task-edit-assignee-selection', false);
    renderTaskAssignees(activeTaskAssignees, 'task-edit-assignee-preview', true);
+}
+
+async function addTaskForStatus(name) {
+   await repeatPageLoadForModal('templates/add-task-form.html').then(() => initAddTaskForm());
+   currentStatus = name;
+   let modal = document.getElementById('modal');
+   modal.showModal();
 }

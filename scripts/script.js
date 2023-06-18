@@ -16,7 +16,7 @@ async function initialPageLoad() {
 }
 
 function isTaskJSneeded() {
-   return document.querySelectorAll("script[src='scripts/task.js']").length > 0;
+   return document.querySelectorAll("[include-html='templates/add-task-form.html']").length > 0;
 }
 
 function initialRedirect() {
@@ -32,11 +32,17 @@ async function repeatPageLoadForModal(link) {
    if (link) {
       modal.setAttribute('include-html', link);
    }
-   await includeHTML().then(() => {
-      if (isTaskJSneeded & (link == 'templates/add-task-form.html')) {
-         initAddTaskForm();
+   await includeHTML();
+}
+
+function findFreeId(arr, prefix, pad) {
+   let limit = Math.pow(10, pad) - 1;
+   for (let i = 1; i < limit; i++) {
+      let id = prefix + String(i).padStart(pad, '0');
+      if (getIndexOfValue(arr, 'id', id) == -1) {
+         return id;
       }
-   });
+   }
 }
 
 /**
@@ -230,7 +236,9 @@ function letInnerHTML(id, content) {
  */
 function closeModal() {
    let modal = document.getElementById('modal');
-   modal.close();
+   if (modal != null) {
+      modal.close();
+   }
 }
 
 /**

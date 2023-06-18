@@ -1,4 +1,3 @@
-//setURL("http://f015901e@gruppenarbeit-493-join.developerakademie.net/smallest_backend_ever-master');
 let groupedUsers;
 groupAndSortUser();
 
@@ -132,7 +131,10 @@ function toggleSlideAnimationRight(id) {
    document.getElementById(id).classList.toggle('animate-right');
 }
 
-function newContactForm() {
+async function newContactForm() {
+   await repeatPageLoadForModal('templates/create-new-contact.html').then(() =>
+      transmuteForm('add')
+   );
    let modal = document.getElementById('modal');
    changePreview();
    modal.showModal();
@@ -173,7 +175,7 @@ function submitContactDetails() {
 function createNewContact() {
    let newContact = {
       name: getFormValue('form-name'),
-      id: '',
+      id: findFreeId(users, 'u', 4),
       mail: getFormValue('form-email'),
       color: getFormValue('color-input'),
       phone: getFormValue('form-phone'),
@@ -235,10 +237,11 @@ function deleteContact(groupId, contactId) {
    resetContacts();
 }
 
-function addTaskForContact(groupId, contactId) {
+async function addTaskForContact(groupId, contactId) {
+   await repeatPageLoadForModal('templates/add-task-form.html').then(() => initAddTaskForm());
+   let id = groupedUsers[groupId]['value'][contactId].id;
+   document.getElementById('assignee-list-' + id).checked = true;
+   refreshAssignees('assignee-list', id);
    let modal = document.getElementById('modal');
-   /*    let id = groupedUsers[groupId]['value'][contactId].id;
-   console.log(document.getElementById('assignee-list-' + id));
-   refreshAssignees('assignee-list', id); */
    modal.showModal();
 }

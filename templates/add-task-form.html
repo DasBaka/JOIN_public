@@ -9,7 +9,8 @@
    <form
       include-html="templates/add-task-form.html"
       onsubmit="return false;"
-      onclick="event.cancelBubble = true;">
+      onclick="event.cancelBubble = true;"
+      id="add-task-form">
       <div class="form-divider">
          <section>
             <article>
@@ -27,7 +28,8 @@
                   id="form-input-description"
                   rows="4"
                   placeholder="Enter a Description"
-                  class="form-default-input form-input"></textarea>
+                  class="form-default-input form-input"
+                  required></textarea>
             </article>
             <article>
                <h6>Category</h6>
@@ -94,8 +96,8 @@
          </section>
       </div>
       <div class="button-wrapper">
-         <button type="reset" class="button-secondary" onclick="">Reset</button>
-         <button type="submit" class="button-primary" onclick="">Create</button>
+         <button type="reset" class="button-secondary" onclick="resetAddTaskForm()">Reset</button>
+         <button type="submit" class="button-primary" onclick="createTask()">Create</button>
       </div>
    </form>
 </div>

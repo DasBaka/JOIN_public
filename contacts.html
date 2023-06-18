@@ -13,6 +13,7 @@
       <script src="scripts/script.js"></script>
       <script src="scripts/data.js"></script>
       <script src="templates/html-templates.js"></script>
+      <script src="scripts/task.js"></script>
       <script src="scripts/contacts.js"></script>
    </head>
    <body onload="initialPageLoad(), renderContacts()">
@@ -32,17 +33,11 @@
                </div>
                <article class="main-content-wrapper" id="contact-details"></article>
             </section>
-            <button
-               class="button-primary new-contact-btn"
-               onclick="repeatPageLoadForModal('templates/create-new-contact.html'); newContactForm();  transmuteForm('add');">
+            <button class="button-primary new-contact-btn" onclick="newContactForm()">
                New contact
             </button>
          </main>
       </div>
-      <dialog
-         include-html="templates/create-new-contact.html"
-         id="modal"
-         class="content-box"
-         onclick="closeModal()"></dialog>
+      <dialog id="modal" class="content-box" onclick="closeModal()"></dialog>
    </body>
 </html>
