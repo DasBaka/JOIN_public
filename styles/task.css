@@ -136,7 +136,7 @@ summary > input {
 
 summary > img {
    object-fit: contain;
-   height: 1.25rem;
+   height: 1.25rem !important;
    transform: rotate(270deg);
 }
 
@@ -241,8 +241,8 @@ form .user-icon {
 }
 
 form .user-icon-small {
-   height: 2rem;
-   width: 2rem;
+   height: 1.25rem;
+   width: 1.25rem;
    font-size: 1rem;
 }
 
@@ -281,6 +281,10 @@ form .edit-user-icon {
    max-width: 95rem;
 }
 
+summary:has(> input[type='checkbox']) {
+   position: relative;
+}
+
 #category-summary:has(label) {
    display: flex;
    align-items: center;
@@ -293,12 +297,18 @@ form .edit-user-icon {
 }
 
 #category-summary {
-   all: unset !important;
+   position: absolute;
+   bottom: 0;
+   left: 10%;
+   opacity: 0;
    pointer-events: none;
 }
 
-#category-summary + label {
+#category-summary-label {
    pointer-events: none;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
 }
 
 @media (max-width: 960px) {

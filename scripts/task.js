@@ -68,6 +68,7 @@ function renderAssigneeList() {
 function chosenCategory(id, el) {
    if (id == false) {
       document.getElementById('category-summary').value = '';
+      document.getElementById('category-summary').checked = false;
       document.getElementById('category-summary-label').innerHTML = categoryList.preText;
    } else {
       let item = JSON.parse(
@@ -78,6 +79,7 @@ function chosenCategory(id, el) {
       );
       document.getElementById('category-summary').value = 'categoryListItemTemplate(item)';
       document.getElementById('category-summary-label').innerHTML = categoryListItemTemplate(item);
+      document.getElementById('category-summary').checked = true;
    }
    document.getElementById('category-inputs').open = false;
 }
@@ -249,7 +251,7 @@ function createTask() {
 }
 
 function categoryValidityCheck() {
-   if (document.getElementById('category-summary').childElementCount != 2) {
+   if (document.getElementById('category-summary-label').childElementCount != 2) {
       document.getElementById('category-summary').setCustomValidity('Please select a category!');
    }
 }

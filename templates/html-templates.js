@@ -256,7 +256,7 @@ function subtaskPreviewTemplate(subTask) {
 function categoryListBeginning() {
    return /*html*/ `
    <summary>
-      <input type="radio" required id="category-summary" value=""/>
+      <input type="checkbox" required id="category-summary" value=""/>
       <label id="category-summary-label" for="category-summary">${categoryList.preText}</label>
       <img src="assets/img/sort-down.png"/>
    </summary>
