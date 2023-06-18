@@ -185,11 +185,11 @@ function renderTasks() {
       if (filterTasksViaSearch(task)) {
          continue;
       }
-
       let content = columnId(task['status']);
       let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
       let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
 
+      console.log(task, categoryIndex, priorityIndex);
       content.innerHTML += taskCardTemplate(task, categoryIndex, priorityIndex);
 
       renderSubtaskProgress(task);

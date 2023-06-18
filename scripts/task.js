@@ -77,8 +77,8 @@ function chosenCategory(id, el) {
             .getAttribute('file-json')
             .replace(/'/g, '"')
       );
-      document.getElementById('category-summary').value = 'categoryListItemTemplate(item)';
       document.getElementById('category-summary-label').innerHTML = categoryListItemTemplate(item);
+      document.getElementById('category-summary').value = item.name;
       document.getElementById('category-summary').checked = true;
    }
    document.getElementById('category-inputs').open = false;
@@ -261,7 +261,7 @@ function newTaskTemplate() {
       id: findFreeId(tasks, 't', 4),
       title: getFormValue('form-input-title'),
       description: getFormValue('form-input-description') || '',
-      category: document.getElementById('category-summary').lastElementChild?.innerHTML || '',
+      category: document.getElementById('category-summary').value,
       assignees: getAssignees(),
       due_date: getFormValue('form-input-dueDate'),
       priority: getPriority(),
