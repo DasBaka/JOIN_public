@@ -1,3 +1,7 @@
+// Safety Data to easily reset them for the backend.
+// After changing storage.js to data.js inside one HTML-document:
+// => setItem(key, dataArray) to upload one of these default data.
+
 let users = [
    {
       name: 'Anton Mayer',
