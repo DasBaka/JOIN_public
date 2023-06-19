@@ -407,3 +407,36 @@
    height: 40px;
    width: 40px;
 }
+
+.form-pb-button {
+   border-radius: 10px;
+   box-sizing: border-box;
+   box-shadow: rgba(99, 99, 99, 0.15) 0px 0.5px 4px 0.5px;
+   cursor: pointer;
+   display: flex;
+   gap: 0.5rem;
+   padding: 0.5rem;
+   background-color: white;
+}
+
+.form-pb-button:hover {
+   box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 4px 1px;
+}
+
+input:checked + .form-pb-button {
+   box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 1px;
+}
+
+.form-pb {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.form-pb > div {
+   width: 8rem;
+}
+
+dialog[open]:has(div.task-detailed-content) {
+   height: fit-content;
+}

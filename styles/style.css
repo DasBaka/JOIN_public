@@ -145,11 +145,30 @@ dialog {
 }
 
 dialog[open] {
-   width: 100%;
-   height: 100%;
+   width: fit-content;
+   height: 90%;
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+dialog > * {
+   width: 100%;
+   height: 100%;
+}
+
+dialog div > form .form-divider {
+   padding: 0 2.5rem 2.5rem 2.5rem;
+   width: unset;
+}
+
+dialog div > .title-wrapper {
+   padding-left: 2.5rem;
+   width: unset;
+}
+
+dialog div > form .button-wrapper {
+   width: 95%;
 }
 
 .prc-side-padding {

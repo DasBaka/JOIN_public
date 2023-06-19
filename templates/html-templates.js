@@ -31,7 +31,7 @@ function contactDetailsTemplate(contact, i, j) {
    }</div>
      <div class="contact-details flex-column contact-details-big">
        <h2>${contact.name}</h2>
-       <div>
+       <div class="add-task-for-contact" onclick="addTaskForContact(${i}, ${j})">
          <h5 style="color: #29abe2"><img src="assets/img/blue_cross.png"/>Add Task</h5>
        </div>
      </div>
@@ -69,7 +69,7 @@ function boardTemplate(status) {
      <div>
        <h4>${status['displayName']}</h4>
        <div>
-          <button class="add-button">+</button>
+          <button class="add-button" onclick="addTaskForStatus('${status.name}')">+</button>
        </div>
      </div>
      <div id="board-tasks-column-${status['name']}" 
@@ -127,7 +127,7 @@ function taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex) {
          <h5>Assigned to:</h5>
          <div id="assignees-detailed"></div>
        </div>
-       <button class="button-primary task-edit-button" onclick="editTaskDetails(${taskId}, true)">
+       <button class="button-primary task-edit-button" onclick="editTaskDetails('${taskId}', true)">
          <img src="assets/img/edit.svg" alt="edit pencil icon">
        </button>
      </div>`;
@@ -155,7 +155,7 @@ function editTaskTemplate(task, taskId) {
          </div>
          <div class="task-edit-form-item-wrapper">
            <h6>Prio</h6>
-           <div id="task-edit-priority-buttons" class="task-edit-priority-buttons task-edit-heading-gap"></div>
+           <div id="form-pb" class="task-edit-priority-buttons task-edit-heading-gap"></div>
          </div>
          <div id="task-edit-form-item-assignees" class="task-edit-form-item-wrapper">
            <h6>Assigned to</h6>
@@ -170,7 +170,7 @@ function editTaskTemplate(task, taskId) {
            </div>
            <div id="task-edit-assignee-preview" class="task-edit-assignee-preview"></div>
          </div>
-         <button class="button-primary task-edit-button" onclick="applyEditTask(${taskId}); closeModal()">
+         <button class="button-primary task-edit-button" onclick="applyEditTask('${taskId}'); closeModal()">
            <h6>Ok</h6>
            <img src="assets/img/check-white.png" alt="Checkmark">
          </button>
@@ -217,11 +217,12 @@ function categoryListEnd(id, txt) {
 }
 
 function radioButtonTemplate(id, el) {
+   let string = JSON.stringify(el).replace(/"/g, "'");
    return /*html*/ `
-  <div class="category-list-wrapper">
-    <input type="radio" name="${id}" id="${id}-${el.id}" class="display-none" onchange="chosenCategory('${el.name}')" value="${el.id}">
-    <label  for="${id}-${el.id}" class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
-    <label for="${id}-${el.id}">${el.name}</label>
+  <div class="category-list-wrapper" id="${id}-${
+      el.id
+   }" file-json="${string}" onclick="chosenCategory('${id}', '${el.id}')">
+    ${categoryListItemTemplate(el)}
   </div>
   `;
 }
@@ -234,7 +235,7 @@ function checkboxTemplate(id, el) {
 
 function priorityBtnTemplate(id, priority) {
    return /*html*/ `<div>
-<input type="checkbox" class="display-none" value="${
+<input type="checkbox" class="display-none" name="priority" value="${
       priority.name
    }" id="${id}"  onclick="colorPrioBtn('${id}', '${priority.color}')"/>
 <label for="form-pb-${priority.name}" class="form-pb-button center ">
@@ -248,6 +249,32 @@ function subtaskPreviewTemplate(subTask) {
 <div class="subtask-wrapper">
  <input type="checkbox">
  <p>${subTask['title']}</p>
- <img src="assets/img/cross.svg" onclick="removeSubTask(${subTask['id']})">
+ <img src="assets/img/cross.svg" onclick="removeSubTask('${subTask['id']}')">
 </div>`;
+}
+
+function categoryListBeginning() {
+   return /*html*/ `
+   <summary>
+      <input type="checkbox" required id="category-summary" value=""/>
+      <label id="category-summary-label" for="category-summary">${categoryList.preText}</label>
+      <img src="assets/img/sort-down.png"/>
+   </summary>
+   <div class="list-wrapper" id="category-list"></div>`;
+}
+
+function emptyRadioButtonTemplate(id) {
+   return /*html*/ `
+  <div class="category-list-wrapper" onclick="chosenCategory(false)">
+    <input type="radio" name="${id}" id="${id}-empty" class="display-none" value="">
+    <label for="${id}-empty" class="user-icon user-icon-small edit-user-icon" style="opacity: 0"></label>
+    <label for="${id}-empty"></label>
+  </div>
+  `;
+}
+
+function categoryListItemTemplate(el) {
+   return /*html*/ `    
+  <label class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
+  <label id="chosen-category">${el.name}</label> `;
 }

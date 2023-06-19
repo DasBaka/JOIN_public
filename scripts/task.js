@@ -1,13 +1,13 @@
 let categoryList = {
    id: 'category-inputs',
-   arr: categories,
+   arr: '',
    preText: 'Select task category',
    sufText: 'New category',
 };
 
 let assigneeList = {
    id: 'assignee-inputs',
-   arr: users,
+   arr: '',
    preText: 'Select contacs to assign',
    sufText: 'Invite new contact',
 };
@@ -15,21 +15,20 @@ let assigneeList = {
 let assigneeArray = [];
 let subTasksArray = [];
 
+let currentCategory;
+let currentStatus = 'to-do';
+
 function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
-   renderPriorityButtons('form-pb');
+   renderPriorityButtons();
 }
 
 function renderCategoryList() {
    let div = document.getElementById(categoryList.id);
+   categoryList.arr = categories;
    let arr = categoryList.arr;
-   div.innerHTML = /*html*/ `
-   <summary>
-      <div id="category-summary">${categoryList.preText}</div>
-      <img src="assets/img/sort-down.png"/>
-   </summary>
-   <div class="list-wrapper" id="category-list"></div>`;
+   div.innerHTML = categoryListBeginning();
    initList('category-list', arr, categoryList);
 }
 
@@ -47,6 +46,7 @@ function initList(id, arr, listName) {
 }
 
 function caseCategory(id, arr, listName, list) {
+   list.innerHTML += emptyRadioButtonTemplate(id);
    for (let i = 0; i < arr.length; i++) {
       list.innerHTML += radioButtonTemplate(id, arr[i]);
    }
@@ -61,13 +61,28 @@ function caseAssignee(id, arr, list) {
 
 function renderAssigneeList() {
    let div = document.getElementById(assigneeList.id);
+   assigneeList.arr = users;
    let arr = assigneeList.arr;
    div.innerHTML = `<summary><div id="assignee-summary">${assigneeList.preText}</div><img src="assets/img/sort-down.png"/></summary><div class="list-wrapper" id="assignee-list"></div>`;
    initList('assignee-list', arr, assigneeList);
 }
 
-function chosenCategory(name) {
-   document.getElementById('category-summary').innerHTML = name;
+function chosenCategory(id, el) {
+   if (id == false) {
+      document.getElementById('category-summary').value = '';
+      document.getElementById('category-summary').checked = false;
+      document.getElementById('category-summary-label').innerHTML = categoryList.preText;
+   } else {
+      let item = JSON.parse(
+         document
+            .getElementById(id + '-' + el)
+            .getAttribute('file-json')
+            .replace(/'/g, '"')
+      );
+      document.getElementById('category-summary-label').innerHTML = categoryListItemTemplate(item);
+      document.getElementById('category-summary').value = item.name;
+      document.getElementById('category-summary').checked = true;
+   }
    document.getElementById('category-inputs').open = false;
 }
 
@@ -162,7 +177,7 @@ function addSubTask() {
    let name = document.getElementById('form-input-subtask').value;
    if (replacer(name) != '') {
       let newTask = {
-         id: subTasksArray.length,
+         id: findFreeId(subTasksArray, 's', 2),
          title: name,
          status: 'open',
       };
@@ -173,12 +188,8 @@ function addSubTask() {
 }
 
 function removeSubTask(taskId) {
-   subTasksArray.forEach((el) => {
-      if (el.id > taskId) {
-         el.id -= 1;
-      }
-   });
-   subTasksArray.splice(taskId, 1);
+   let id = getIndexOfValue(subTasksArray, 'id', taskId);
+   subTasksArray.splice(id, 1);
    renderSubtasks();
 }
 
@@ -199,7 +210,7 @@ function emptyInput(id) {
 
 function resetCategoryInput() {
    emptyInput('form-input-category');
-   chosenCategory('Select task category');
+   chosenCategory(false);
    toggleAddField('new-category-input', 'category-inputs');
 }
 
@@ -207,7 +218,7 @@ function addCategory() {
    let name = document.getElementById('form-input-category').value;
    if (replacer(name) != '') {
       let newCategory = {
-         id: 'c' + String(categories.length + 1).padStart(3, '0'),
+         id: findFreeId(categories, 'c', 3),
          name: name,
          color: document.getElementById('color-input-task').value,
       };
@@ -215,4 +226,65 @@ function addCategory() {
       renderCategoryList();
       resetCategoryInput();
    }
+}
+
+function resetAddTaskForm() {
+   document.getElementById('add-task-form').reset();
+   assigneeArray = [];
+   subTasksArray = [];
+   initAddTaskForm();
+   closeModal();
+}
+
+function createTask() {
+   let form = document.getElementById('add-task-form');
+   categoryValidityCheck();
+   if (form.reportValidity()) {
+      let newTask = newTaskTemplate();
+      tasks.push(newTask);
+      window.alert('Task ' + newTask.title + ' was created!');
+      if (window.location.pathname == '/board.html') {
+         closeModal();
+         initBoard();
+      } else {
+         window.location.href = '/board.html';
+      }
+   }
+}
+
+function categoryValidityCheck() {
+   if (document.getElementById('category-summary-label').childElementCount != 2) {
+      document.getElementById('category-summary').setCustomValidity('Please select a category!');
+   }
+}
+
+function newTaskTemplate() {
+   return {
+      id: findFreeId(tasks, 't', 4),
+      title: getFormValue('form-input-title'),
+      description: getFormValue('form-input-description') || '',
+      category: document.getElementById('category-summary').value,
+      assignees: getAssignees(),
+      due_date: getFormValue('form-input-dueDate'),
+      priority: getPriority(),
+      status: currentStatus,
+      subtasks: subTasksArray,
+   };
+}
+
+function getPriority() {
+   let btns = document.getElementsByName('priority');
+   for (let i = 0; i < btns.length; i++) {
+      if (btns[i].checked) {
+         return btns[i].value;
+      }
+   }
+}
+
+function getAssignees() {
+   let userIds = [];
+   assigneeArray.forEach((el) => {
+      userIds.push(el.id);
+   });
+   return userIds;
 }

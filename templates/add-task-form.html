@@ -2,85 +2,110 @@
    <link rel="stylesheet" href="styles/task.css" />
 </head>
 
-<div class="form-divider">
-   <section>
-      <article>
-         <h6>Title</h6>
-         <input id="form-input-title" type="text" placeholder="Enter a Title" value="" required />
-      </article>
-      <article>
-         <h6>Description</h6>
-         <textarea
-            id="form-input-description"
-            rows="4"
-            placeholder="Enter a Description"
-            class="form-default-input form-input"></textarea>
-      </article>
-      <article>
-         <h6>Category</h6>
-         <details id="category-inputs" class="add-new-wrapper"></details>
-         <div id="new-category-input" class="add-new-wrapper display-none">
-            <div class="color-input-relative">
+<div>
+   <section class="title-wrapper">
+      <h1>Add task</h1>
+   </section>
+   <form
+      include-html="templates/add-task-form.html"
+      onsubmit="return false;"
+      onclick="event.cancelBubble = true;"
+      id="add-task-form">
+      <div class="form-divider">
+         <section>
+            <article>
+               <h6>Title</h6>
                <input
-                  type="color"
-                  id="color-input-task"
-                  name="color-input"
-                  class="color-input"
-                  value="#ffffff"
-                  oninput="changePreview()" />
-               <label
-                  for="color-input-task"
-                  class="user-icon user-icon-small edit-user-icon"
-                  id="new-category-icon"></label>
-            </div>
-            <input type="text" id="form-input-category" placeholder="New category name" />
-            <label for="form-input-category">
-               <img
-                  src="assets/img/cross.svg"
-                  style="transform: rotate(45deg)"
-                  onclick="resetCategoryInput()" />
-               <div class="grey-divider-div"></div>
-               <img src="assets/img/check-black.png" onclick="addCategory()" />
-            </label>
-         </div>
-      </article>
-      <article>
-         <h6>Assigned to</h6>
-         <details id="assignee-inputs"></details>
-         <div class="task-preview-footer-wrapper">
-            <div id="assignees" class="board-user-icon-wrapper"></div>
-         </div>
-      </article>
-   </section>
-   <section>
-      <article>
-         <h6>Due date</h6>
-         <input id="form-input-dueDate" type="date" value="" class="form-default-input" />
-      </article>
-      <article>
-         <h6>Prio</h6>
-         <div id="form-pb" class="form-pb"></div>
-      </article>
-      <article>
-         <h6>Subtasks</h6>
-         <div class="add-new-wrapper">
-            <input type="text" id="form-input-subtask" placeholder="Add new subtask" />
-            <label for="form-input-subtask">
-               <img
-                  src="assets/img/cross.svg"
-                  style="transform: rotate(45deg)"
-                  onclick="emptyInput('form-input-subtask')" />
-               <div class="grey-divider-div"></div>
-               <img
-                  src="assets/img/check-black.png"
-                  onclick="addSubTask('form-input-subtask', 'subtasks-list', null, true)" />
-            </label>
-         </div>
-         <div id="subtasks-list"></div>
-      </article>
-   </section>
-</div>
-<div class="button-wrapper">
-   <button type="reset" class="button-secondary" onclick="">Reset</button>
-   <button type="submit" class="button-primary" onclick="">Create</button>
+                  id="form-input-title"
+                  type="text"
+                  placeholder="Enter a Title"
+                  value=""
+                  required />
+            </article>
+            <article>
+               <h6>Description</h6>
+               <textarea
+                  id="form-input-description"
+                  rows="4"
+                  placeholder="Enter a Description"
+                  class="form-default-input form-input"
+                  required></textarea>
+            </article>
+            <article>
+               <h6>Category</h6>
+               <details
+                  id="category-inputs"
+                  class="add-new-wrapper"
+                  onclick="document.getElementById('category-summary').setCustomValidity('')"></details>
+               <div id="new-category-input" class="add-new-wrapper display-none">
+                  <div class="color-input-relative">
+                     <input
+                        type="color"
+                        id="color-input-task"
+                        name="color-input"
+                        class="color-input"
+                        value="#ffffff"
+                        oninput="changePreview()" />
+                     <label
+                        for="color-input-task"
+                        class="user-icon user-icon-small edit-user-icon"
+                        id="new-category-icon"></label>
+                  </div>
+                  <input type="text" id="form-input-category" placeholder="New category name" />
+                  <label for="form-input-category">
+                     <img
+                        src="assets/img/cross.svg"
+                        style="transform: rotate(45deg)"
+                        onclick="resetCategoryInput()" />
+                     <div class="grey-divider-div"></div>
+                     <img src="assets/img/check-black.png" onclick="addCategory()" />
+                  </label>
+               </div>
+            </article>
+            <article>
+               <h6>Assigned to</h6>
+               <details id="assignee-inputs"></details>
+               <div class="task-preview-footer-wrapper">
+                  <div id="assignees" class="board-user-icon-wrapper"></div>
+               </div>
+            </article>
+         </section>
+         <section>
+            <article>
+               <h6>Due date</h6>
+               <input
+                  id="form-input-dueDate"
+                  type="date"
+                  value=""
+                  class="form-default-input"
+                  required />
+            </article>
+            <article>
+               <h6>Prio</h6>
+               <div id="form-pb" class="form-pb"></div>
+            </article>
+            <article>
+               <h6>Subtasks</h6>
+               <div class="add-new-wrapper">
+                  <input type="text" id="form-input-subtask" placeholder="Add new subtask" />
+                  <label for="form-input-subtask">
+                     <img
+                        src="assets/img/cross.svg"
+                        style="transform: rotate(45deg)"
+                        onclick="emptyInput('form-input-subtask')" />
+                     <div class="grey-divider-div"></div>
+                     <img
+                        src="assets/img/check-black.png"
+                        onclick="addSubTask('form-input-subtask', 'subtasks-list', null, true)" />
+                  </label>
+               </div>
+               <div id="subtasks-list"></div>
+            </article>
+         </section>
+      </div>
+      <div class="button-wrapper">
+         <button type="reset" class="button-secondary" onclick="resetAddTaskForm()">Reset</button>
+         <button type="submit" class="button-primary" onclick="createTask()">Create</button>
+      </div>
+   </form>
 </div>
