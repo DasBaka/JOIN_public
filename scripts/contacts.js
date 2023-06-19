@@ -1,5 +1,4 @@
 let groupedUsers;
-groupAndSortUser();
 
 let editable;
 

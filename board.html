@@ -8,14 +8,14 @@
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <link rel="stylesheet" href="styles/board.css" />
-      <script src="scripts/data.js"></script>
+      <script src="scripts/storage.js"></script>
       <script src="scripts/script.js"></script>
       <script src="scripts/task.js"></script>
       <script src="templates/html-templates.js"></script>
       <script src="scripts/board.js"></script>
    </head>
 
-   <body onload="initialPageLoad(), initBoard()">
+   <body o onload="initialPageLoad(); loadItems().then(() => { initBoard();})">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>

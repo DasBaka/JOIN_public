@@ -1,15 +1,3 @@
-async function init() {
-   loadUsers();
-}
-
-async function loadUsers() {
-   try {
-      users = JSON.parse(await getItem('users'));
-   } catch (e) {
-      console.info('Could not load users');
-   }
-}
-
 function login(mailNeeded, pwCheck) {
    let check = {
       loginMail: document.getElementById('form-email') || '',
@@ -116,7 +104,6 @@ async function createNewUser() {
       phone: '',
    };
    users.push(newUser);
-   await setItem('users', JSON.stringify(users));
    formSuccess(regBtn);
 }
 

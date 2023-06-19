@@ -3,10 +3,12 @@ const hour = minute * 60;
 const day = hour * 24;
 const year = day * 365;
 
-let groupedByStatus = Object.values(groupItems(tasks, 'status'));
-let groupedByPrio = Object.values(groupItems(tasks, 'priority'));
+let groupedByStatus;
+let groupedByPrio;
 
 function initSummary() {
+   groupedByStatus = Object.values(groupItems(tasks, 'status'));
+   groupedByPrio = Object.values(groupItems(tasks, 'priority'));
    refreshTasks();
    determineDaytime();
    nextDeadline();

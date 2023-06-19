@@ -1,13 +1,13 @@
 let categoryList = {
    id: 'category-inputs',
-   arr: categories,
+   arr: '',
    preText: 'Select task category',
    sufText: 'New category',
 };
 
 let assigneeList = {
    id: 'assignee-inputs',
-   arr: users,
+   arr: '',
    preText: 'Select contacs to assign',
    sufText: 'Invite new contact',
 };
@@ -26,6 +26,7 @@ function initAddTaskForm() {
 
 function renderCategoryList() {
    let div = document.getElementById(categoryList.id);
+   categoryList.arr = categories;
    let arr = categoryList.arr;
    div.innerHTML = categoryListBeginning();
    initList('category-list', arr, categoryList);
@@ -60,6 +61,7 @@ function caseAssignee(id, arr, list) {
 
 function renderAssigneeList() {
    let div = document.getElementById(assigneeList.id);
+   assigneeList.arr = users;
    let arr = assigneeList.arr;
    div.innerHTML = `<summary><div id="assignee-summary">${assigneeList.preText}</div><img src="assets/img/sort-down.png"/></summary><div class="list-wrapper" id="assignee-list"></div>`;
    initList('assignee-list', arr, assigneeList);

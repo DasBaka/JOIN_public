@@ -8,12 +8,13 @@
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/style.css" />
       <script src="templates/html-templates.js"></script>
-      <script src="scripts/data.js"></script>
+      <!--       <script src="scripts/data.js"></script> -->
+      <script src="scripts/storage.js"></script>
       <script src="scripts/script.js"></script>
       <script src="scripts/task.js"></script>
    </head>
 
-   <body onload="initialPageLoad();">
+   <body onload="loadItems().then(() => initialPageLoad())">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
