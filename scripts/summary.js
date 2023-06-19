@@ -6,6 +6,10 @@ const year = day * 365;
 let groupedByStatus;
 let groupedByPrio;
 
+/**
+ * Initializes the summary.html.
+ * Also: redefines the grouped tasks.
+ */
 function initSummary() {
    groupedByStatus = Object.values(groupItems(tasks, 'status'));
    groupedByPrio = Object.values(groupItems(tasks, 'priority'));
@@ -14,8 +18,12 @@ function initSummary() {
    nextDeadline();
 }
 
+/**
+ * Renders the summary.
+ */
 function refreshTasks() {
    let stats = {
+      // summary stats/data
       'tasks-in-board': tasks.length,
       'tasks-in-progress': getLengthOfGroup(groupedByStatus, 'in-progress'),
       'awaiting-feedback': getLengthOfGroup(groupedByStatus, 'awaiting-feedback'),
@@ -24,11 +32,15 @@ function refreshTasks() {
       done: getLengthOfGroup(groupedByStatus, 'done'),
    };
    Object.keys(stats).forEach((e) => {
+      // the key tags are chosen to match the corresponding ids!
       let key = String(e);
       document.getElementById(key).innerHTML = stats[key];
    });
 }
 
+/**
+ * Checks for the daytime and renders the greeting.
+ */
 function determineDaytime() {
    let greet = document.getElementById('greeting');
    let time = new Date();
@@ -42,6 +54,9 @@ function determineDaytime() {
    }
 }
 
+/**
+ * Checks for urgent tasks.
+ */
 function nextDeadline() {
    let date = document.getElementById('deadline');
    if (getLengthOfGroup(groupedByPrio, 'urgent') == 0) {
@@ -53,6 +68,10 @@ function nextDeadline() {
    }
 }
 
+/**
+ * Searches the "urgent"-tasks for the next closest deadline.
+ * @returns - formatted date (deadline)
+ */
 function getNextDeadline() {
    const formatter = new Intl.DateTimeFormat('en', {
       month: 'long',
