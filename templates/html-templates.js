@@ -9,6 +9,13 @@ function addIntoContainer(id, content) {
 }
 
 //Templates
+/**
+ * Template for the contact card inside the adress list
+ * @param {user} contact - user
+ * @param {id} i - group index
+ * @param {id} j - contact index
+ * @returns - html
+ */
 function contactCardTemplate(contact, i, j) {
    return /*html*/ `
    <input type="radio" name="contact-list-btns" id="contact-btn-${i}-${j}" class="contact-btn" onclick="showContactCard(${i}, ${j})">
@@ -23,6 +30,13 @@ function contactCardTemplate(contact, i, j) {
    `;
 }
 
+/**
+ * Template for the detailed contact view inside the main of contact.html.
+ * @param {user} contact - user
+ * @param {id} i - group index
+ * @param {id} j - contact index
+ * @returns - html
+ */
 function contactDetailsTemplate(contact, i, j) {
    return /*html*/ `
    <div class="contact-wrapper">
@@ -59,10 +73,20 @@ function contactDetailsTemplate(contact, i, j) {
    </div>  `;
 }
 
+/**
+ * Template for the group divider (incl group letter).
+ * @param {index} i - group divider index
+ * @returns - html
+ */
 function alphabeticalContactDividerTemplate(i) {
    return /*html*/ `<h4 class="contact-list-divider">${groupedUsers[i]['group']}</h4>`;
 }
 
+/**
+ * Template for the board columns.
+ * @param {string} status - column title (status title)
+ * @returns - html
+ */
 function boardTemplate(status) {
    return /*html*/ `
    <article class="board-column">
@@ -80,6 +104,13 @@ function boardTemplate(status) {
    `;
 }
 
+/**
+ * Template for a task card inside the board.html.
+ * @param {object} task - task object
+ * @param {index} categoryIndex - category index
+ * @param {index} priorityIndex - priority index
+ * @returns - html
+ */
 function taskCardTemplate(task, categoryIndex, priorityIndex) {
    return /*html*/ `
    <div id="task-preview-wrapper-${task.id}" draggable="true" class="task-preview-wrapper grabbable"
@@ -98,6 +129,14 @@ function taskCardTemplate(task, categoryIndex, priorityIndex) {
    </div>`;
 }
 
+/**
+ * Template for a detailed view of a task inside the modal/dialog.
+ * @param {object} task - task object
+ * @param {id} taskId - id of the task card
+ * @param {index} categoryIndex - category index
+ * @param {index} priorityIndex - priority index
+ * @returns - html
+ */
 function taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex) {
    return /*html*/ `
      <div id="task-detailed-content" class="task-detailed-content" onclick="event.stopPropagation()">
@@ -133,6 +172,12 @@ function taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex) {
      </div>`;
 }
 
+/**
+ * Template for a detailed view of a task and to edit it inside the modal/dialog.
+ * @param {object} task - task object
+ * @param {id} taskId - id of the task card
+ * @returns - html
+ */
 function editTaskTemplate(task, taskId) {
    return /*html*/ `
    <div id="task-detailed-wrapper" class="task-detailed-wrapper" onclick="event.stopPropagation()">
@@ -203,6 +248,13 @@ function furtherAssigneeAmountTemplate(assigneeArray) {
   }</div>`;
 }
 
+/**
+ * Template for the small assignee preview icons on chosing task assignees.
+ * @param {id} assigneeIndex - assignee index
+ * @param {letters} assigneeInitials - assignee's initials
+ * @param {boolean} extra - defines, if the full name is displayed behind the icon or not
+ * @returns - html
+ */
 function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
    let name = extra ? /*html*/ `<p>${users[assigneeIndex]['name']}</p>` : '';
    return (
@@ -212,10 +264,22 @@ function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
    );
 }
 
+/**
+ * Template for the last item of the category list (inside add task), to further add more categories
+ * @param {id} id - category id name
+ * @param {string} txt - placeholder text
+ * @returns - html
+ */
 function categoryListEnd(id, txt) {
    return /*html*/ `<div><input type="radio" name="${id}" id="${id}-${txt}" class="display-none" value="" onclick="toggleAddField('new-category-input', 'category-inputs')"><label for="${id}-${txt}">${txt}</label></div>`;
 }
 
+/**
+ * Template for the category list items.
+ * @param {id} id - category id name
+ * @param {object}} el - category element
+ * @returns - html
+ */
 function radioButtonTemplate(id, el) {
    let string = JSON.stringify(el).replace(/"/g, "'");
    return /*html*/ `
@@ -227,12 +291,24 @@ function radioButtonTemplate(id, el) {
   `;
 }
 
+/**
+ * Template fot the assignee list items.
+ * @param {id} id -  assignee list name
+ * @param {object} el - assignee element
+ * @returns - html
+ */
 function checkboxTemplate(id, el) {
    return /*html*/ `
   <div><label for="${id}-${el.id}">${el.name}</label><input type="checkbox" name="${id}" id="${id}-${el.id}" value="${el.id}" onchange="refreshAssignees('${id}', '${el.id}')"></div>
   `;
 }
 
+/**
+ * Template to render the priority buttons inside add-task.
+ * @param {id} id - id name for the priority buttons
+ * @param {object} priority - priority object
+ * @returns - html
+ */
 function priorityBtnTemplate(id, priority) {
    return /*html*/ `<div>
 <input type="checkbox" class="display-none" name="priority" value="${
@@ -244,6 +320,11 @@ function priorityBtnTemplate(id, priority) {
 </div>`;
 }
 
+/**
+ * Template to display subtasks.
+ * @param {object} subTask - subtask object
+ * @returns - html
+ */
 function subtaskPreviewTemplate(subTask) {
    return /*html*/ `
 <div class="subtask-wrapper">
@@ -253,6 +334,10 @@ function subtaskPreviewTemplate(subTask) {
 </div>`;
 }
 
+/**
+ * Template for the first item inside the category list (summary!).
+ * @returns - html
+ */
 function categoryListBeginning() {
    return /*html*/ `
    <summary>
@@ -263,6 +348,11 @@ function categoryListBeginning() {
    <div class="list-wrapper" id="category-list"></div>`;
 }
 
+/**
+ * Template for an empty field as second item inside the category list (empties category)
+ * @param {id} id - category list name
+ * @returns - html
+ */
 function emptyRadioButtonTemplate(id) {
    return /*html*/ `
   <div class="category-list-wrapper" onclick="chosenCategory(false)">
@@ -273,6 +363,11 @@ function emptyRadioButtonTemplate(id) {
   `;
 }
 
+/**
+ * Template to display the chosen category inside the summary.
+ * @param {object} el - category element
+ * @returns - html
+ */
 function categoryListItemTemplate(el) {
    return /*html*/ `    
   <label class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
