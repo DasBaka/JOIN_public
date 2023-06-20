@@ -15,6 +15,10 @@ async function initialPageLoad() {
    activeNavElement();
 }
 
+/**
+ * Checks, if the add-task-form is needed.
+ * @returns - true/false
+ */
 function isTaskJSneeded() {
    return document.querySelectorAll("[include-html='templates/add-task-form.html']").length > 0;
 }
@@ -27,6 +31,10 @@ function initialRedirect() {
    }
 }
 
+/**
+ * Repeats the includeHTML-function (normally after the initialPageLoad) to display a template inside the modal.
+ * @param {string/link} link - link to the HTML-file
+ */
 async function repeatPageLoadForModal(link) {
    let modal = document.getElementById('modal');
    if (link) {
@@ -35,6 +43,13 @@ async function repeatPageLoadForModal(link) {
    await includeHTML();
 }
 
+/**
+ * Searches for a not-used id inside an array (-> to fill gaps after deleting an object inside this array).
+ * @param {array} arr - target array
+ * @param {letter} prefix - each array has a specific id-prefix to identify them
+ * @param {num} pad - padding: determines the maximum id number and the padding to format it with filler-zeros
+ * @returns - free id
+ */
 function findFreeId(arr, prefix, pad) {
    let limit = Math.pow(10, pad) - 1;
    for (let i = 1; i < limit; i++) {
@@ -100,6 +115,7 @@ function capitalizeFirstLetter(string) {
 function initialLetter(name, pos) {
    return name.name.charAt(pos);
 }
+
 /**
  * Returns the first character of the first and second string/user.name in UpperCase.
  * @param {string} name - user
@@ -114,6 +130,7 @@ function initialLettersUpperCase(name) {
    }
    return result.toUpperCase();
 }
+
 /**
  * Deletes leading spaces.
  * @param {string} txt
@@ -186,6 +203,7 @@ function sort(arr, key) {
       return 0;
    });
 }
+
 /**
  * Returns an index within the desired preferences.
  * @param {array} array - array to search in
@@ -196,6 +214,7 @@ function sort(arr, key) {
 function getIndexOfValue(array, key, value) {
    return array.findIndex((k) => k[key] === value);
 }
+
 /**
  * Returns an index within the desired preferences.
  * @param {array} array - array to search in
@@ -206,6 +225,7 @@ function getIndexOfValue(array, key, value) {
 function getIndexOfValueLowerCase(array, key, ref) {
    return array.findIndex((e) => e[key].toLowerCase() == ref);
 }
+
 /**
  * Return the value of a form input.
  * @param {id} id - input id
@@ -214,6 +234,7 @@ function getIndexOfValueLowerCase(array, key, ref) {
 function getFormValue(id) {
    return document.getElementById(id).value;
 }
+
 /**
  * Changes the value of a form input.
  * @param {id} id - id
@@ -222,6 +243,7 @@ function getFormValue(id) {
 function letFormValue(id, content) {
    document.getElementById(id).value = content;
 }
+
 /**
  * Short: Changes the innerHTML of the id.
  * @param {id} id - id
