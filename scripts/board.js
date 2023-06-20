@@ -2,6 +2,9 @@ let activeDragElement;
 let activeTaskPriority;
 let activeTaskAssignees;
 
+/**
+ * Initializes the board.
+ */
 function initBoard() {
    renderColumns();
    renderTasks();
@@ -159,6 +162,11 @@ function renderColumns() {
    }
 }
 
+/**
+ * Returns the column element of the desired id.
+ * @param {id} id - column id name
+ * @returns
+ */
 function columnId(id) {
    return document.getElementById('board-tasks-column-' + id);
 }
@@ -353,6 +361,10 @@ function editTaskDetails(taskId, show) {
    renderTaskAssignees(activeTaskAssignees, 'task-edit-assignee-preview', true);
 }
 
+/**
+ * Function for the "+"-buttons to add a new task (opens modal) for the clicked column.
+ * @param {name} name - status name
+ */
 async function addTaskForStatus(name) {
    await repeatPageLoadForModal('templates/add-task-form.html').then(() => initAddTaskForm());
    currentStatus = name;
