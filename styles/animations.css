@@ -93,5 +93,18 @@
 
    100% {
       opacity: 0;
+      display: none;
+   }
+}
+
+@keyframes slide-up {
+   0% {
+      bottom: -5rem;
+      opacity: 0;
+   }
+
+   100% {
+      bottom: 0%;
+      opacity: 1;
    }
 }

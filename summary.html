@@ -9,12 +9,14 @@
       <link rel="stylesheet" href="styles/style.css" />
       <link rel="stylesheet" href="styles/animations.css" />
       <link rel="stylesheet" href="styles/summary.css" />
-      <script src="scripts/data.js"></script>
+      <script src="scripts/storage.js"></script>
       <script src="scripts/script.js"></script>
       <script src="scripts/summary.js"></script>
    </head>
 
-   <body onload="initialPageLoad(); initSummary()">
+   <body
+      onload="initialPageLoad(); loadItems().then(() => {initSummary();})"
+      style="animation-play-state: pause; opacity: 0">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>

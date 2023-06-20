@@ -1,9 +1,22 @@
 let login_status = false;
 let formDropDownConfig = [];
 
+/**
+ * Prepares and renders templates
+ */
 async function initialPageLoad() {
-   await includeHTML();
+   await includeHTML().then(() => {
+      if (isTaskJSneeded()) {
+         // Promise needed, to "init" "add-task-form" AFTER it is loaded/included.
+         // task.js is needed to render the "add-task-form", but is not necessary for other loaded sites.
+         initAddTaskForm();
+      }
+   });
    activeNavElement();
+}
+
+function isTaskJSneeded() {
+   return document.querySelectorAll("[include-html='templates/add-task-form.html']").length > 0;
 }
 
 function initialRedirect() {
@@ -14,11 +27,32 @@ function initialRedirect() {
    }
 }
 
+async function repeatPageLoadForModal(link) {
+   let modal = document.getElementById('modal');
+   if (link) {
+      modal.setAttribute('include-html', link);
+   }
+   await includeHTML();
+}
+
+function findFreeId(arr, prefix, pad) {
+   let limit = Math.pow(10, pad) - 1;
+   for (let i = 1; i < limit; i++) {
+      let id = prefix + String(i).padStart(pad, '0');
+      if (getIndexOfValue(arr, 'id', id) == -1) {
+         return id;
+      }
+   }
+}
+
+/**
+ * Includes html templates.
+ */
 async function includeHTML() {
    let includeElements = document.querySelectorAll('[include-html]');
    for (let i = 0; i < includeElements.length; i++) {
       const element = includeElements[i];
-      file = element.getAttribute('include-html'); // "includes/header.html"
+      file = element.getAttribute('include-html');
       let resp = await fetch(file);
       if (resp.ok) {
          element.innerHTML = await resp.text();
@@ -28,6 +62,9 @@ async function includeHTML() {
    }
 }
 
+/**
+ * Highlightes the current site inside the navigation bar.
+ */
 function activeNavElement() {
    let navElements = ['summary', 'board', 'add-task', 'contacts', 'legal-notice'];
    for (let i = 0; i < navElements.length; i++) {
@@ -38,33 +75,52 @@ function activeNavElement() {
    }
 }
 
+/**
+ * Toggles the logout screen.
+ */
 function logOutButtonVisibility() {
    let element = document.getElementById('log-out-button').classList;
    element.toggle('display-none');
 }
-
+/**
+ * Capitalizes the first letter of a string.
+ * @param {string} string
+ * @returns - string (1 character)
+ */
 function capitalizeFirstLetter(string) {
    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /**
  * Returns the inital Letter of a name or surname.
- * @param {string} name - Name
+ * @param {string} name - user
  * @param {number} pos - Position (most: 0)
- * @returns
+ * @returns string (1 character)
  */
 function initialLetter(name, pos) {
    return name.name.charAt(pos);
 }
-
+/**
+ * Returns the first character of the first and second string/user.name in UpperCase.
+ * @param {string} name - user
+ * @returns - string (2 characters)
+ */
 function initialLettersUpperCase(name) {
    let rename = name;
-   rename.name = rename.name.replace(/^\s+/g, '');
+   rename.name = replacer(rename.name);
    let result = initialLetter(rename, 0); // firstname
    if (rename.name.search(' ') + 1 != 0) {
       result += initialLetter(name, name.name.search(' ') + 1); // lastname
    }
    return result.toUpperCase();
+}
+/**
+ * Deletes leading spaces.
+ * @param {string} txt
+ * @returns - same string without leading spaces
+ */
+function replacer(txt) {
+   return txt.replace(/^\s+/g, '');
 }
 
 //Color-Interaction
@@ -99,6 +155,11 @@ function hexToRgb(hex) {
       : null;
 }
 
+/**
+ * Renders the contact icon of an user.
+ * @param {JSON-Object} user - user-data
+ * @returns - style
+ */
 function colorContactIcon(user) {
    return (
       `style="background-color:` +
@@ -112,7 +173,7 @@ function colorContactIcon(user) {
 }
 
 /**
- * Sorts the Contacts array.
+ * Sorts the an array (most: users).
  */
 function sort(arr, key) {
    arr.sort(function (a, b) {
@@ -125,30 +186,59 @@ function sort(arr, key) {
       return 0;
    });
 }
-
+/**
+ * Returns an index within the desired preferences.
+ * @param {array} array - array to search in
+ * @param {key} key - key identifier to specify the search
+ * @param {*} value - search value to search for
+ * @returns - index/number
+ */
 function getIndexOfValue(array, key, value) {
    return array.findIndex((k) => k[key] === value);
 }
-
+/**
+ * Returns an index within the desired preferences.
+ * @param {array} array - array to search in
+ * @param {key} key - key identifier to specify the search
+ * @param {*} ref - search value to search for
+ * @returns - index/number
+ */
 function getIndexOfValueLowerCase(array, key, ref) {
    return array.findIndex((e) => e[key].toLowerCase() == ref);
 }
-
+/**
+ * Return the value of a form input.
+ * @param {id} id - input id
+ * @returns - value
+ */
 function getFormValue(id) {
    return document.getElementById(id).value;
 }
-
+/**
+ * Changes the value of a form input.
+ * @param {id} id - id
+ * @param {*} content - new value (most: "")
+ */
 function letFormValue(id, content) {
    document.getElementById(id).value = content;
 }
-
+/**
+ * Short: Changes the innerHTML of the id.
+ * @param {id} id - id
+ * @param {html} content - HTML or template to insert.
+ */
 function letInnerHTML(id, content) {
    document.getElementById(id).innerHTML = content;
 }
 
+/**
+ * Closes the modal (dialog).
+ */
 function closeModal() {
    let modal = document.getElementById('modal');
-   modal.close();
+   if (modal != null) {
+      modal.close();
+   }
 }
 
 /**
@@ -167,13 +257,4 @@ function groupItems(array, key) {
       }
       return acc;
    }, {});
-}
-
-function getLengthOfGroup(arr, ref) {
-   let result = arr.findIndex((e) => e.group == ref);
-   if (result < 0) {
-      return 0;
-   } else {
-      return arr[result].value.length;
-   }
 }

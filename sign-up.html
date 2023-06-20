@@ -8,13 +8,13 @@
       <link rel="stylesheet" href="styles/font_inter.css" />
       <link rel="stylesheet" href="styles/auth.css" />
       <link rel="stylesheet" href="styles/style.css" />
-      <script src="scripts/storage.js"></script>
       <!--       <script src="scripts/data.js"></script> -->
+      <script src="scripts/storage.js"></script>
       <script src="scripts/auth.js"></script>
       <script src="scripts/script.js"></script>
    </head>
 
-   <body class="flex-column" onload="init()">
+   <body class="flex-column" onload="loadItems()">
       <section class="login-header">
          <div alt="join logo" class="logo"></div>
       </section>
@@ -28,9 +28,9 @@
             <div class="divider-blue-line"></div>
             <form
                class="center flex-column"
-               id="sign-up-form"
-               onsubmit="event.preventDefault(); createNewUser()"
-               oninput="refreshButton()">
+               id="login-form"
+               onsubmit="event.preventDefault(); login(false); resetFormValidation();"
+               oninput="refreshButton(); resetFormValidation();">
                <input
                   type="text"
                   id="form-name"

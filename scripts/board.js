@@ -7,34 +7,54 @@ function initBoard() {
    renderTasks();
 }
 
+/**
+ * Allows the drop of an element
+ * @param {event} id - event which is allowed to be dropped
+ */
 function allowDrop(event) {
    event.preventDefault();
 }
 
+/**
+ * Change task status to move element to another column and render board
+ * @param {String} status - new task status
+ */
 function moveElementTo(status) {
-   tasks[activeDragElement]['status'] = status;
+   tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] = status;
    initBoard();
 }
 
+/**
+ * Set variable which contains the task id of the currently dragged element
+ * @param {String} taskId - The task id of the currently dragged element
+ */
 function setActiveDragElement(taskId) {
    activeDragElement = taskId;
 }
 
+/**
+ * Write form values of edited task to the defined task and render board
+ * @param {String} taskId - The task id on which task the changes shall be written to
+ */
 function applyEditTask(taskId) {
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
 
-   task['title'] = document.getElementById('task-edit-from-input-title').value;
-   task['description'] = document.getElementById('task-edit-from-input-description').value;
-   task['due_date'] = document.getElementById('task-edit-from-input-dueDate').value;
-   task['priority'] = activeTaskPriority;
+   task['title'] = getFormValue('task-edit-from-input-title');
+   task['description'] = getFormValue('task-edit-from-input-description');
+   task['due_date'] = getFormValue('task-edit-from-input-dueDate');
+   task['priority'] = getPriority();
    task['assignees'] = activeTaskAssignees;
-   editTaskDetails(taskId, false);
    initBoard();
 }
 
+/**
+ * Highlighting board columns as elements are dragged over it
+ * @param {String} area - column (area) which shall be changed
+ * @param {Boolean} highlight - whether the highlight of provided column (area) shall be added or removed
+ */
 function highlightSelectedDragArea(area, highlight) {
    let boardTasksColumn = document.getElementById('task-shadow-wrapper-' + area);
-   if (tasks[activeDragElement]['status'] == area) {
+   if (tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] == area) {
       return;
    }
    if (highlight) {
@@ -44,15 +64,25 @@ function highlightSelectedDragArea(area, highlight) {
    }
 }
 
-function hideOriginalElementOnDrag(taskId, action) {
+/**
+ * Helper function to temporarily hide the original location "shadow" of the currently dragged element
+ * @param {String} taskId - task id of the element which shall be changed
+ * @param {Boolean} hide - wheather the provided element shall be hidden or displayed
+ * TODO:
+ */
+function hideOriginalElementOnDrag(taskId, hide) {
    let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
-   if (action) {
+   if (hide) {
       activeTask.classList.add('hide-original-drag-element');
    } else {
       activeTask.classList.remove('hide-original-drag-element');
    }
 }
 
+/**
+ * Highlight all columns (areas) where and element can be dragged to
+ * @param {Boolean} action - wheather the available drag areas shall be highlighted
+ */
 function highlightAvailableDragArea(action) {
    let activeDragElementHeight = document.getElementById(
       'task-preview-wrapper-' + activeDragElement
@@ -66,7 +96,7 @@ function highlightAvailableDragArea(action) {
       let activeDragElementColumn = document.getElementById('board-tasks-column-' + status['name']);
 
       if (action) {
-         if (tasks[activeDragElement]['status'] == status['name']) {
+         if (tasks[getIndexOfValue(tasks, 'id', activeDragElement)]['status'] == status['name']) {
             continue;
          }
          activeDragElementColumn.innerHTML += /*html*/ `
@@ -80,6 +110,12 @@ function highlightAvailableDragArea(action) {
    }
 }
 
+/**
+ * xy
+ * @param {String} string - xy
+ * @returns - xy
+ * TODO: Replace function by task dropdown implementation
+ */
 function assigneeCheckboxSelection(HTMLElementId) {
    let checkbox = document.getElementById('task-edit-assignee-selection-checkbox-' + HTMLElementId);
 
@@ -90,6 +126,12 @@ function assigneeCheckboxSelection(HTMLElementId) {
    }
 }
 
+/**
+ * xy
+ * @param {String} string - xy
+ * @returns - xy
+ * TODO: Replace function by task dropdown implementation
+ */
 function assigneeSelectionInviteContact() {
    let assigneeSelection = document.getElementById('task-edit-assignee-selection');
    let contactInvite = document.getElementById('task-edit-assignee-contact-invite');
@@ -103,6 +145,9 @@ function assigneeSelectionInviteContact() {
    }
 }
 
+/**
+ * Render columns based on statuses array
+ */
 function renderColumns() {
    let board = document.getElementById('board-wrapper');
    board.innerHTML = '';
@@ -130,6 +175,9 @@ function filterTasksViaSearch(task) {
    );
 }
 
+/**
+ * Render tasks based on tasks array
+ */
 function renderTasks() {
    for (let i = 0; i < tasks.length; i++) {
       const task = tasks[i];
@@ -137,7 +185,6 @@ function renderTasks() {
       if (filterTasksViaSearch(task)) {
          continue;
       }
-
       let content = columnId(task['status']);
       let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
       let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
@@ -149,6 +196,10 @@ function renderTasks() {
    }
 }
 
+/**
+ * Render a tasks subtask progress
+ * @param {Array} task - array containing all subtask infos
+ */
 function renderSubtaskProgress(task) {
    let wrapper = document.getElementById(`task-preview-subtask-progress-wrapper-${task['id']}`);
    let doneSubtasksCount = 0;
@@ -172,35 +223,14 @@ function renderSubtaskProgress(task) {
     <div>${doneSubtasksCount}/${task['subtasks'].length} Done</div>`;
 }
 
-function renderPriorityButtons(taskId, HTMLElementId, activePriority) {
-   let content = document.getElementById(HTMLElementId);
-   content.innerHTML = '';
-
-   for (let i = 0; i < priorites.length; i++) {
-      const priority = priorites[i];
-      content.innerHTML += /*html*/ `
-    <div id="task-edit-priority-${
-       priority['name']
-    }" class="task-edit-priority" onclick="renderPriorityButtons('${taskId}', '${HTMLElementId}', '${
-         priority['name']
-      }')">
-      <h6>${capitalizeFirstLetter(priority.name)}</h6>
-      <img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
-    </div>`;
-
-      let priorityWrapper = document.getElementById('task-edit-priority-' + priority['name']);
-      if (priority['name'] == activePriority) {
-         priorityWrapper.style.backgroundColor = `${priority['color']}`;
-         priorityWrapper.style.color = 'white';
-         activeTaskPriority = priority['name'];
-      } else if (!activePriority && priority['name'] == tasks[taskId]['priority']) {
-         priorityWrapper.style.backgroundColor = `${priority['color']}`;
-         priorityWrapper.style.color = 'white';
-         activeTaskPriority = priority['name'];
-      }
-   }
-}
-
+/**
+ * Render task assignees as 'icons' or 'list' based on parameters
+ * @param {Array} assigneeArray - xy
+ * @param {String} HTMLElementId - xy
+ * @param {Boolean} previewListEnabled - xy
+ * @param {Integer} previewListLength - xy
+ * TODO: rework initial letter comosition
+ */
 function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, previewListLength) {
    let assigneeListWrapper = document.getElementById(HTMLElementId);
    assigneeListWrapper.innerHTML = '';
@@ -231,6 +261,12 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
    }
 }
 
+/**
+ * Add or remove assignees from the passed assignee array reversed to the current state
+ * @param {Array} assigneeArray - array containing a list of assignees
+ * @param {String} assignee - the assignee which shall be either added or removed
+ * @param {String} HTMLElementId - HTML document id which is being used to rerender task assignees on page
+ */
 function changeTaskAsssignee(assigneeArray, assignee, HTMLElementId) {
    let assigneeIndex = assigneeArray.indexOf(assignee);
 
@@ -243,6 +279,11 @@ function changeTaskAsssignee(assigneeArray, assignee, HTMLElementId) {
    renderTaskAssignees(assigneeArray, HTMLElementId, true);
 }
 
+/**
+ * +
+ * @param {String} string - xy
+ * @returns - xy
+ */
 function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
    let content = document.getElementById(HTMLElementId);
 
@@ -270,9 +311,14 @@ function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
   </div>`;
 }
 
+/**
+ * xy
+ * @param {String} string - xy
+ * @returns - xy
+ */
 function showTaskDetails(taskId) {
    let modal = document.getElementById('modal');
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
 
    let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
    let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
@@ -283,6 +329,11 @@ function showTaskDetails(taskId) {
    modal.showModal();
 }
 
+/**
+ * xy
+ * @param {String} string - xy
+ * @returns - xy
+ */
 function editTaskDetails(taskId, show) {
    /*    if (!!document.getElementById('task-detailed-wrapper')) {
       document.getElementById('task-detailed-wrapper').remove();
@@ -290,12 +341,21 @@ function editTaskDetails(taskId, show) {
    } */
 
    let content = document.getElementById('modal');
-   let task = tasks[taskId];
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
    activeTaskAssignees = task['assignees'].slice();
 
    content.innerHTML = editTaskTemplate(task, taskId);
 
-   renderPriorityButtons(taskId, 'task-edit-priority-buttons', null);
+   /*    renderPriorityButtons(taskId, 'task-edit-priority-buttons', null); */
+   renderPriorityButtons('task-edit-priority-buttons');
+   document.getElementById('form-pb-' + task.priority).click();
    renderTaskAssigneeSelection(taskId, 'task-edit-assignee-selection', false);
    renderTaskAssignees(activeTaskAssignees, 'task-edit-assignee-preview', true);
+}
+
+async function addTaskForStatus(name) {
+   await repeatPageLoadForModal('templates/add-task-form.html').then(() => initAddTaskForm());
+   currentStatus = name;
+   let modal = document.getElementById('modal');
+   modal.showModal();
 }
