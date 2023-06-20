@@ -18,12 +18,18 @@ let subTasksArray = [];
 let currentCategory;
 let currentStatus = 'to-do';
 
+/**
+ * Initializes the add-task-form.
+ */
 function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
    renderPriorityButtons();
 }
 
+/**
+ * Renders the category list. //Start
+ */
 function renderCategoryList() {
    let div = document.getElementById(categoryList.id);
    categoryList.arr = categories;
@@ -32,6 +38,12 @@ function renderCategoryList() {
    initList('category-list', arr, categoryList);
 }
 
+/**
+ * Renders a list (category or assignee list)
+ * @param {id} id - id name for the list
+ * @param {array} arr - data array
+ * @param {json} listName - json with list data
+ */
 function initList(id, arr, listName) {
    let list = document.getElementById(id);
    list.innerHTML = '';
@@ -45,20 +57,36 @@ function initList(id, arr, listName) {
    }
 }
 
+/**
+ * Renders the category list.
+ * @param {id} id - id name for the list
+ * @param {array} arr - data array
+ * @param {json} listName - json with list data
+ * @param {element} list - html element for the list
+ */
 function caseCategory(id, arr, listName, list) {
    list.innerHTML += emptyRadioButtonTemplate(id);
    for (let i = 0; i < arr.length; i++) {
       list.innerHTML += radioButtonTemplate(id, arr[i]);
    }
-   list.innerHTML += categoryListEnd(id, listName.sufText);
+   list.innerHTML += categoryListEnd(id, listName.sufText); // End
 }
 
+/**
+ * Renders the assignee list.
+ * @param {id} id - id name for the list
+ * @param {array} arr - data array
+ * @param {element} list - html element for the list
+ */
 function caseAssignee(id, arr, list) {
    for (let i = 0; i < arr.length; i++) {
       list.innerHTML += checkboxTemplate(id, arr[i]);
    }
 }
 
+/**
+ * Renders the assignee list. //Start
+ */
 function renderAssigneeList() {
    let div = document.getElementById(assigneeList.id);
    assigneeList.arr = users;
@@ -67,30 +95,67 @@ function renderAssigneeList() {
    initList('assignee-list', arr, assigneeList);
 }
 
+/**
+ * Determines the chosen catgegory.
+ * Because of the given layout (mockup) it would be difficult to implement a select input.
+ * Therefore we had to implement a specific function.
+ * @param {id} id - category list name
+ * @param {object} el - category object
+ */
 function chosenCategory(id, el) {
    if (id == false) {
-      document.getElementById('category-summary').value = '';
-      document.getElementById('category-summary').checked = false;
-      document.getElementById('category-summary-label').innerHTML = categoryList.preText;
+      implementCategory(''.false, categoryList.preText);
    } else {
-      let item = JSON.parse(
-         document
-            .getElementById(id + '-' + el)
-            .getAttribute('file-json')
-            .replace(/'/g, '"')
-      );
-      document.getElementById('category-summary-label').innerHTML = categoryListItemTemplate(item);
-      document.getElementById('category-summary').value = item.name;
-      document.getElementById('category-summary').checked = true;
+      implementCategoryData(id, el);
+      implementCategory(item.name, true, categoryListItemTemplate(item));
    }
    document.getElementById('category-inputs').open = false;
 }
 
+/**
+ * Renders the chosen category.
+ * @param {value} value - input value to change into
+ * @param {boolean} checkStatus - check status of the chosen item
+ * @param {html} html - html to implement into the category summary
+ */
+function implementCategory(value, checkStatus, html) {
+   document.getElementById('category-summary').value = value;
+   document.getElementById('category-summary').checked = checkStatus;
+   document.getElementById('category-summary-label').innerHTML = html;
+}
+
+/**
+ * Implements category data inside the html.
+ * @param {id} id - category list name
+ * @param {object} el - category object
+ * @returns - json
+ */
+function implementCategoryData(id, el) {
+   let item = JSON.parse(
+      document
+         .getElementById(id + '-' + el)
+         .getAttribute('file-json')
+         .replace(/'/g, '"')
+   );
+   return item;
+}
+
+/**
+ * Toggles "display: none" for child and parents counter-wise.
+ * Used to toggle an input field for more categories / assignees.
+ * @param {id} id - child name
+ * @param {id} outerDivId - parent id
+ */
 function toggleAddField(id, outerDivId) {
    document.getElementById(id).classList.toggle('display-none');
    document.getElementById(outerDivId).classList.toggle('display-none');
 }
 
+/**
+ * Renders the assignee list after chosing an assignee.
+ * @param {id} inputId -  assignee list id
+ * @param {id} contactId - user id
+ */
 function refreshAssignees(inputId, contactId) {
    checkCheckedLimit();
    let id = document.getElementById(inputId + '-' + contactId);
@@ -105,6 +170,10 @@ function refreshAssignees(inputId, contactId) {
    renderAssigneePreview();
 }
 
+/**
+ * Disables/Enables the assignee-list for a specified assignee limit.
+ * Default limit: 8.
+ */
 function checkCheckedLimit() {
    let id = document.getElementById('assignee-list');
    let checked = id.querySelectorAll('input[type="checkbox"]:checked');
@@ -116,6 +185,9 @@ function checkCheckedLimit() {
    }
 }
 
+/**
+ * Renders a small assignee preview under the list.
+ */
 function renderAssigneePreview() {
    let preview = document.getElementById('assignees');
    preview.innerHTML = '';
@@ -125,6 +197,9 @@ function renderAssigneePreview() {
    });
 }
 
+/**
+ * Renders the priority buttons.
+ */
 function renderPriorityButtons() {
    let content = document.getElementById('form-pb');
    content.innerHTML = '';
@@ -139,6 +214,11 @@ function renderPriorityButtons() {
    }
 }
 
+/**
+ * Colors the priority buttons depending on their checked-status.
+ * @param {id} id - button id.
+ * @param {color} color - new button color.
+ */
 function colorPrioBtn(id, color) {
    let btns = document.getElementById('form-pb');
    let priorityButton = btns.querySelectorAll('input');
@@ -157,12 +237,18 @@ function colorPrioBtn(id, color) {
    });
 }
 
+/**
+ * Colors the icon of a newly defined category.
+ */
 function changePreview() {
    let icon = document.getElementById('new-category-icon');
    icon.color = getFormValue('color-input-task');
    icon.setAttribute('style', colorContactIcon(icon).slice(7, -2));
 }
 
+/**
+ * Renders the subtasks.
+ */
 function renderSubtasks() {
    let content = document.getElementById('subtasks-list');
    content.innerHTML = '';
@@ -172,6 +258,9 @@ function renderSubtasks() {
    }
 }
 
+/**
+ * Adds a subtask.
+ */
 function addSubTask() {
    checkSubtaskLimit();
    let name = document.getElementById('form-input-subtask').value;
@@ -187,12 +276,20 @@ function addSubTask() {
    emptyInput('form-input-subtask');
 }
 
+/**
+ * Removes a subtask.
+ * @param {id} taskId - id of the removing task
+ */
 function removeSubTask(taskId) {
    let id = getIndexOfValue(subTasksArray, 'id', taskId);
    subTasksArray.splice(id, 1);
    renderSubtasks();
 }
 
+/**
+ * Sets a limit for subtasks.
+ * Default limit: 8.
+ */
 function checkSubtaskLimit() {
    let id = document.getElementById('subtasks-list');
    let input = document.getElementById('form-input-subtask');
@@ -204,16 +301,26 @@ function checkSubtaskLimit() {
    }
 }
 
+/**
+ * Empties an inputs value.
+ * @param {id} id - input id
+ */
 function emptyInput(id) {
    document.getElementById(id).value = '';
 }
 
+/**
+ * Resets the category selection to the placeholder.
+ */
 function resetCategoryInput() {
    emptyInput('form-input-category');
    chosenCategory(false);
    toggleAddField('new-category-input', 'category-inputs');
 }
 
+/**
+ * Adds a new category.
+ */
 function addCategory() {
    let name = document.getElementById('form-input-category').value;
    if (replacer(name) != '') {
@@ -228,6 +335,9 @@ function addCategory() {
    }
 }
 
+/**
+ * Resets the add-task-form.
+ */
 function resetAddTaskForm() {
    document.getElementById('add-task-form').reset();
    assigneeArray = [];
@@ -236,6 +346,9 @@ function resetAddTaskForm() {
    closeModal();
 }
 
+/**
+ * Creates a new task and redirects then to the board.
+ */
 function createTask() {
    let form = document.getElementById('add-task-form');
    categoryValidityCheck();
@@ -252,12 +365,19 @@ function createTask() {
    }
 }
 
+/**
+ * Checks form validation with custom validity.
+ */
 function categoryValidityCheck() {
    if (document.getElementById('category-summary-label').childElementCount != 2) {
       document.getElementById('category-summary').setCustomValidity('Please select a category!');
    }
 }
 
+/**
+ * JSON of a new task.
+ * @returns - json
+ */
 function newTaskTemplate() {
    return {
       id: findFreeId(tasks, 't', 4),
@@ -272,6 +392,10 @@ function newTaskTemplate() {
    };
 }
 
+/**
+ * Checks for chosen priority on creating a new task.
+ * @returns - priority value
+ */
 function getPriority() {
    let btns = document.getElementsByName('priority');
    for (let i = 0; i < btns.length; i++) {
@@ -281,6 +405,10 @@ function getPriority() {
    }
 }
 
+/**
+ * Returns an array of the chosen assignees.
+ * @returns - array
+ */
 function getAssignees() {
    let userIds = [];
    assigneeArray.forEach((el) => {
