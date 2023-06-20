@@ -74,12 +74,12 @@ textarea {
 
 .form-pb {
    display: flex;
-   justify-content: space-between;
+   justify-content: space-around;
    margin-bottom: 20px;
 }
 
 .form-pb > div {
-   width: 8rem;
+   width: calc(min(33%, 10rem));
 }
 
 .form-pb-button {
