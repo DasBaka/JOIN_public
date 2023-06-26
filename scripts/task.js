@@ -258,6 +258,15 @@ function renderSubtasks() {
    }
 }
 
+function getSubtaskStatus(subtask) {
+   switch (subtask.status) {
+      case 'open':
+         return;
+      case 'done':
+         return `checked`;
+   }
+}
+
 /**
  * Adds a subtask.
  */

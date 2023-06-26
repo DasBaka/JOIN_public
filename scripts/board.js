@@ -1,6 +1,7 @@
 let activeDragElement;
 let activeTaskPriority;
 let activeTaskAssignees;
+let activeSubtasks;
 
 /**
  * Initializes the board.
@@ -194,7 +195,7 @@ function renderTasks() {
          continue;
       }
       let content = columnId(task['status']);
-      let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
+      let categoryIndex = getIndexOfValue(categories, 'id', task['category']);
       let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
 
       content.innerHTML += taskCardTemplate(task, categoryIndex, priorityIndex);
@@ -245,7 +246,7 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
 
    for (let j = 0; j < assigneeArray.length; j++) {
       let assignee = assigneeArray[j];
-      let assigneeIndex = getIndexOfValueLowerCase(users, 'name', assignee);
+      let assigneeIndex = getIndexOfValueLowerCase(users, 'id', assignee);
       let assigneeInitials = initialLettersUpperCase(users[assigneeIndex]);
 
       if (previewListEnabled) {
@@ -328,9 +329,8 @@ function showTaskDetails(taskId) {
    let modal = document.getElementById('modal');
    let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
 
-   let categoryIndex = getIndexOfValue(categories, 'name', task['category']);
+   let categoryIndex = getIndexOfValue(categories, 'id', task['category']);
    let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
-
    modal.innerHTML = '';
    modal.innerHTML += taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex);
    renderTaskAssignees(task['assignees'], 'assignees-detailed');
@@ -342,23 +342,51 @@ function showTaskDetails(taskId) {
  * @param {String} string - xy
  * @returns - xy
  */
-function editTaskDetails(taskId, show) {
-   /*    if (!!document.getElementById('task-detailed-wrapper')) {
-      document.getElementById('task-detailed-wrapper').remove();
-      if (!show) return;
-   } */
-
-   let content = document.getElementById('modal');
+async function editTaskDetails(taskId) {
    let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
-   activeTaskAssignees = task['assignees'].slice();
+   await repeatPageLoadForModal('templates/add-task-form.html')
+      .then(() => initAddTaskForm())
+      .then(() => prepareEditView(task));
+}
 
-   content.innerHTML = editTaskTemplate(task, taskId);
+function prepareEditView(task) {
+   prepareFormForEditView(task);
+   prepareCategoriesForEditView(task);
+   prepareAssigneesForEditView(task);
+   prepareSubtasksForEditView(task);
+   prepareFormForEditView(task);
+}
 
-   /*    renderPriorityButtons(taskId, 'task-edit-priority-buttons', null); */
-   renderPriorityButtons('task-edit-priority-buttons');
+function prepareCategoriesForEditView(task) {
+   let catElement = categories[getIndexOfValue(categories, 'id', task.category)];
+   implementCategory(task.category, true, categoryListItemTemplate(catElement));
+}
+
+function prepareAssigneesForEditView(task) {
+   task.assignees.forEach((el) => {
+      assigneeArray.push(users[getIndexOfValue(users, 'id', el)]);
+   });
+   assigneeArray.forEach(
+      (el) => (document.getElementById('assignee-list-' + el.id).checked = true)
+   );
+   renderAssigneePreview();
+   assigneeArray = [];
+}
+
+function prepareSubtasksForEditView(task) {
+   subTasksArray = task['subtasks'].slice();
+   renderSubtasks();
+   subTasksArray = [];
+}
+
+function prepareFormForEditView(task) {
+   document.getElementById('task-form-h1').innerHTML = 'Edit Task';
+   document.getElementById('reset-button').setAttribute('onclick', 'closeModal();');
+   document.getElementById('reset-button').innerHTML = 'Cancel';
+   letFormValue('form-input-title', task.title);
+   letFormValue('form-input-description', task.description);
+   letFormValue('form-input-dueDate', task['due_date']);
    document.getElementById('form-pb-' + task.priority).click();
-   renderTaskAssigneeSelection(taskId, 'task-edit-assignee-selection', false);
-   renderTaskAssignees(activeTaskAssignees, 'task-edit-assignee-preview', true);
 }
 
 /**

@@ -4,7 +4,7 @@
 
 <div>
    <section class="title-wrapper">
-      <h1>Add task</h1>
+      <h1 id="task-form-h1">Add task</h1>
    </section>
    <form
       include-html="templates/add-task-form.html"
@@ -104,7 +104,13 @@
          </section>
       </div>
       <div class="button-wrapper">
-         <button type="reset" class="button-secondary" onclick="resetAddTaskForm()">Reset</button>
+         <button
+            type="button"
+            id="reset-button"
+            class="button-secondary"
+            onclick="resetAddTaskForm()">
+            Reset
+         </button>
          <button type="submit" class="button-primary" onclick="createTask()">Create</button>
       </div>
    </form>

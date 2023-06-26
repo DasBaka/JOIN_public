@@ -118,7 +118,7 @@ function taskCardTemplate(task, categoryIndex, priorityIndex) {
      ondragstart="setActiveDragElement('${task.id}'); highlightAvailableDragArea(true); hideOriginalElementOnDrag('${task.id}', true)" 
      ondragend="highlightAvailableDragArea(false); hideOriginalElementOnDrag('${task.id}', false)">
      <div style="background-color: ${categories[categoryIndex].color};"
-       class="board-task-category">${task.category}</div>
+       class="board-task-category">${categories[categoryIndex].category}</div>
      <h6><b>${task.title}</b></h6>
      <p>${task.description}</p>
      <div id="task-preview-subtask-progress-wrapper-${task.id}" class="task-preview-subtask-progress-wrapper"></div>
@@ -144,7 +144,7 @@ function taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex) {
          <img src="assets/img/cross.svg" alt="cross icon">
        </div>
        <div style="background-color: ${categories[categoryIndex]['color']}"
-         class="board-task-category"><h4>${task['category']}</h4></div>
+         class="board-task-category"><h4>${categories[categoryIndex].category}</h4></div>
        <h2>${task['title']}</h2>
        <p>${task['description']}</p> 
        <div class="task-detailed-attribute-wrapper">
@@ -328,7 +328,7 @@ function priorityBtnTemplate(id, priority) {
 function subtaskPreviewTemplate(subTask) {
    return /*html*/ `
 <div class="subtask-wrapper">
- <input type="checkbox">
+ <input type="checkbox" ${getSubtaskStatus(subTask)}>
  <p>${subTask['title']}</p>
  <img src="assets/img/cross.svg" onclick="removeSubTask('${subTask['id']}')">
 </div>`;
@@ -371,5 +371,5 @@ function emptyRadioButtonTemplate(id) {
 function categoryListItemTemplate(el) {
    return /*html*/ `    
   <label class="user-icon user-icon-small edit-user-icon" style="background-color: ${el.color}"></label>
-  <label id="chosen-category">${el.name}</label> `;
+  <label id="chosen-category">${el.category}</label> `;
 }
