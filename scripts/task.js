@@ -104,9 +104,9 @@ function renderAssigneeList() {
  */
 function chosenCategory(id, el) {
    if (id == false) {
-      implementCategory(''.false, categoryList.preText);
+      implementCategory('', false, categoryList.preText);
    } else {
-      implementCategoryData(id, el);
+      let item = implementCategoryData(id, el);
       implementCategory(item.name, true, categoryListItemTemplate(item));
    }
    document.getElementById('category-inputs').open = false;

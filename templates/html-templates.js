@@ -227,7 +227,7 @@ function editTaskTemplate(task, taskId) {
 
 function taskEditAssigneeSelecTemplate(taskId, state) {
    return /*html*/ `
-   <div class="task-edit-assignee-selection-item" onclick="renderTaskAssigneeSelection(${taskId}, 'task-edit-assignee-selection', ${state})">
+   <div class="task-edit-assignee-selection-item" onclick="renderTaskAssigneeSelection('${taskId}', 'task-edit-assignee-selection', ${state})">
      <h6>Select contacts to assign</h6>
      <img src="assets/img/sort-down.png" alt="triangular down icon">
    </div>`;
