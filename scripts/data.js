@@ -2,7 +2,7 @@
 // After changing storage.js to data.js inside one HTML-document:
 // => setItem(key, dataArray) to upload one of these default data.
 
-/* let users = [
+let usersSave = [
    {
       name: 'Anton Mayer',
       id: 'u0001',
@@ -101,7 +101,7 @@
       phone: '',
       password: '',
    },
-]; */
+];
 
 let tasksSave = [
    {
@@ -109,7 +109,7 @@ let tasksSave = [
       title: 'Website redesign',
       description: 'Modify the contents of the main website...',
       category: 'Design',
-      assignees: ['anton mayer', 'johannes baum', 'benedikt ziegler'],
+      assignees: ['u0004', 'u0003', 'u0002'],
       due_date: '2023-04-01',
       priority: 'low',
       status: 'to-do',
@@ -131,7 +131,7 @@ let tasksSave = [
       title: 'Call potential clients',
       description: 'Make the product presentation to prospective buyers',
       category: 'Sales',
-      assignees: ['anton mayer', 'anja schulz', 'benedikt ziegler', 'stefanie sauer'],
+      assignees: ['u0001', 'u0003', 'u0005', 'u0007'],
       due_date: '2023-04-01',
       priority: 'medium',
       status: 'to-do',
@@ -142,13 +142,7 @@ let tasksSave = [
       title: 'Accounting invoices',
       description: 'Write open invoices for customer',
       category: 'Backoffice',
-      assignees: [
-         'anton mayer',
-         'anja schulz',
-         'benedikt ziegler',
-         'stefanie sauer',
-         'david eisenberg',
-      ],
+      assignees: ['u0002', 'u0004', 'u0005', 'u0008', 'u0010'],
       due_date: '2023-04-02',
       priority: 'urgent',
       status: 'awaiting-feedback',
@@ -159,7 +153,7 @@ let tasksSave = [
       title: 'Video cut',
       description: 'Edit the new company video',
       category: 'Media',
-      assignees: ['benedikt ziegler'],
+      assignees: ['u0006'],
       due_date: '2023-04-01',
       priority: 'medium',
       status: 'awaiting-feedback',
@@ -170,7 +164,7 @@ let tasksSave = [
       title: 'Social media strategy',
       description: 'Develop an ad campaign for brand positioning',
       category: 'Marketing',
-      assignees: ['anja schulz', 'benedikt ziegler'],
+      assignees: ['u0011', 'u0012'],
       due_date: '2023-04-01',
       priority: 'low',
       status: 'done',
@@ -194,7 +188,7 @@ let tasksSave = [
    },
 ];
 
-/* let statuses = [
+let statusesSave = [
    {
       name: 'to-do',
       displayName: 'To Do',
@@ -211,9 +205,9 @@ let tasksSave = [
       name: 'done',
       displayName: 'Done',
    },
-]; */
+];
 
-/* let categories = [
+let categoriesSave = [
    {
       name: 'Sales',
       id: 'c001',
@@ -239,9 +233,9 @@ let tasksSave = [
       id: 'c005',
       color: 'blue',
    },
-]; */
+];
 
-/* let priorites = [
+let prioritesSave = [
    {
       name: 'urgent',
       icon_path: 'assets/img/priority-urgent.svg',
@@ -258,4 +252,3 @@ let tasksSave = [
       color: 'darkgreen',
    },
 ];
- */
