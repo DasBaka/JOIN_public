@@ -2,7 +2,7 @@
 // After changing storage.js to data.js inside one HTML-document:
 // => setItem(key, dataArray) to upload one of these default data.
 
-let users = [
+/* let users = [
    {
       name: 'Anton Mayer',
       id: 'u0001',
@@ -101,9 +101,9 @@ let users = [
       phone: '',
       password: '',
    },
-];
+]; */
 
-let tasks = [
+let tasksSave = [
    {
       id: 't0001',
       title: 'Website redesign',
@@ -194,7 +194,7 @@ let tasks = [
    },
 ];
 
-let statuses = [
+/* let statuses = [
    {
       name: 'to-do',
       displayName: 'To Do',
@@ -211,9 +211,9 @@ let statuses = [
       name: 'done',
       displayName: 'Done',
    },
-];
+]; */
 
-let categories = [
+/* let categories = [
    {
       name: 'Sales',
       id: 'c001',
@@ -239,9 +239,9 @@ let categories = [
       id: 'c005',
       color: 'blue',
    },
-];
+]; */
 
-let priorites = [
+/* let priorites = [
    {
       name: 'urgent',
       icon_path: 'assets/img/priority-urgent.svg',
@@ -258,3 +258,4 @@ let priorites = [
       color: 'darkgreen',
    },
 ];
+ */
