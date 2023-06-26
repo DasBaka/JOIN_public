@@ -164,7 +164,7 @@ function taskCardDetailTemplate(task, taskId, categoryIndex, priorityIndex) {
        </div>
        <div>
          <h5>Assigned to:</h5>
-         <div id="assignees-detailed"></div>
+         <div id="assignees-detailed" class="assignees-detailed"></div>
        </div>
        <button class="button-primary task-edit-button" onclick="editTaskDetails('${taskId}', true)">
          <img src="assets/img/edit.svg" alt="edit pencil icon">
@@ -259,8 +259,10 @@ function userPreviewBoardIconTemplate(assigneeIndex, assigneeInitials, extra) {
    let name = extra ? /*html*/ `<p>${users[assigneeIndex]['name']}</p>` : '';
    return (
       /*html*/ `
-  <div ${colorContactIcon(users[assigneeIndex])}
-    class="board-user-icon">${assigneeInitials}</div>` + name
+  <div><div ${colorContactIcon(users[assigneeIndex])}
+    class="board-user-icon">${assigneeInitials}</div>` +
+      name +
+      `</div>`
    );
 }
 

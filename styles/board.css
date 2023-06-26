@@ -163,23 +163,10 @@
    transition: 0.01s;
 }
 
-.task-detailed-wrapper {
+/* .task-detailed-wrapper {
    align-items: center;
    display: flex;
    justify-content: center;
-}
-
-/* .task-detailed-background {
-   align-items: center;
-   background-color: rgba(0, 0, 0, 0.3);
-   bottom: 0;
-   cursor: pointer;
-   display: flex;
-   justify-content: center;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 0;
 } */
 
 .task-detailed-content {
@@ -193,6 +180,7 @@
    max-height: calc(100% - 150px);
    padding: 50px;
    position: relative;
+   padding-bottom: 5rem;
    width: 400px;
    /* Hide scrollbar for IE, Edge and Firefox */
    overflow: hidden;
@@ -242,25 +230,10 @@
    padding: 5px 15px 5px 15px;
 }
 
-.task-detailed-assignee {
-   align-items: center;
+.assignees-detailed > div {
    display: flex;
-   gap: 25px;
-   margin-top: 20px;
-}
-
-.task-detailed-assignee p {
-   margin: 0px;
-}
-
-.task-edit-wrapper {
    align-items: center;
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
-   justify-content: center;
-   padding: 10px 0px 50px 0px;
-   width: 100%;
+   gap: 1rem;
 }
 
 .task-edit-button {
@@ -288,7 +261,7 @@
    padding: 10px 15px 10px 15px;
 }
 
-.task-edit-form-item-wrapper {
+/* .task-edit-form-item-wrapper {
    width: 100%;
 }
 
@@ -387,7 +360,7 @@
 
 .task-edit-assignee-contact-invite-icons-wrapper img:active {
    background-color: rgba(0, 0, 0, 0.1);
-}
+} */
 
 .grey-divider-div {
    border-color: rgba(0, 0, 0, 0.2);
