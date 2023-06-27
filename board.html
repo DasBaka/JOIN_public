@@ -13,9 +13,10 @@
       <script src="scripts/task.js"></script>
       <script src="templates/html-templates.js"></script>
       <script src="scripts/board.js"></script>
+      <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
    </head>
 
-   <body o onload="initialPageLoad(); loadItems().then(() => { initBoard();})">
+   <body onload="initialPageLoad(); loadItems().then(() => { initBoard();})">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>

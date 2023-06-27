@@ -258,6 +258,11 @@ function renderSubtasks() {
    }
 }
 
+/**
+ * Checks for subtask status and checks if "done".
+ * @param {object} subtask - subtask object
+ * @returns String "checked"
+ */
 function getSubtaskStatus(subtask) {
    switch (subtask.status) {
       case 'open':

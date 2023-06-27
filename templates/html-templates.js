@@ -225,22 +225,6 @@ function editTaskTemplate(task, taskId) {
    </div>`;
 }
 
-function taskEditAssigneeSelecTemplate(taskId, state) {
-   return /*html*/ `
-   <div class="task-edit-assignee-selection-item" onclick="renderTaskAssigneeSelection('${taskId}', 'task-edit-assignee-selection', ${state})">
-     <h6>Select contacts to assign</h6>
-     <img src="assets/img/sort-down.png" alt="triangular down icon">
-   </div>`;
-}
-
-function assigneeEditTemplate(i, user) {
-   return /*html*/ `
-   <div class="task-edit-assignee-selection-item" onclick="assigneeCheckboxSelection(${i}); changeTaskAsssignee(activeTaskAssignees, '${user['name']}', 'task-edit-assignee-preview',)">
-     <h6>${user['name']}</h6>
-     <div id="task-edit-assignee-selection-checkbox-${i}" class="task-edit-assignee-selection-checkbox"></div>
-   </div>`;
-}
-
 function furtherAssigneeAmountTemplate(assigneeArray) {
    return /*html*/ `
   <div style="background-color: black;" class="board-user-icon">${

@@ -2,7 +2,7 @@
    <link rel="stylesheet" href="styles/task.css" />
 </head>
 
-<div>
+<div onclick="event.stopPropagation()">
    <section class="title-wrapper">
       <h1 id="task-form-h1">Add task</h1>
    </section>
@@ -111,7 +111,9 @@
             onclick="resetAddTaskForm()">
             Reset
          </button>
-         <button type="submit" class="button-primary" onclick="createTask()">Create</button>
+         <button type="submit" id="create-button" class="button-primary" onclick="createTask()">
+            Create
+         </button>
       </div>
    </form>
 </div>

@@ -37,21 +37,6 @@ function setActiveDragElement(taskId) {
 }
 
 /**
- * Write form values of edited task to the defined task and render board
- * @param {String} taskId - The task id on which task the changes shall be written to
- */
-function applyEditTask(taskId) {
-   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
-
-   task['title'] = getFormValue('task-edit-from-input-title');
-   task['description'] = getFormValue('task-edit-from-input-description');
-   task['due_date'] = getFormValue('task-edit-from-input-dueDate');
-   task['priority'] = getPriority();
-   task['assignees'] = activeTaskAssignees;
-   initBoard();
-}
-
-/**
  * Highlighting board columns as elements are dragged over it
  * @param {String} area - column (area) which shall be changed
  * @param {Boolean} highlight - whether the highlight of provided column (area) shall be added or removed
@@ -111,41 +96,6 @@ function highlightAvailableDragArea(action) {
             activeDragElementShadow.remove();
          }
       }
-   }
-}
-
-/**
- * xy
- * @param {String} string - xy
- * @returns - xy
- * TODO: Replace function by task dropdown implementation
- */
-function assigneeCheckboxSelection(HTMLElementId) {
-   let checkbox = document.getElementById('task-edit-assignee-selection-checkbox-' + HTMLElementId);
-
-   if (!checkbox.classList.contains('task-edit-assignee-selection-checkbox-filled')) {
-      checkbox.classList.add('task-edit-assignee-selection-checkbox-filled');
-   } else {
-      checkbox.classList.remove('task-edit-assignee-selection-checkbox-filled');
-   }
-}
-
-/**
- * xy
- * @param {String} string - xy
- * @returns - xy
- * TODO: Replace function by task dropdown implementation
- */
-function assigneeSelectionInviteContact() {
-   let assigneeSelection = document.getElementById('task-edit-assignee-selection');
-   let contactInvite = document.getElementById('task-edit-assignee-contact-invite');
-
-   if (contactInvite.classList.contains('display-none')) {
-      assigneeSelection.classList.add('display-none');
-      contactInvite.classList.remove('display-none');
-   } else {
-      assigneeSelection.classList.remove('display-none');
-      contactInvite.classList.add('display-none');
    }
 }
 
@@ -271,64 +221,12 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
 }
 
 /**
- * Add or remove assignees from the passed assignee array reversed to the current state
- * @param {Array} assigneeArray - array containing a list of assignees
- * @param {String} assignee - the assignee which shall be either added or removed
- * @param {String} HTMLElementId - HTML document id which is being used to rerender task assignees on page
- */
-function changeTaskAsssignee(assigneeArray, assignee, HTMLElementId) {
-   let assigneeIndex = assigneeArray.indexOf(assignee);
-
-   if (assigneeIndex == -1) {
-      assigneeArray.push(assignee);
-   } else {
-      assigneeArray.splice(assigneeIndex, 1);
-   }
-
-   renderTaskAssignees(assigneeArray, HTMLElementId, true);
-}
-
-/**
- * +
- * @param {String} string - xy
- * @returns - xy
- */
-function renderTaskAssigneeSelection(taskId, HTMLElementId, expandView) {
-   let content = document.getElementById(HTMLElementId);
-
-   if (!expandView) {
-      content.innerHTML = taskEditAssigneeSelecTemplate(taskId, true);
-      return;
-   }
-
-   content.innerHTML = taskEditAssigneeSelecTemplate(taskId, false);
-
-   for (let i = 0; i < users.length; i++) {
-      const user = users[i];
-
-      content.innerHTML += assigneeEditTemplate(i, user);
-
-      if (tasks[taskId]['assignees'].indexOf(user['username']) > -1) {
-         assigneeCheckboxSelection(i);
-      }
-   }
-
-   content.innerHTML += /*html*/ `
-  <div class="task-edit-assignee-selection-item" onclick="assigneeSelectionInviteContact(${taskId})">
-    <h6>Invite new contact</h6>
-    <img src="assets/img/contact-book.png" alt="contact book icon">
-  </div>`;
-}
-
-/**
- * xy
- * @param {String} string - xy
- * @returns - xy
+ * Opens details/edit modal.
+ * @param {index} taskId - id of the task
  */
 function showTaskDetails(taskId) {
    let modal = document.getElementById('modal');
    let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
-
    let categoryIndex = getIndexOfValue(categories, 'id', task['category']);
    let priorityIndex = getIndexOfValue(priorites, 'name', task['priority']);
    modal.innerHTML = '';
@@ -338,31 +236,49 @@ function showTaskDetails(taskId) {
 }
 
 /**
- * xy
- * @param {String} string - xy
- * @returns - xy
+ * Shows edit form for task.
+ * @param {index} taskId - id of the task
  */
 async function editTaskDetails(taskId) {
    let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
    await repeatPageLoadForModal('templates/add-task-form.html')
       .then(() => initAddTaskForm())
+      .then(() => {
+         // close button
+         document.getElementById('modal').innerHTML += /*html*/ `
+      <div class="task-detailed-close-button" onclick="closeModal()">
+         <img src="assets/img/cross.svg" alt="cross icon">
+      </div>`;
+      })
       .then(() => prepareEditView(task));
 }
 
+/**
+ * Fills and renders the input fields of the add-task-form for edit view.
+ * @param {object} task - task object
+ */
 function prepareEditView(task) {
    prepareFormForEditView(task);
    prepareCategoriesForEditView(task);
    prepareAssigneesForEditView(task);
    prepareSubtasksForEditView(task);
-   prepareFormForEditView(task);
 }
 
+/**
+ * Renders category list with pre-selected task item.
+ * @param {object} task - task object
+ */
 function prepareCategoriesForEditView(task) {
    let catElement = categories[getIndexOfValue(categories, 'id', task.category)];
    implementCategory(task.category, true, categoryListItemTemplate(catElement));
 }
 
+/**
+ * Renders assignee list with pre-selected assignees.
+ * @param {object} task - task object
+ */
 function prepareAssigneesForEditView(task) {
+   assigneeArray = [];
    task.assignees.forEach((el) => {
       assigneeArray.push(users[getIndexOfValue(users, 'id', el)]);
    });
@@ -370,23 +286,74 @@ function prepareAssigneesForEditView(task) {
       (el) => (document.getElementById('assignee-list-' + el.id).checked = true)
    );
    renderAssigneePreview();
-   assigneeArray = [];
 }
 
+/**
+ * Renders subtask list with available subtask.
+ * @param {object} task - task object
+ */
 function prepareSubtasksForEditView(task) {
+   subTasksArray = [];
    subTasksArray = task['subtasks'].slice();
    renderSubtasks();
-   subTasksArray = [];
 }
 
+/**
+ * Fills and changes the fields of the add-task-form for edit view.
+ * @param {object} task - task object
+ */
 function prepareFormForEditView(task) {
    document.getElementById('task-form-h1').innerHTML = 'Edit Task';
-   document.getElementById('reset-button').setAttribute('onclick', 'closeModal();');
-   document.getElementById('reset-button').innerHTML = 'Cancel';
+   prepareButtonsForEditView(task);
    letFormValue('form-input-title', task.title);
    letFormValue('form-input-description', task.description);
    letFormValue('form-input-dueDate', task['due_date']);
    document.getElementById('form-pb-' + task.priority).click();
+}
+
+/**
+ * Changes button text and functions to match the edit view.
+ * @param {object} task - task object
+ */
+function prepareButtonsForEditView(task) {
+   document
+      .getElementById('reset-button')
+      .setAttribute('onclick', 'deleteTask("' + task.id + '");');
+   document.getElementById('reset-button').innerHTML = 'Delete';
+   document
+      .getElementById('create-button')
+      .setAttribute('onclick', 'applyEditTask("' + task.id + '");');
+   document.getElementById('create-button').innerHTML = 'Edit';
+}
+
+/**
+ * Write form values of edited task to the defined task and render board
+ * @param {String} taskId - The task id on which task the changes shall be written to
+ */
+function applyEditTask(taskId) {
+   let task = tasks[getIndexOfValue(tasks, 'id', taskId)];
+   task.title = getFormValue('form-input-title');
+   task.description = getFormValue('form-input-description') || '';
+   task.category = document.getElementById('category-summary').value;
+   task.assignees = getAssignees();
+   task.due_date = getFormValue('form-input-dueDate');
+   task.priority = getPriority();
+   task.subtasks = subTasksArray;
+   initBoard();
+   closeModal();
+}
+
+/**
+ * Deletes the task after confirmation.
+ * @param {index} taskId - tasks id
+ */
+function deleteTask(taskId) {
+   let text = 'Do you want to delete this task?';
+   if (confirm(text) == true) {
+      tasks.splice(taskId, 1);
+   }
+   initBoard();
+   closeModal();
 }
 
 /**
