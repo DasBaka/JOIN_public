@@ -57,7 +57,6 @@ function highlightSelectedDragArea(area, highlight) {
  * Helper function to temporarily hide the original location "shadow" of the currently dragged element
  * @param {String} taskId - task id of the element which shall be changed
  * @param {Boolean} hide - wheather the provided element shall be hidden or displayed
- * TODO:
  */
 function hideOriginalElementOnDrag(taskId, hide) {
    let activeTask = document.getElementById('task-preview-wrapper-' + taskId);
@@ -184,11 +183,10 @@ function renderSubtaskProgress(task) {
 
 /**
  * Render task assignees as 'icons' or 'list' based on parameters
- * @param {Array} assigneeArray - xy
- * @param {String} HTMLElementId - xy
- * @param {Boolean} previewListEnabled - xy
- * @param {Integer} previewListLength - xy
- * TODO: rework initial letter comosition
+ * @param {Array} assigneeArray - array containing assignees
+ * @param {String} HTMLElementId - HTMLElementId of the assignee list wrapper
+ * @param {Boolean} previewListEnabled - whether it shall be rendered as Icons or full list
+ * @param {Integer} previewListLength - length of assignee icons being rendered in preview
  */
 function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, previewListLength) {
    let assigneeListWrapper = document.getElementById(HTMLElementId);
