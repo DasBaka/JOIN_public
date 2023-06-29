@@ -25,9 +25,9 @@ function isTaskJSneeded() {
 
 function initialRedirect() {
    if (login_status == false) {
-      window.location.href = '/log-in.html';
+      window.location.href = 'log-in.html';
    } else {
-      window.location.href = '/summary.html';
+      window.location.href = 'summary.html';
    }
 }
 

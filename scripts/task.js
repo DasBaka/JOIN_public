@@ -370,11 +370,11 @@ function createTask() {
       let newTask = newTaskTemplate();
       tasks.push(newTask);
       window.alert('Task ' + newTask.title + ' was created!');
-      if (window.location.pathname == '/board.html') {
+      if (window.location.pathname == 'board.html') {
          closeModal();
          initBoard();
       } else {
-         window.location.href = '/board.html';
+         window.location.href = 'board.html';
       }
    }
 }
