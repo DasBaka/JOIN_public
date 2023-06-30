@@ -19,8 +19,6 @@ let usersSave = [
       phone: '',
       password: '',
    },
-   // test
-
    {
       name: 'Michael Mustermann',
       id: 'u0003',
