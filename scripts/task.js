@@ -107,7 +107,7 @@ function chosenCategory(id, el) {
       implementCategory('', false, categoryList.preText);
    } else {
       let item = implementCategoryData(id, el);
-      implementCategory(item.name, true, categoryListItemTemplate(item));
+      implementCategory(item.id, true, categoryListItemTemplate(item));
    }
    document.getElementById('category-inputs').open = false;
 }
