@@ -343,10 +343,8 @@ function applyEditTask(taskId) {
  * @param {index} taskId - tasks id
  */
 function deleteTask(taskId) {
-   let text = 'Do you want to delete this task?';
-   if (confirm(text) == true) {
-      tasks.splice(taskId, 1);
-   }
+   /*    let text = 'Do you want to delete this task?'; */
+   tasks.splice(taskId, 1);
    initBoard();
    closeModal();
 }

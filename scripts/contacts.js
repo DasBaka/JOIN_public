@@ -316,13 +316,11 @@ function modifyContact(groupId, contactId) {
  */
 function deleteContact(groupId, contactId) {
    let contact = groupedUsers[groupId]['value'][contactId];
-   let text = 'Do you want to delete ' + contact.name + '?';
-   if (confirm(text) == true) {
-      users.splice(
-         users.findIndex((e) => e.id == contact.id),
-         1
-      );
-   }
+   /*    let text = 'Do you want to delete ' + contact.name + '?'; */
+   users.splice(
+      users.findIndex((e) => e.id == contact.id),
+      1
+   );
    renderContacts();
    resetContacts();
 }
