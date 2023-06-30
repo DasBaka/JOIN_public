@@ -1,8 +1,8 @@
-body:has(.task-main) > div {
+body.task-main main {
    overflow-y: scroll;
 }
 
-body:has(.task-main) > div > form {
+body.task-main .add-task-main-div > form {
    overflow: auto;
 }
 

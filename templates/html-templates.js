@@ -302,7 +302,9 @@ function priorityBtnTemplate(id, priority) {
    }" id="${id}"  onclick="colorPrioBtn('${id}', '${priority.color}')"/>
 <label for="form-pb-${priority.name}" class="form-pb-button center ">
 <h6>${capitalizeFirstLetter(priority.name)}</h6>
-<img src="${priority['icon_path']}" alt="priority icon ${priority['name']}">
+<img src="${priority['icon_path']}" id="prio-btn-img-${priority.name}" alt="priority icon ${
+      priority['name']
+   }">
 </div>`;
 }
 

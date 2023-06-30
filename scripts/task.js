@@ -227,6 +227,8 @@ function colorPrioBtn(id, color) {
       if (el.checked & (el.id == id)) {
          btn.style.backgroundColor = `${color}`;
          btn.style.color = 'white';
+         document.getElementById('prio-btn-img-' + el.value).src =
+            priorites[getIndexOfValue(priorites, 'name', el.value)]['active_icon_path'];
       } else if (el.id == id) {
          return;
       } else {
