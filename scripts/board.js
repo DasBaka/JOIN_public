@@ -195,6 +195,7 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
    for (let j = 0; j < assigneeArray.length; j++) {
       let assignee = assigneeArray[j];
       let assigneeIndex = getIndexOfValue(users, 'id', assignee);
+      console.log(assigneeIndex, assignee);
       let assigneeInitials = initialLettersUpperCase(users[assigneeIndex]);
 
       if (previewListEnabled) {

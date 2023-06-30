@@ -66,3 +66,17 @@ async function setItems() {
       setItem('tasks', JSON.stringify(tasks)),
    ]);
 }
+
+/**
+ * Debug function in case the original data were altered.
+ * Resets backend data to the default data.
+ * ONLY USABLE IN LOG-IN.HTML!!
+ */
+async function resetData() {
+   users = usersSave;
+   priorites = prioritesSave;
+   tasks = tasksSave;
+   categories = categoriesSave;
+   statuses = statusesSave;
+   await setItems();
+}
