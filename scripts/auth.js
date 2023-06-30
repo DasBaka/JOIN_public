@@ -51,6 +51,7 @@ function prepareSignUpCheck(e, check, limit) {
    } else if (limit) {
       // no user (duplicate) found -> eligible to create a new account
       createNewUser();
+      return true;
    }
 }
 
@@ -180,6 +181,9 @@ function formSuccess(regBtn) {
    document.getElementById('login-form').reset();
    regBtn.innerHTML = 'Done!';
    regBtn.disabled = false;
+   setTimeout(() => {
+      window.location.href = 'log-in.html';
+   }, 500);
 }
 
 /**

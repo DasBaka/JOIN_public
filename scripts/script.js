@@ -280,3 +280,10 @@ function groupItems(array, key) {
       return acc;
    }, {});
 }
+
+function addModalCloseButton() {
+   document.getElementById('modal').innerHTML += /*html*/ `
+   <div class="task-detailed-close-button" onclick="closeModal()">
+      <img src="assets/img/cross.svg" alt="cross icon">
+   </div>`;
+}

@@ -1,3 +1,8 @@
+:root {
+   --logo-auth-h: 7.75rem;
+   --logo-auth-w: 6.5rem;
+}
+
 body {
    background-color: rgb(244, 245, 246);
    font-family: 'Inter', sans-serif;
@@ -195,6 +200,11 @@ dialog div > form .button-wrapper {
 .space-between {
    display: flex;
    justify-content: space-between;
+}
+
+.space-around {
+   display: flex;
+   justify-content: space-around;
 }
 
 .center {
@@ -436,8 +446,8 @@ main {
    background-image: url('../assets/img/logo-black.png');
    background-repeat: no-repeat;
    background-size: contain;
-   width: 6.5rem;
-   height: 7.75rem;
+   width: var(--logo-auth-w);
+   height: var(--logo-auth-h);
 }
 
 .submit-buttons-wrapper {
@@ -494,6 +504,24 @@ li {
    input[type='search'],
    input[type='tel'] {
       margin-bottom: 0;
+   }
+
+   dialog:modal {
+      max-height: none;
+      max-width: none;
+   }
+
+   #modal[open] {
+      width: 100%;
+   }
+
+   div.line::before {
+      bottom: -1rem;
+   }
+
+   :root {
+      --logo-auth-h: 3.875rem;
+      --logo-auth-w: 3.25rem;
    }
 
    button {

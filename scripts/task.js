@@ -340,7 +340,7 @@ function addCategory() {
    if (replacer(name) != '') {
       let newCategory = {
          id: findFreeId(categories, 'c', 3),
-         name: name,
+         category: name,
          color: document.getElementById('color-input-task').value,
       };
       categories.push(newCategory);

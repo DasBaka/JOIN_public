@@ -1,3 +1,8 @@
+:root {
+   --logo-auth-h: 7.75rem;
+   --logo-auth-w: 6.5rem;
+}
+
 .login-header {
    padding: 3rem;
    box-sizing: border-box;
@@ -27,7 +32,7 @@
 .auth-main {
    padding-top: 1.5rem;
    padding-bottom: 1.5rem;
-   max-width: 45rem;
+   max-width: 650px;
    width: 50%;
 }
 
@@ -106,10 +111,18 @@ dialog {
 }
 
 @media (max-width: 960px) {
+   :root {
+      --logo-auth-h: 3.875rem;
+      --logo-auth-w: 3.25rem;
+   }
+
    .auth-main {
       max-width: 100%;
-      height: 80%;
       width: 85%;
+   }
+
+   .login-header {
+      padding: 1rem 1rem 0.5rem;
    }
 
    .login-header > .sign-up-reminder {
@@ -120,6 +133,10 @@ dialog {
       display: block;
    }
 
+   .auth-main h1 {
+      padding: 0.5rem;
+   }
+
    .remember-me {
       flex-direction: column-reverse;
       align-items: flex-start;
@@ -128,6 +145,16 @@ dialog {
 
    .remember-me input {
       margin: 0;
+   }
+
+   .auth-main .submit-buttons-wrapper {
+      flex-direction: row;
+      width: 100%;
+   }
+
+   .auth-main .submit-buttons-wrapper button {
+      font-size: 1rem;
+      min-width: 5.75rem;
    }
 
    form {

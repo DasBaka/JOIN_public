@@ -1,3 +1,11 @@
+body:has(.task-main) > div {
+   overflow-y: scroll;
+}
+
+body:has(.task-main) > div > form {
+   overflow: auto;
+}
+
 .title-wrapper h1 {
    border-right-style: none;
 }
@@ -326,7 +334,7 @@ summary:has(> input[type='checkbox']) {
    form:has(> .form-divider) {
       overflow: scroll;
       height: 100%;
-      padding-bottom: 10rem;
+      padding-bottom: 7.5rem;
       /* Hide scrollbar for IE, Edge and Firefox */
       -ms-overflow-style: none;
       /* IE and Edge */

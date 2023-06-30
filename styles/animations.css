@@ -1,3 +1,8 @@
+:root {
+   --logo-auth-h: 7.75rem;
+   --logo-auth-w: 6.5rem;
+}
+
 .logo-positioning {
    position: relative;
    animation: logo-positioning 1.25s ease-in;
@@ -8,16 +13,16 @@
       background-image: url('../assets/img/logo-white.png');
       background-repeat: no-repeat;
       scale: 1.75;
-      left: calc(50vw - (6.5rem) / 1.75);
-      top: calc(50vh - (7.75rem) / 1.75);
+      left: calc(50vw - (var(--logo-auth-w)) / 1.75);
+      top: calc(50vh - (var(--logo-auth-h)) / 1.75);
    }
 
    33% {
       background-image: url('../assets/img/logo-white.png');
       background-repeat: no-repeat;
       scale: 1.75;
-      left: calc(50vw - (6.5rem) / 1.75);
-      top: calc(50vh - (7.75rem) / 1.75);
+      left: calc(50vw - (var(--logo-auth-w)) / 1.75);
+      top: calc(50vh - (var(--logo-auth-h)) / 1.75);
    }
 
    100% {

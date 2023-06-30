@@ -194,7 +194,7 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
 
    for (let j = 0; j < assigneeArray.length; j++) {
       let assignee = assigneeArray[j];
-      let assigneeIndex = getIndexOfValueLowerCase(users, 'id', assignee);
+      let assigneeIndex = getIndexOfValue(users, 'id', assignee);
       let assigneeInitials = initialLettersUpperCase(users[assigneeIndex]);
 
       if (previewListEnabled) {
@@ -243,10 +243,7 @@ async function editTaskDetails(taskId) {
       .then(() => initAddTaskForm())
       .then(() => {
          // close button
-         document.getElementById('modal').innerHTML += /*html*/ `
-      <div class="task-detailed-close-button" onclick="closeModal()">
-         <img src="assets/img/cross.svg" alt="cross icon">
-      </div>`;
+         addModalCloseButton();
       })
       .then(() => prepareEditView(task));
 }

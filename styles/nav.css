@@ -7,6 +7,16 @@ nav > .logo {
    margin-bottom: 4.5rem;
 }
 
+nav a {
+   text-decoration: none;
+   color: white;
+}
+
+nav a:hover {
+   text-decoration: none;
+   color: white;
+}
+
 .nav-element {
    cursor: pointer;
    display: flex;
