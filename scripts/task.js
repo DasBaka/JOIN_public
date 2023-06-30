@@ -225,18 +225,23 @@ function colorPrioBtn(id, color) {
    priorityButton.forEach((el) => {
       let btn = el.nextSibling.nextSibling;
       if (el.checked & (el.id == id)) {
-         btn.style.backgroundColor = `${color}`;
-         btn.style.color = 'white';
-         document.getElementById('prio-btn-img-' + el.value).src =
-            priorites[getIndexOfValue(priorites, 'name', el.value)]['active_icon_path'];
+         changePrioBtnDependingOnChecked(el, btn, color, true);
       } else if (el.id == id) {
          return;
       } else {
          el.checked = false;
-         btn.style.backgroundColor = `white`;
-         btn.style.color = 'black';
+         changePrioBtnDependingOnChecked(el, btn, color, false);
       }
    });
+}
+
+function changePrioBtnDependingOnChecked(el, btn, color, chkState) {
+   btn.style.backgroundColor = chkState ? `${color}` : `white`;
+   btn.style.color = chkState ? `white` : 'black';
+   document.getElementById('prio-btn-img-' + el.value).src =
+      priorites[getIndexOfValue(priorites, 'name', el.value)][
+         chkState ? 'active_icon_path' : 'icon_path'
+      ];
 }
 
 /**

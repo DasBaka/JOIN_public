@@ -302,11 +302,6 @@ input:checked + .form-pb-button {
    width: 8rem;
 }
 
-dialog[open]:has(div.task-detailed-content) {
-   height: fit-content;
-   width: fit-content !important;
-}
-
 dialog:has(form) > .task-detailed-close-button {
    height: fit-content;
    width: fit-content;
