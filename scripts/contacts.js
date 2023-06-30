@@ -335,6 +335,7 @@ function deleteContact(groupId, contactId) {
 async function addTaskForContact(groupId, contactId) {
    await repeatPageLoadForModal('templates/add-task-form.html').then(() => initAddTaskForm());
    let id = groupedUsers[groupId]['value'][contactId].id;
+   assigneeArray = [];
    document.getElementById('assignee-list-' + id).checked = true;
    refreshAssignees('assignee-list', id);
    let modal = document.getElementById('modal');

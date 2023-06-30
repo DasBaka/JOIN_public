@@ -173,9 +173,16 @@ details[open] > summary > img {
    gap: 0.5rem;
 }
 
+.category-list-wrapper label {
+   display: flex;
+   align-items: center;
+   justify-content: left;
+}
+
 .category-list-wrapper label.user-icon-small {
    height: 1rem;
    width: 1rem;
+   margin: 0;
 }
 
 label {
