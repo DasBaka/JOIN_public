@@ -25,6 +25,7 @@ function initAddTaskForm() {
    renderCategoryList();
    renderAssigneeList();
    renderPriorityButtons();
+   limitDate();
 }
 
 /**
@@ -376,7 +377,7 @@ function createTask() {
    if (form.reportValidity()) {
       let newTask = newTaskTemplate();
       tasks.push(newTask);
-      window.alert('Task ' + newTask.title + ' was created!');
+      /*       window.alert('Task ' + newTask.title + ' was created!'); */
       if (window.location.pathname == 'board.html') {
          closeModal();
          initBoard();
@@ -436,4 +437,9 @@ function getAssignees() {
       userIds.push(el.id);
    });
    return userIds;
+}
+
+function limitDate() {
+   let today = new Date().toISOString().split('T')[0];
+   document.getElementById('form-input-dueDate').setAttribute('min', today);
 }

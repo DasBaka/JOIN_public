@@ -1,4 +1,4 @@
-const STORAGE_TOKEN = 'FG7GOEK3SMFKE0RVSTG51MN8UTYEL0P7C9VJDO2G';
+const STORAGE_TOKEN = 'OMI0OIOG54B3Z42BRVLQ1CXTDWQ2R07GL5OWU60B';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 let categories;
@@ -48,6 +48,7 @@ async function loadItems() {
       users = JSON.parse(await getItem('users'));
       statuses = JSON.parse(await getItem('statuses'));
       tasks = JSON.parse(await getItem('tasks'));
+      loginData = JSON.parse(await getItem('loginData'));
    } catch (e) {
       console.info(e);
    }
@@ -64,6 +65,7 @@ async function setItems() {
       setItem('priorites', JSON.stringify(priorites)),
       setItem('statuses', JSON.stringify(statuses)),
       setItem('tasks', JSON.stringify(tasks)),
+      setItem('loginData', JSON.stringify(loginData)),
    ]);
 }
 

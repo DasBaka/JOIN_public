@@ -52,6 +52,18 @@
 header .logo {
    display: none;
    background-image: url('../assets/img/logo-black.png');
+   cursor: pointer;
+}
+
+.user-icon-header {
+   align-items: center;
+   border-radius: 50%;
+   border: solid 2px white;
+   display: flex;
+   height: 35px;
+   aspect-ratio: 1 / 1;
+   justify-content: center;
+   font-size: 0.875rem;
 }
 
 @media (max-width: 960px) {

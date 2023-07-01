@@ -3,7 +3,7 @@
 </head>
 
 <body>
-   <div alt="join logo" class="logo"></div>
+   <div alt="join logo" class="logo" onclick="window.location.href='summary.html'"></div>
    <h4>Kanban Project Management Tool</h4>
    <div class="banner-element-wrapper">
       <img
@@ -11,11 +11,7 @@
          class="banner-element-help"
          src="assets/img/help.png"
          alt="Help icon" />
-      <img
-         onclick="logOutButtonVisibility()"
-         class="banner-element-user"
-         src="assets/img/christina-picture.png"
-         alt="Christine Picture" />
+      <div id="logged-user"></div>
    </div>
    <div
       id="log-out-button"
@@ -30,7 +26,9 @@
             class="logout-button button-primary">
             Legal Notice
          </div>
-         <div onclick="window.location.href='log-in.html'" class="logout-button button-primary">
+         <div
+            onclick="loginData={}; window.location.href='log-in.html';"
+            class="logout-button button-primary">
             Log out
          </div>
       </div>

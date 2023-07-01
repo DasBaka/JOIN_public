@@ -174,7 +174,7 @@
    max-height: calc(100% - 150px);
    padding: 50px;
    position: relative;
-   padding-bottom: 5rem;
+   padding-bottom: 7.5rem;
    width: 400px;
    /* Hide scrollbar for IE, Edge and Firefox */
    overflow: hidden;
@@ -182,31 +182,6 @@
    /* IE and Edge */
    scrollbar-width: none;
    /* Firefox */
-}
-
-.task-detailed-close-button {
-   align-items: center;
-   border-radius: 50px;
-   cursor: pointer;
-   display: flex;
-   justify-content: center;
-   padding: 5px;
-   position: absolute;
-   right: 30px;
-   top: 30px;
-   transform: rotate(45deg);
-}
-
-.task-detailed-close-button img {
-   width: 25px;
-}
-
-.task-detailed-close-button:hover {
-   background-color: rgba(0, 0, 0, 0.05);
-}
-
-.task-detailed-close-button:active {
-   background-color: rgba(0, 0, 0, 0.1);
 }
 
 .task-detailed-attribute-wrapper {
@@ -292,6 +267,22 @@ input:checked + .form-pb-button {
    box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 1px;
 }
 
+.mobile-drag-buttons {
+   height: 1.25rem;
+   position: absolute;
+   top: 1rem;
+   right: 1rem;
+}
+
+.drag-btn-up {
+   right: 3rem;
+   transform: rotate(90deg);
+}
+
+.drag-btn-down {
+   transform: rotate(-90deg);
+}
+
 .form-pb {
    display: flex;
    justify-content: space-between;
@@ -307,11 +298,20 @@ dialog:has(form) > .task-detailed-close-button {
    width: fit-content;
 }
 
-@media (max-width: 1160px) and (min-width: 960px), (max-width: 760px) {
+@media (max-width: 1160px) {
    .board-wrapper {
       flex-direction: column;
       overflow-y: scroll;
       padding-bottom: 13.25rem;
+   }
+
+   .drag-btn-up {
+      right: 4rem;
+      transform: rotate(180deg);
+   }
+
+   .drag-btn-down {
+      transform: none;
    }
 
    .board-column:not(:last-of-type)::after {
@@ -331,4 +331,8 @@ dialog:has(form) > .task-detailed-close-button {
    .title-wrapper {
       margin-bottom: 2.5rem;
    }
+}
+
+dialog[open]:has(form#add-task-form) {
+   height: 100%;
 }

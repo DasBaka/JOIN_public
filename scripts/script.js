@@ -1,5 +1,6 @@
 let login_status = false;
 let formDropDownConfig = [];
+let loginData = {};
 
 /**
  * Prepares and renders templates
@@ -87,6 +88,24 @@ function activeNavElement() {
       if (window.location.pathname.includes(element)) {
          document.getElementById('nav-element-' + element).classList.add('nav-element-active');
       }
+   }
+}
+
+function changeLoggedUser() {
+   if (loginData.name) {
+      document.getElementById('logged-user').innerHTML = /*html*/ `
+       <div class="user-icon-header" onclick="logOutButtonVisibility()" ${colorContactIcon(
+          loginData
+       )}>${initialLettersUpperCase(loginData)}</div>`;
+   } else {
+      document.getElementById('logged-user').innerHTML = `
+         <img
+            onclick='logOutButtonVisibility()'
+            class='banner-element-user'
+            src='assets/img/christina-picture.png'
+            alt='Christine Picture'
+         />
+      `;
    }
 }
 

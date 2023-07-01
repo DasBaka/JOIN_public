@@ -6,6 +6,18 @@ body.task-main .add-task-main-div > form {
    overflow: auto;
 }
 
+body.task-main .title-wrapper {
+   padding-top: 0;
+}
+
+body.task-main .task-detailed-close-button {
+   display: none;
+}
+
+body.task-main .button-wrapper {
+   top: 2.5rem;
+}
+
 .title-wrapper h1 {
    border-right-style: none;
 }
@@ -329,6 +341,7 @@ summary:has(> input[type='checkbox']) {
 @media (max-width: 960px) {
    .title-wrapper:has(+ form) {
       margin-bottom: 0;
+      padding-top: 3rem;
    }
 
    form:has(> .form-divider) {
@@ -382,12 +395,5 @@ summary:has(> input[type='checkbox']) {
 @media (max-width: 550px) {
    .form-divider + .button-wrapper button:first-child {
       display: none;
-   }
-}
-
-@media (max-width: 450px) {
-   .form-divider + .button-wrapper {
-      top: 2.5rem;
-      right: 0.5rem;
    }
 }

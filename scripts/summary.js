@@ -52,6 +52,8 @@ function determineDaytime() {
    } else if (time < 24) {
       greet.innerHTML = 'Good evening,';
    }
+   greet.nextElementSibling.innerText = loginData.name ?? 'Sofia Müller';
+   changeLoggedUser(greet);
 }
 
 /**

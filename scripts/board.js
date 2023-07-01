@@ -195,7 +195,6 @@ function renderTaskAssignees(assigneeArray, HTMLElementId, previewListEnabled, p
    for (let j = 0; j < assigneeArray.length; j++) {
       let assignee = assigneeArray[j];
       let assigneeIndex = getIndexOfValue(users, 'id', assignee);
-      console.log(assigneeIndex, assignee);
       let assigneeInitials = initialLettersUpperCase(users[assigneeIndex]);
 
       if (previewListEnabled) {
@@ -359,4 +358,12 @@ async function addTaskForStatus(name) {
    currentStatus = name;
    let modal = document.getElementById('modal');
    modal.showModal();
+}
+
+function statusBeforeDrop(status, next) {
+   let currentId = getIndexOfValue(statuses, 'name', status);
+   let nextId = next ? currentId - 1 : currentId + 1;
+   nextId = nextId == -1 ? statuses.length - 1 : nextId;
+   let nextStatus = statuses[nextId].name;
+   return nextStatus;
 }

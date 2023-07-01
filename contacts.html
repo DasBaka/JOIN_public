@@ -19,7 +19,7 @@
       <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
    </head>
    <body
-      onload="initialPageLoad(); loadItems().then(() => { groupAndSortUser(); renderContacts();})">
+      onload="initialPageLoad(); loadItems().then(() => { changeLoggedUser(); groupAndSortUser(); renderContacts();})">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>
@@ -41,6 +41,6 @@
             </button>
          </main>
       </div>
-      <dialog id="modal" class="content-box" onclick="closeModal()"></dialog>
+      <dialog id="modal" class="content-box" onclick="closeModal()" contacts-modal></dialog>
    </body>
 </html>

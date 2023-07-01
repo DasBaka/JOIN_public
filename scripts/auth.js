@@ -149,6 +149,7 @@ function isMailCorrect(user, check) {
  */
 function checkPassword(user, check) {
    if (user.password == check.pw.value) {
+      loginData = user;
       window.location.href = 'summary.html'; // success
    } else {
       check.pw.setCustomValidity('Wrong password');

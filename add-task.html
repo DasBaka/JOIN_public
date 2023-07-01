@@ -15,7 +15,9 @@
       <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
    </head>
 
-   <body onload="loadItems().then(() => initialPageLoad())" class="task-main">
+   <body
+      onload="loadItems().then(()=>initialPageLoad()).then(()=> changeLoggedUser())"
+      class="task-main">
       <nav include-html="templates/nav.html"></nav>
       <div class="main-column">
          <header include-html="templates/header.html"></header>

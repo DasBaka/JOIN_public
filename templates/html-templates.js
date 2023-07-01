@@ -113,12 +113,14 @@ function boardTemplate(status) {
  */
 function taskCardTemplate(task, categoryIndex, priorityIndex) {
    return /*html*/ `
-   <div id="task-preview-wrapper-${task.id}" draggable="true" class="task-preview-wrapper grabbable"
+   <div id="task-preview-wrapper-${task.id}" draggable="true" class="task-preview-wrapper grabbable relative"
      onclick="showTaskDetails('${task.id}')"
      ondragstart="setActiveDragElement('${task.id}'); highlightAvailableDragArea(true); hideOriginalElementOnDrag('${task.id}', true)" 
      ondragend="highlightAvailableDragArea(false); hideOriginalElementOnDrag('${task.id}', false)">
      <div style="background-color: ${categories[categoryIndex].color};"
        class="board-task-category">${categories[categoryIndex].category}</div>
+       <img class="mobile-drag-buttons drag-btn-up" src="assets/img/arrowDown.png" draggable="false" ondragstart="event.preventDefault(); event.stopPropagation()" onclick="event.stopPropagation(); setActiveDragElement('${task.id}'); moveElementTo(statusBeforeDrop('${task.status}', true))"/>
+       <img class="mobile-drag-buttons drag-btn-down" src="assets/img/arrowDown.png" draggable="false" ondragstart="event.preventDefault(); event.stopPropagation()" onclick="event.stopPropagation(); setActiveDragElement('${task.id}'); moveElementTo(statusBeforeDrop('${task.status}', false))"/>
      <h6><b>${task.title}</b></h6>
      <p>${task.description}</p>
      <div id="task-preview-subtask-progress-wrapper-${task.id}" class="task-preview-subtask-progress-wrapper"></div>
